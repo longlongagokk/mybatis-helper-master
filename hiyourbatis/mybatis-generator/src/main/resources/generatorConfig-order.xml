@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<context id="context1" targetRuntime="MyBatis3">
+        <property name="beginningDelimiter" value="`"/>
+		<property name="endingDelimiter" value="`"/>
+		<!--  指定生成的java文件的编码,没有直接生成到项目时中文可能会乱码 -->
+		<property name="javaFileEncoding" value="UTF-8" />
+		<!-- mysql配置 -->
+		<!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+						<!--connectionURL="jdbc:mysql://gz-cdb-45p7zsed.sql.tencentcdb.com:63126/zrt_db?zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true"-->
+						<!--userId="topzrt"-->
+						<!--password="topzrt9981"-->
+		<!--&gt;-->
+			<!--&lt;!&ndash; 针对 mysql 数据库 &ndash;&gt;-->
+			<!--<property name="useInformationSchema" value="true"></property>-->
+		<!--</jdbcConnection>-->
+		<!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+			<!--connectionURL="jdbc:mysql://localhost:3306/vitily2018?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;failOverReadOnly=false"-->
+			<!--userId="root"-->
+			<!--password="123456">-->
+			<!--&lt;!&ndash; 针对 mysql 数据库 &ndash;&gt;-->
+			<!--<property name="useInformationSchema" value="true"></property>-->
+		<!--</jdbcConnection>-->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+						connectionURL="jdbc:mysql://localhost:3306/hiyourbatis-test?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;failOverReadOnly=false"
+						userId="root"
+						password="123456">
+			<!-- 针对 mysql 数据库 -->
+			<property name="useInformationSchema" value="true"></property>
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- dto class -->
+		<javaModelGenerator targetPackage="com.vitily.order.module.entity" targetProject="D:\">
+			<property name="enableSubPackages" value="true"	/>
+			<property name="useActualColumnNames" value="true" />
+			<property name="trimStrings" value="false" />
+			<property name="setterIsBuilder" value="true" />
+			<property name="rootClass" value="com.vitily.common.module.BaseEntity"/>
+<!--			<property name="rootInterface" value="java.io.Serializable" />-->
+		</javaModelGenerator>
+		<javaQueryModelGenerator targetPackage="com.vitily.order.module.query" targetProject="D:\"
+								 rootClass="com.vitily.common.module.QueryInfo"
+		>
+		</javaQueryModelGenerator>
+		<javaRequestModelGenerator targetPackage="com.vitily.order.module.request" targetProject="D:\"
+								   rootClass="com.vitily.common.module.BaseRequest"
+		>
+		</javaRequestModelGenerator>
+		<!-- view -->
+		<javaViewModelGenerator targetPackage="com.vitily.order.module.view" targetProject="D:\">
+		</javaViewModelGenerator>
+		<!-- mybatis xml file -->
+		<!-- isMergeable:是否合并 -->
+		<sqlMapGenerator isMergeable="false" targetPackage="com.vitily.order.mapper" targetProject="D:\">
+			<property name="enableSubPackages" value="true"	/>
+		</sqlMapGenerator>
+		<!-- mapper class -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.vitily.order.mapper" targetProject="D:\">
+			<property name="enableSubPackages" value="true" />
+			<property name="rootInterface" value="com.vitily.common.mapper.CommonBasicMapper#l$T,$V#r|club.yourbatis.hi.mapper.BasicMapperl$T#l$T,$V#r" />
+		</javaClientGenerator>
+		<javaServiceGenerator targetPackage="com.vitily.order.service" targetProject="D:\">
+			<property name="enableSubPackages" value="true" />
+			<property name="rootInterface" value="com.vitily.common.service.BasicService#l$T,$Q,$V#r" />
+		</javaServiceGenerator>
+		<javaServiceImplGenerator targetPackage="com.vitily.order.service.impl" targetProject="D:\">
+			<property name="enableSubPackages" value="true" />
+			<property name="rootInterface" value="com.vitily.common.service.impl.BasicServiceImpl#l$T,$Q,$V,$M#r" />
+		</javaServiceImplGenerator>
+
+		<javaConsoleControllerGenerator basePath="/ftrade/coin-available-symbol/" targetPackage="com.vitily.console.order.controller.order" targetProject="D:\">
+			<property name="enableSubPackages" value="true" />
+			<property name="rootInterface" value="com.vitily.console.center.controller.BaseController#l$T,$S,$V#r" />
+			<property name="inputInnerFields" value="om.vitily.console.center.util.ViewModel" />
+		</javaConsoleControllerGenerator>
+
+		<table tableName="tb_order_detail"
+			   domainObjectName="TbOrderDetail"
+			   queryModelObjectName="TsOrderDetail"
+			   requestModelObjectName="TqOrderDetail"
+			   viewModelObjectName="TvOrderDetail"
+			   mapperAndServiceFileName="OrderDetail"
+			   delimitAllColumns="true"
+			   alias="e"
+		>
+			<generatedKey column="id" sqlStatement="Mysql" identity="true" />
+		</table>
+
+		<table tableName="tb_order_form"
+			   domainObjectName="TbOrderForm"
+			   queryModelObjectName="TsOrderForm"
+			   requestModelObjectName="TqOrderForm"
+			   viewModelObjectName="TvOrderForm"
+			   mapperAndServiceFileName="OrderForm"
+			   delimitAllColumns="true"
+			   alias="e"
+		>
+			<generatedKey column="id" sqlStatement="Mysql" identity="true" />
+		</table>
+	</context>
+</generatorConfiguration>
+

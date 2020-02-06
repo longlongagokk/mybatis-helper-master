@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vitily.order.mapper.OrderDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.vitily.order.module.entity.TbOrderDetail" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="deltag" property="deltag" jdbcType="TINYINT" />
+    <result column="product_id" property="productId" jdbcType="BIGINT" />
+    <result column="pro_price" property="proPrice" jdbcType="DECIMAL" />
+    <result column="pro_pic_list" property="proPicList" jdbcType="VARCHAR" />
+    <result column="pro_name" property="proName" jdbcType="VARCHAR" />
+    <result column="pro_code" property="proCode" jdbcType="VARCHAR" />
+    <result column="purchase_quantity" property="purchaseQuantity" jdbcType="INTEGER" />
+    <result column="pro_sp_id" property="proSpId" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ListResultMap" type="com.vitily.order.module.view.TvOrderDetail" extends="BaseResultMap" />
+  <resultMap id="ViewResultMap" type="com.vitily.order.module.view.TvOrderDetail" extends="ListResultMap" />
+  <sql id="Base_Column_List" >
+    e.`id`, e.`create_date`, e.`update_date`, e.`deltag`, e.`product_id`, e.`pro_price`, 
+    e.`pro_pic_list`, e.`pro_name`, e.`pro_code`, e.`purchase_quantity`, e.`pro_sp_id`, 
+    e.`order_id`
+  </sql>
+  <sql id="query_condition" >
+    <if test="entity != null" >
+      
+    </if>
+  </sql>
+  <sql id="select_for_list_tv" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_order_detail e
+  </sql>
+  <select id="getCountPaging" resultType="java.lang.Integer" parameterType="com.vitily.order.module.query.TsOrderDetail" >
+    select count(1) as recordCount from tb_order_detail e where 1=1
+    <include refid="query_condition" />
+  </select>
+  <select id="getListByBean" resultMap="ListResultMap" parameterType="com.vitily.order.module.query.TsOrderDetail" >
+    <include refid="select_for_list_tv" />
+     where 1=1 
+    <include refid="query_condition" />
+    <if test="orders !=null and orders.size > 0" >
+      order by ${orderStr}
+    </if>
+    <if test="null != pageInfo" >
+      limit #{pageInfo.step},#{pageInfo.pageSize}
+    </if>
+  </select>
+</mapper>
