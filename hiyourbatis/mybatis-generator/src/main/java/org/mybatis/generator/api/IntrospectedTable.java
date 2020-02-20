@@ -540,7 +540,8 @@ public abstract class IntrospectedTable {
         setMyBatis3FallbackSqlMapNamespace(calculateMyBatis3FallbackSqlMapNamespace());
         
         setSqlMapFullyQualifiedRuntimeTableName(calculateSqlMapFullyQualifiedRuntimeTableName());
-        setSqlMapAliasedFullyQualifiedRuntimeTableName(calculateSqlMapAliasedFullyQualifiedRuntimeTableName());
+        String _calculateSqlMapAliasedFullyQualifiedRuntimeTableName = calculateSqlMapAliasedFullyQualifiedRuntimeTableName();
+        setSqlMapAliasedFullyQualifiedRuntimeTableName(_calculateSqlMapAliasedFullyQualifiedRuntimeTableName);
 
         setCountByExampleStatementId("countByExample"); //$NON-NLS-1$
         setDeleteByExampleStatementId("deleteByExample"); //$NON-NLS-1$
@@ -1142,6 +1143,7 @@ public abstract class IntrospectedTable {
     }
 
     protected String calculateSqlMapAliasedFullyQualifiedRuntimeTableName() {
+
         return fullyQualifiedTable.getAliasedFullyQualifiedTableNameAtRuntime();
     }
 

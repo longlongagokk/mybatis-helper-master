@@ -67,7 +67,11 @@ public class BaseRecordGenerator extends AbstractJavaGenerator {
         if(introspectedTable.getPrimaryKeyColumns().size() > 1){
             throw new RuntimeException("only support one primary key !");
         }
-        topLevelClass.addAnnotation("@Table(\"`"+table.toString()+"`\")");
+        String tableFullName = "`"+table.getIntrospectedTableName()+"`";
+        if(stringHasValue(table.getIntrospectedSchema())){
+            tableFullName = "`"+table.getIntrospectedSchema()+"`."+tableFullName;
+        }
+        topLevelClass.addAnnotation("@Table(\""+tableFullName+"\")");
 
         //add @Data annotation
         topLevelClass.addImportedType(new FullyQualifiedJavaType("lombok.Data"));

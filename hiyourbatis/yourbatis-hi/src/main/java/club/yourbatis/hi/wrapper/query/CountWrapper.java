@@ -1,6 +1,8 @@
 package club.yourbatis.hi.wrapper.query;
 
+import club.yourbatis.hi.base.TableInfo;
 import club.yourbatis.hi.base.meta.TableMetaInfo;
+import club.yourbatis.hi.util.TableInfoHelper;
 import club.yourbatis.hi.wrapper.ICountWrapper;
 import club.yourbatis.hi.wrapper.condition.AbstractConditionWrapper;
 import club.yourbatis.hi.wrapper.condition.AbstractJoinerWrapper;
@@ -22,7 +24,14 @@ public class CountWrapper<L,R,C extends AbstractConditionWrapper<L,R,C>>
         super(where,absWrapper);
     }
     public static ICountWrapper<CountWrapper<String,Object,StringConditionWrapper>,StringConditionWrapper> build(){
-        return new CountWrapper<>(new StringConditionWrapper());
+        return build(null);
+    }
+    public static ICountWrapper<CountWrapper<String,Object,StringConditionWrapper>,StringConditionWrapper> build(TableInfo tableInfo){
+        CountWrapper countWrapper = new CountWrapper<>(new StringConditionWrapper());
+        if(null != tableInfo){
+            countWrapper.mainTableMetaInfo = TableInfoHelper.getTableInfoFromEntityClass(tableInfo.getTableClass());
+        }
+        return countWrapper;
     }
     @Override
     protected String getJoinerSql(){

@@ -3,11 +3,13 @@ package club.yourbatis.hi.wrapper.query;
 import club.yourbatis.hi.base.Field;
 import club.yourbatis.hi.base.Page;
 import club.yourbatis.hi.base.Sortable;
+import club.yourbatis.hi.base.TableInfo;
 import club.yourbatis.hi.base.field.SelectField;
 import club.yourbatis.hi.base.field.SimpleField;
 import club.yourbatis.hi.base.meta.Sorter;
 import club.yourbatis.hi.base.meta.TableMetaInfo;
 import club.yourbatis.hi.enums.Order;
+import club.yourbatis.hi.util.TableInfoHelper;
 import club.yourbatis.hi.wrapper.IOrder;
 import club.yourbatis.hi.wrapper.IPager;
 import club.yourbatis.hi.wrapper.ISelectorWrapper;
@@ -42,13 +44,19 @@ public class SelectWrapper<L,R,C extends AbstractConditionWrapper<L,R,C>>
         sortItems = new LinkedHashSet<>(1<<3);
     }
     public static DefaultSelectWrapper build(){
-        return new DefaultSelectWrapper();
+        return build(null);
+    }
+    public static DefaultSelectWrapper build(TableInfo tableInfo){
+        return new DefaultSelectWrapper(tableInfo);
     }
     public static class DefaultSelectWrapper
     extends SelectWrapper<String,Object,StringConditionWrapper>
     {
-        public DefaultSelectWrapper(){
+        public DefaultSelectWrapper(TableInfo tableInfo){
             super(new StringConditionWrapper());
+            if(null != tableInfo){
+                super.mainTableMetaInfo = TableInfoHelper.getTableInfoFromEntityClass(tableInfo.getTableClass());
+            }
         }
     }
     @Override

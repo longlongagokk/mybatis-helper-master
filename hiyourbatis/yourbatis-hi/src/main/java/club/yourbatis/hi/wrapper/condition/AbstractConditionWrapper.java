@@ -20,7 +20,6 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
         implements IWrapper, IConditioner<L,R,S>,Cloneable {
     public final static int DEFAULT_CONDITION_ELEMENTS_SIZE = 1 << 3;
     AbstractQueryWrapper caller;
-    public final S _this = (S) this;
     private StringBuilder where = new StringBuilder();
 
     protected String paramAlias;
@@ -188,7 +187,7 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
                 addElement(BetweenConditionItem.valueOf(items));
                 break;
         }
-        return _this;
+        return (S)this;
     }
     @Override
     public S where(ConditionType type,L left, Collection<?> right) {
@@ -213,10 +212,10 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
         }
         fields.add(w -> ConditionType.LEFTWRAPPER.getOpera());
         closure.push(type);
-        consumer.accept(_this);
+        consumer.accept((S)this);
         fields.add(w -> ConditionType.RIGHTWRAPPER.getOpera());
         closure.pop();
-        return _this;
+        return (S)this;
     }
 
     private void addElement(LinkItem element){

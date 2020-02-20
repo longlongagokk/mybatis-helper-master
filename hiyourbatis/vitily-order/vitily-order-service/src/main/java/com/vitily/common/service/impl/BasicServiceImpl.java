@@ -104,11 +104,11 @@ public abstract class BasicServiceImpl<T extends BaseEntity<T>,Q extends BaseReq
 
 	@Override
 	public TvPageList<V> selectPageList(SelectWrapper wrapper){
-		if(wrapper.getPage() == null){
+		Page page = wrapper.getPage();
+		if(page == null){
 			throw new RuntimeException("page entity can not be null !");
 		}
 		TvPageList<V> pageList = new TvPageList<>();
-		Page page = wrapper.getPage();
 		PageInfo pageInfo = PageInfo.valueOf(page.getPageIndex(),page.getPageSize());
 		pageList.setPageInfo(pageInfo);
 		pageList.setList(mapper.selectListV(wrapper));

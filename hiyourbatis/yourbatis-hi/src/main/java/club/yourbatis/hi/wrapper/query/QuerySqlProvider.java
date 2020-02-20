@@ -71,8 +71,11 @@ public class QuerySqlProvider {
         return sql;
     }
     private String select(ProviderContext context, ISelectorWrapper wrapper){
-        TableMetaInfo tableMetaInfo = TableInfoHelper.getTableInfoByProviderContext(context);
         SelectWrapper selectWrapper = (SelectWrapper)wrapper;
+        TableMetaInfo tableMetaInfo = selectWrapper.getMainTableMetaInfo();
+        if(null == tableMetaInfo){
+            tableMetaInfo = TableInfoHelper.getTableInfoByProviderContext(context);
+        }
         selectWrapper.addAliasTable(null,tableMetaInfo);//null
         selectWrapper.addAliasTable(ConstValue.MAIN_ALIAS,tableMetaInfo);//default
         boolean selectOwn = selectWrapper.selectMain;
@@ -153,8 +156,11 @@ public class QuerySqlProvider {
     }
 
     public String selectCount(ProviderContext context, ICountWrapper wrapper) {
-        TableMetaInfo tableMetaInfo = TableInfoHelper.getTableInfoByProviderContext(context);
         CountWrapper countWrapper = (CountWrapper)wrapper;
+        TableMetaInfo tableMetaInfo = countWrapper.getMainTableMetaInfo();
+        if(null == tableMetaInfo){
+            tableMetaInfo = TableInfoHelper.getTableInfoByProviderContext(context);
+        }
         countWrapper.addAliasTable(null,tableMetaInfo);//null
         countWrapper.addAliasTable(ConstValue.MAIN_ALIAS,tableMetaInfo);//default
         StringBuilder countSql = new StringBuilder("select count(1) from ");

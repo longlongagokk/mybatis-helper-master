@@ -15,6 +15,8 @@ public abstract class AbstractQueryWrapper<L,R,C extends AbstractConditionWrappe
     @Getter
     protected C where;
     protected Map<String, TableMetaInfo> aliases;
+    @Getter
+    protected TableMetaInfo mainTableMetaInfo;
     public AbstractQueryWrapper(C where){
         this(where,new HashMap<>(1<<2));
     }

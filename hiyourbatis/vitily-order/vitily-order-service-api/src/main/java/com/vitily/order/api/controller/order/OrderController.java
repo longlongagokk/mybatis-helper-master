@@ -1,7 +1,19 @@
 package com.vitily.order.api.controller.order;
 
+import club.yourbatis.hi.base.field.SelectField;
+import club.yourbatis.hi.base.meta.FieldWithValue;
+import club.yourbatis.hi.base.meta.PageInfo;
+import club.yourbatis.hi.base.param.FieldItem;
+import club.yourbatis.hi.base.param.ParamItem;
+import club.yourbatis.hi.enums.Order;
+import club.yourbatis.hi.wrapper.query.CountWrapper;
 import club.yourbatis.hi.wrapper.query.SelectWrapper;
 import com.vitily.common.module.Result;
+import com.vitily.common.util.ClassAssociateTableInfo;
+import com.vitily.order.api.mapper.TrOrderMapper;
+import com.vitily.order.module.entity.TbOrderDetail;
+import com.vitily.order.module.entity.TbOrderForm;
+import com.vitily.order.module.query.TsOrderForm;
 import com.vitily.order.service.OrderDetailService;
 import com.vitily.order.service.OrderFormService;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +25,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("order")
@@ -23,55 +40,80 @@ public class OrderController {
     OrderFormService orderFormService;
     @Autowired
     OrderDetailService orderDetailService;
+    @Autowired
+    private TrOrderMapper trOrderMapper;
 
     @GetMapping(value = "list")
-    public Result list(HttpServletRequest request, HttpServletResponse response)throws Exception{
-        String[] ids = new String[]{"1","2","3"};
-        return Result.success(orderFormService.selectOne(SelectWrapper.build()
-//                new MultiTableQueryWrapper<TbOrderForm>()
-//                        .leftJoin(ClassAssociateTableInfo.valueOf(TbOrderDetail.class,"o"),
-//                                x->x.eqc(FieldField.valueOf("o.orderId","e.id"))
-//                                .eq(FieldValue.valueOf("o.productId",300L)
-//                            )
-//                        )
-//                        .eqc(CompareAlias.valueOf(TsOrderForm.Fields.orderNo,"e"),
-//                                CompareAlias.valueOf(TsOrderForm.Fields.orderTypeStr,"e")
-//                        )
-////
-//                        .eq(CompareAlias.valueOf(TsOrderForm.Fields.amountPaid,"e"),req.getUserId())
-//                        .or(
-//                                x->
-//                                        x.eqc(CompareAlias.valueOf(TsOrderForm.Fields.amountPay,"e"),
-//                                                CompareAlias.valueOf(TsOrderForm.Fields.call,"e")
-//                                        )
-//                                                .eq(CompareAlias.valueOf(TsOrderForm.Fields.deliveryId,"e"),req.getUserId())
-//                                .in(CompareAlias.valueOf(TsOrderForm.Fields.id,"e"),
-//                                        StringUtil.StringsToLongList(ids)
-//                                        )
-//                                .eqc(CompareAlias.valueOf(TsOrderForm.Fields.area,"e"),
-//                                        //EnumFieldCol.valueOf(TsOrderForm.Fields.phone,"e"),
-//                                        CompareAlias.valueOf(TsOrderForm.Fields.postCode,"e")
-//                                        )
-//                                .betweenc(CompareAlias.valueOf(TsOrderForm.Fields.area,"e"),
-//                                        CompareAlias.valueOf(TsOrderForm.Fields.phone,"e"),
-//                                        CompareAlias.valueOf(TsOrderForm.Fields.postCode,"e")
-//                                )
-//                                .between(CompareAlias.valueOf(TsOrderForm.Fields.receiver,"e"),
-//                                        3l,
-//                                        19l
-//                                )
-//                        )
-//                        .page(PageInfo.valueOf(1,4))
+    public Result list(HttpServletRequest request, HttpServletResponse response, BigDecimal amountPaid)throws Exception{
+        Collection<Long> ids = new ArrayList<>();
+        ids.add(1L);
+        ids.add(2L);
+        ids.add(3L);
+        return Result.success(orderFormService.selectList(SelectWrapper.build()
+                .select0(SelectField.valueOf("e.memberId"))
+                .leftJoin(ClassAssociateTableInfo.valueOf(TbOrderDetail.class,"od"),od->
+                        od
+                                .eq(FieldWithValue.valueOf("e.id", FieldItem.valueOf("od.orderId")))
+                                .eq("od.productId",300L)
+                        )
+                .where(w->
+                        w
+                                .eq(FieldWithValue.valueOf("e.orderNo",FieldItem.valueOf("e.orderTypeStr")))
+                                .eq("e.amountPaid",amountPaid)
+                        .or(x->
+                                x
+                                        .eq(FieldWithValue.valueOf("e.amountPay",FieldItem.valueOf("e.call")))
+                                        .eq("e.deliveryId",234)
+                                        .in("e.id",ids)
+                                        .f()
+                                        .between(FieldItem.valueOf("e.memberId"),
+                                                FieldItem.valueOf("e",TsOrderForm.Fields.phone),
+                                                ParamItem.valueOf("e.id")
+                                        )
+                                        .d()
+                                        .between("e.receiver",
+                                                3l,
+                                                19l
+                                        )
+                                )
+                        )
+                        .orderBy(Order.DESC, SelectField.valueOf("e.payWayId")
+                        )
+                        .page(PageInfo.valueOf(1,4))
                 )
         );
     }
     @GetMapping(value = "detail-list")
     public Result detailList(HttpServletRequest request, HttpServletResponse response)throws Exception{
-        return Result.success(orderDetailService.selectPageList(SelectWrapper.build()));
+        return Result.success(orderDetailService.selectPageList(SelectWrapper.build()
+        .where(x->
+                x.eq(FieldWithValue.withParamValue("e.id",123))
+                .le(FieldWithValue.withParamValue("e.createDate",new Date()))
+                )
+                .page(new PageInfo())
+                .leftJoin(ClassAssociateTableInfo.valueOf(TbOrderForm.class,"of"),of->
+                        of.eq(FieldWithValue.valueOf("e.orderId",FieldItem.valueOf("of.id"))))
+
+        ));
     }
     @GetMapping(value = "detail/{id}")
     public Result list(@PathVariable long id)throws Exception{
         //return Result.success(orderDetailService.selectOne(new QueryWrapper<TbOrderDetail>().eq(TsOrderDetail.Fields.orderId,id)));
         return Result.success(orderFormService.selectOne(id));
+    }
+    @GetMapping(value = "tr-list")
+    public Result trList()throws Exception{
+        //return Result.success(orderDetailService.selectOne(new QueryWrapper<TbOrderDetail>().eq(TsOrderDetail.Fields.orderId,id)));
+        trOrderMapper.selectList(SelectWrapper.DefaultSelectWrapper.build(
+                ClassAssociateTableInfo.valueOf(TbOrderForm.class,"e")
+                )
+                .select("e.id orderId,e.orderNo,e.memberId userName")
+                        .where(x->x.eq("e.id",100))
+        );
+        return Result.success(trOrderMapper.selectCount(CountWrapper.build(
+                ClassAssociateTableInfo.valueOf(TbOrderForm.class,"e")
+                )
+                .where(x->x.eq("e.id",100))
+        ));
     }
 }

@@ -3,8 +3,8 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile name="Annotation profile for mybatis-generator" enabled="true">
-        <sourceOutputDir name="../../../../../java_server/hi-yourbatis-server/dev/mybatis-generator/webapps/1.3.2/generated-sources/annotations" />
-        <sourceTestOutputDir name="../../../../../java_server/hi-yourbatis-server/dev/mybatis-generator/webapps/1.3.2/generated-test-sources/test-annotations" />
+        <sourceOutputDir name="../../../../../java_server/hi-yourbatis-server/${env}/vitily/webapps/1.0.5/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../../../../java_server/hi-yourbatis-server/${env}/vitily/webapps/1.0.5/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="mybatis-generator" />
       </profile>
@@ -21,8 +21,8 @@
         <module name="yourbatis-hi" />
       </profile>
       <profile name="Annotation profile for vitily" enabled="true">
-        <sourceOutputDir name="../../../../../../java_server/hi-yourbatis-server/dev/vitily-order-service/webapps/1.0.5/generated-sources/annotations" />
-        <sourceTestOutputDir name="../../../../../../java_server/hi-yourbatis-server/dev/vitily-order-service/webapps/1.0.5/generated-test-sources/test-annotations" />
+        <sourceOutputDir name="../../../../../../java_server/hi-yourbatis-server/${env}/vitily/webapps/1.0.5/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../../../../../java_server/hi-yourbatis-server/${env}/vitily/webapps/1.0.5/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="vitily-order-service" />
       </profile>

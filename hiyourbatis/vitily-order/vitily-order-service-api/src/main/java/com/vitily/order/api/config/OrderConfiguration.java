@@ -19,7 +19,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableAsync
 @ComponentScan({"com.vitily.*.service"})
-@MapperScan(basePackages = {"com.vitily.*.mapper"})
+@MapperScan(basePackages = {"com.vitily.*.mapper","com.vitily.order.api.mapper"})
 public class OrderConfiguration {
     @Bean("sqlSessionFactory")
     public SqlSessionFactory sqlSessionFactory(@Qualifier("dataSource") DataSource datasource) throws Exception {

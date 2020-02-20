@@ -1,8 +1,8 @@
 package com.vitily.order.module.entity;
 
-import com.vitily.common.module.BaseEntity;
 import club.yourbatis.hi.annotation.Column;
 import club.yourbatis.hi.annotation.Table;
+import com.vitily.common.module.BaseEntity;
 import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
@@ -10,10 +10,10 @@ import lombok.experimental.Accessors;
 
 /**
  * @description : 订单主表
- * @author      : Administrator
- * @createDate  : 2020-01-03
+ * @author      : lether
+ * @createDate  : 2020-02-20
  */
-@Table("`tb_order_form`")
+@Table("`hiyourbatis-test`.`tb_order_form`")
 @Data()
 @Accessors(chain = true)
 public class TbOrderForm extends BaseEntity<TbOrderForm> {
@@ -168,19 +168,19 @@ public class TbOrderForm extends BaseEntity<TbOrderForm> {
     private Date orderDate;
 
     /**
-     * 下单用户名称
+     * 下单用户
      */
     @Column("`user_name`")
     private String userName;
 
     /**
-     * 物流方式名称
+     * 物理方式名称
      */
     @Column("`delivery_way_name`")
     private String deliveryWayName;
 
     /**
-     * 支付方式名称
+     * 支付方式名字
      */
     @Column("`pay_way_name`")
     private String payWayName;

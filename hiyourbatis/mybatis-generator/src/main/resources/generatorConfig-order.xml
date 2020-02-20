@@ -38,7 +38,7 @@
 
 		<!-- dto class -->
 		<javaModelGenerator targetPackage="com.vitily.order.module.entity" targetProject="D:\">
-			<property name="enableSubPackages" value="true"	/>
+			<property name="enableSubPackages" value="false"	/>
 			<property name="useActualColumnNames" value="true" />
 			<property name="trimStrings" value="false" />
 			<property name="setterIsBuilder" value="true" />
@@ -59,24 +59,24 @@
 		<!-- mybatis xml file -->
 		<!-- isMergeable:是否合并 -->
 		<sqlMapGenerator isMergeable="false" targetPackage="com.vitily.order.mapper" targetProject="D:\">
-			<property name="enableSubPackages" value="true"	/>
+			<property name="enableSubPackages" value="false"	/>
 		</sqlMapGenerator>
 		<!-- mapper class -->
 		<javaClientGenerator type="XMLMAPPER" targetPackage="com.vitily.order.mapper" targetProject="D:\">
-			<property name="enableSubPackages" value="true" />
+			<property name="enableSubPackages" value="false" />
 			<property name="rootInterface" value="com.vitily.common.mapper.CommonBasicMapper#l$T,$V#r|club.yourbatis.hi.mapper.BasicMapperl$T#l$T,$V#r" />
 		</javaClientGenerator>
 		<javaServiceGenerator targetPackage="com.vitily.order.service" targetProject="D:\">
-			<property name="enableSubPackages" value="true" />
+			<property name="enableSubPackages" value="false" />
 			<property name="rootInterface" value="com.vitily.common.service.BasicService#l$T,$Q,$V#r" />
 		</javaServiceGenerator>
 		<javaServiceImplGenerator targetPackage="com.vitily.order.service.impl" targetProject="D:\">
-			<property name="enableSubPackages" value="true" />
+			<property name="enableSubPackages" value="false" />
 			<property name="rootInterface" value="com.vitily.common.service.impl.BasicServiceImpl#l$T,$Q,$V,$M#r" />
 		</javaServiceImplGenerator>
 
 		<javaConsoleControllerGenerator basePath="/ftrade/coin-available-symbol/" targetPackage="com.vitily.console.order.controller.order" targetProject="D:\">
-			<property name="enableSubPackages" value="true" />
+			<property name="enableSubPackages" value="false" />
 			<property name="rootInterface" value="com.vitily.console.center.controller.BaseController#l$T,$S,$V#r" />
 			<property name="inputInnerFields" value="om.vitily.console.center.util.ViewModel" />
 		</javaConsoleControllerGenerator>
@@ -88,6 +88,7 @@
 			   viewModelObjectName="TvOrderDetail"
 			   mapperAndServiceFileName="OrderDetail"
 			   delimitAllColumns="true"
+			   delimitIdentifiers="true"
 			   alias="e"
 		>
 			<generatedKey column="id" sqlStatement="Mysql" identity="true" />
@@ -100,7 +101,9 @@
 			   viewModelObjectName="TvOrderForm"
 			   mapperAndServiceFileName="OrderForm"
 			   delimitAllColumns="true"
+			   delimitIdentifiers="true"
 			   alias="e"
+			   schema="hiyourbatis-test"
 		>
 			<generatedKey column="id" sqlStatement="Mysql" identity="true" />
 		</table>
