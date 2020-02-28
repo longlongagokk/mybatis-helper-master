@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
-public abstract class BasicServiceImpl<T extends BaseEntity<T>,Q extends BaseRequest<T,Q>, V extends T,M extends BasicMapper<T,V> & CommonBasicMapper<T,V> >
+public abstract class BasicServiceImpl<T extends BaseEntity<T>,Q extends BaseRequest<T,Q>, V extends T,M extends CommonBasicMapper<T,V> >
 		implements BasicService<T,Q,V> {
 	@Autowired(required = false)
 	protected M mapper;
@@ -60,11 +60,11 @@ public abstract class BasicServiceImpl<T extends BaseEntity<T>,Q extends BaseReq
 	}
 	@Override
 	public V selectItemByPrimaryKey(Primary primary){
-		return mapper.selectItemByPrimaryKey(primary);
+		return mapper.selectItemByPrimaryKeyV(primary);
 	}
 	@Override
 	public V selectOne(ISelectorWrapper wrapper){
-		return mapper.selectOne(wrapper);
+		return mapper.selectOneV(wrapper);
 	}
 	@Override
 	public List<T> selectList(ISelectorWrapper wrapper){

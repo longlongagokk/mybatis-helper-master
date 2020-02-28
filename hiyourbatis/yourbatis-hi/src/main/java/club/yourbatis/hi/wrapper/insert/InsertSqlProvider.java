@@ -13,7 +13,7 @@ import java.lang.reflect.Field;
  * 后期记得加缓存
  */
 @Slf4j
-public class InsertWrapProvider {
+public class InsertSqlProvider {
     public String insert(Object entity)throws Exception{
         return _insert(entity,false);
     }

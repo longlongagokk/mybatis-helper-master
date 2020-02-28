@@ -1,9 +1,9 @@
 package club.yourbatis.hi.wrapper.condition;
 
 import club.yourbatis.hi.base.Item;
-import club.yourbatis.hi.base.param.FieldItem;
 import club.yourbatis.hi.consts.ConstValue;
 import club.yourbatis.hi.enums.ConditionType;
+import club.yourbatis.hi.wrapper.bridge.AbstractQueryWrapper;
 
 public class LinkSelectItem extends SimpleConditionItem {
     private LinkSelectItem(ConditionType type, Item... items) {

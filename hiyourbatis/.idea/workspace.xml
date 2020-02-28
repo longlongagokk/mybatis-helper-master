@@ -2,37 +2,96 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4d02d3f-eed0-4844-aa0b-797c162c9df0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/entity/TrOrder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/mapper/TrOrderMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/bridge/AbsLinkItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/bridge/AbsSqlProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybatis-generator/src/main/java/org/mybatis/generator/api/IntrospectedTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/mybatis-generator/src/main/java/org/mybatis/generator/api/IntrospectedTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybatis-generator/src/main/java/org/mybatis/generator/codegen/mybatis3/model/BaseRecordGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/mybatis-generator/src/main/java/org/mybatis/generator/codegen/mybatis3/model/BaseRecordGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybatis-generator/src/main/java/org/mybatis/generator/internal/db/DatabaseIntrospector.java" beforeDir="false" afterPath="$PROJECT_DIR$/mybatis-generator/src/main/java/org/mybatis/generator/internal/db/DatabaseIntrospector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybatis-generator/src/main/resources/generatorConfig-order.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mybatis-generator/src/main/resources/generatorConfig-order.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/config/OrderConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/config/OrderConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/controller/order/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/controller/order/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/mapper/TrOrderMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/mapper/TrOrderMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/common/mapper/CommonBasicMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/common/mapper/CommonBasicMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/common/service/BasicService.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/common/service/BasicService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/common/service/impl/BasicServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/common/service/impl/BasicServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/module/entity/TbOrderForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/module/entity/TbOrderForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/condition/AbstractConditionWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/condition/AbstractConditionWrapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/condition/AbstractQueryWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/condition/AbstractQueryWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/common/util/ClassAssociateTableInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/mapper/OrderDetailMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/mapper/OrderDetailMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/mapper/OrderDetailMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/mapper/OrderFormMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/mapper/OrderFormMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/module/query/TsOrderDetail.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/service/impl/OrderFormServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/service/impl/OrderFormServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/base/TableInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/base/meta/PageInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/base/meta/PageInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/base/meta/TableMetaInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/base/meta/TableMetaInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/mapper/BasicMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/mapper/BasicMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/util/TableInfoHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/util/TableInfoHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/IDeleteWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/IDeleteWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/IJoining.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/IJoining.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/IQueryWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/IQueryWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/condition/AbstractConditionWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/bridge/AbstractConditionWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/condition/AbstractJoinerWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/bridge/AbstractJoinerWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/condition/AbstractQueryWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/bridge/AbstractQueryWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/condition/BetweenConditionItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/condition/BetweenConditionItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/condition/ExchangeFieldItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/condition/ExchangeFieldItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/condition/InsConditionItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/condition/InsConditionItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/condition/LinkItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/ILinkItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/condition/LinkSelectItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/condition/LinkSelectItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/condition/SimpleConditionItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/condition/SimpleConditionItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/delete/DeleteWrapProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/delete/DeleteSqlProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/delete/DeleteWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/delete/DeleteWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/factory/EnumConditionWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/factory/EnumConditionWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/factory/FlexibleConditionWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/factory/FlexibleConditionWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/factory/StringConditionWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/factory/StringConditionWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/insert/InsertWrapProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/insert/InsertSqlProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/join/JoinWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/join/JoinWrapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/query/CountWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/query/CountWrapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/query/QuerySqlProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/query/QuerySqlProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/query/SelectWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/query/SelectWrapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/AbstractConditionWrapper$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/AbstractConditionWrapper$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/AbstractConditionWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/AbstractConditionWrapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/AbstractQueryWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/AbstractQueryWrapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/update/UpdateWrapProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/update/UpdateSqlProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/update/UpdateWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/update/UpdateWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/base/TableInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/base/meta/PageInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/base/meta/PageInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/base/meta/TableMetaInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/base/meta/TableMetaInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/mapper/BasicMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/util/TableInfoHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/util/TableInfoHelper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/IDeleteWrapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/IJoining.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/IJoining.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/IQueryWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/IQueryWrapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/AbstractConditionWrapper$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/AbstractConditionWrapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/AbstractJoinerWrapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/AbstractQueryWrapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/BetweenConditionItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/BetweenConditionItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/ExchangeFieldItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/ExchangeFieldItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/InsConditionItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/InsConditionItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/LinkItem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/LinkSelectItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/LinkSelectItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/SimpleConditionItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/condition/SimpleConditionItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/delete/DeleteWrapProvider.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/delete/DeleteWrapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/factory/EnumConditionWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/factory/EnumConditionWrapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/factory/FlexibleConditionWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/factory/FlexibleConditionWrapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/factory/StringConditionWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/factory/StringConditionWrapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/insert/InsertWrapProvider.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/join/JoinWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/join/JoinWrapper.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/query/CountWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/query/CountWrapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/query/QuerySqlProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/query/QuerySqlProvider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/query/QuerySqlProvider.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/query/SelectWrapper$DefaultSelectWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/query/SelectWrapper$DefaultSelectWrapper.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/query/SelectWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/query/SelectWrapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/update/UpdateWrapProvider.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/update/UpdateWrapper$DefaultUpdateWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/update/UpdateWrapper$DefaultUpdateWrapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/update/UpdateWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/update/UpdateWrapper.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -56,7 +115,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../rong/funds/trunk/java/rong-manage" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../lether2018/trunk/vitily" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -65,6 +124,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="club.yourbatis.hi.wrapper.bridge" />
       <recent name="com.vitily.order.api.mapper" />
       <recent name="com.vitily.order.api.entity" />
     </key>
@@ -134,6 +194,7 @@
       <workItem from="1581989206023" duration="599000" />
       <workItem from="1582074778692" duration="598000" />
       <workItem from="1582203506477" duration="8796000" />
+      <workItem from="1582851167367" duration="20134000" />
     </task>
     <servers />
   </component>

@@ -1,11 +1,9 @@
 package club.yourbatis.hi.wrapper.factory;
 
 import club.yourbatis.hi.base.Item;
-import club.yourbatis.hi.base.meta.TableMetaInfo;
 import club.yourbatis.hi.base.param.FieldItem;
 import club.yourbatis.hi.enums.ConditionType;
-import club.yourbatis.hi.wrapper.condition.AbstractConditionWrapper;
-import club.yourbatis.hi.wrapper.condition.AbstractQueryWrapper;
+import club.yourbatis.hi.wrapper.bridge.AbstractConditionWrapper;
 
 import java.util.Collection;
 
@@ -27,6 +25,6 @@ public class StringConditionWrapper extends AbstractConditionWrapper<String,Obje
         for (Object obj : rights) {
             wraps[++i] = wrapParamByValue(obj);
         }
-        return tothemoon(type, wraps);
+        return toTheMoon(type, wraps);
     }
 }

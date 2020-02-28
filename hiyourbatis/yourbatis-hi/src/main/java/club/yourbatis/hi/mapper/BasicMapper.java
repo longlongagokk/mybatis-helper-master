@@ -5,10 +5,10 @@ import club.yourbatis.hi.wrapper.ICountWrapper;
 import club.yourbatis.hi.wrapper.IDeleteWrapper;
 import club.yourbatis.hi.wrapper.ISelectorWrapper;
 import club.yourbatis.hi.wrapper.IUpdateWrapper;
-import club.yourbatis.hi.wrapper.delete.DeleteWrapProvider;
-import club.yourbatis.hi.wrapper.insert.InsertWrapProvider;
+import club.yourbatis.hi.wrapper.delete.DeleteSqlProvider;
+import club.yourbatis.hi.wrapper.insert.InsertSqlProvider;
 import club.yourbatis.hi.wrapper.query.QuerySqlProvider;
-import club.yourbatis.hi.wrapper.update.UpdateWrapProvider;
+import club.yourbatis.hi.wrapper.update.UpdateSqlProvider;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.SelectProvider;
@@ -20,14 +20,14 @@ import java.util.List;
  * all code see https://github.com/longlongagokk/mybatis-helper
  * @param <T> the entity of table
  */
-public interface BasicMapper<T,V extends T> {
+public interface BasicMapper<T> {
     /**
      * insert full properties
      *
      * @param entity all the entity's properties will be insert ,the null value property not excluded
      * @return effect row count,expected 1
      */
-    @InsertProvider(type = InsertWrapProvider.class, method = "insert")
+    @InsertProvider(type = InsertSqlProvider.class, method = "insert")
     //@SelectKey(statement = "select last_insert_id()", keyProperty = "id", before = false, resultType = long.class)
     int insert(T entity);
 
@@ -37,7 +37,7 @@ public interface BasicMapper<T,V extends T> {
      * @param entity with not null property to insert,if the property's value is null,then skip
      * @return effect row count,expected 1
      */
-    @InsertProvider(type = InsertWrapProvider.class, method = "insertSelective")
+    @InsertProvider(type = InsertSqlProvider.class, method = "insertSelective")
     int insertSelective(T entity);
 
     /**
@@ -46,7 +46,7 @@ public interface BasicMapper<T,V extends T> {
      * @param primary set primary key value
      * @return effect row count,expected 1
      */
-    @DeleteProvider(type = DeleteWrapProvider.class, method = "deleteByPrimaryKey")
+    @DeleteProvider(type = DeleteSqlProvider.class, method = "deleteByPrimaryKey")
     int deleteByPrimaryKey(Primary primary);
 
     /**
@@ -55,7 +55,7 @@ public interface BasicMapper<T,V extends T> {
      * @param wrapper query condition to how to delete
      * @return effect row count
      */
-    @DeleteProvider(type = DeleteWrapProvider.class, method = "delete")
+    @DeleteProvider(type = DeleteSqlProvider.class, method = "delete")
     int delete(IDeleteWrapper wrapper);
 
     /**
@@ -68,7 +68,7 @@ public interface BasicMapper<T,V extends T> {
      */
     @SelectProvider(type = QuerySqlProvider.class, method = "selectItemByPrimaryKey")
     //@ResultMap("BaseResultMap")
-    V selectItemByPrimaryKey(Primary primary);
+    T selectItemByPrimaryKey(Primary primary);
 
     /**
      * select the single row from table with query condition
@@ -79,7 +79,7 @@ public interface BasicMapper<T,V extends T> {
      */
     @SelectProvider(type = QuerySqlProvider.class, method = "selectOne")
     //@ResultMap("BaseResultMap")
-    V selectOne(ISelectorWrapper wrapper);
+    T selectOne(ISelectorWrapper wrapper);
     /**
      * select list from table with query condition
      *
@@ -90,10 +90,6 @@ public interface BasicMapper<T,V extends T> {
     @SelectProvider(type = QuerySqlProvider.class, method = "selectList")
     //@ResultMap("BaseResultMap")
     List<T> selectList(ISelectorWrapper wrapper);
-
-    @SelectProvider(type = QuerySqlProvider.class, method = "selectList")
-        //@ResultMap("BaseResultMap")
-    List<V> selectListV(ISelectorWrapper wrapper);
 
     /**
      * select list and rowCount
@@ -112,7 +108,7 @@ public interface BasicMapper<T,V extends T> {
      * @param entity all the entity's properties will be update ,the null value property not excluded
      * @return update rows
      */
-    @UpdateProvider(type = UpdateWrapProvider.class, method = "updateByPrimary")
+    @UpdateProvider(type = UpdateSqlProvider.class, method = "updateByPrimary")
     int updateByPrimary(T entity);
 
     /**
@@ -121,7 +117,7 @@ public interface BasicMapper<T,V extends T> {
      * @param entity with not null property to update,if the property's value is null,then skip
      * @return update rows
      */
-    @UpdateProvider(type = UpdateWrapProvider.class, method = "updateSelectiveByPrimaryKey")
+    @UpdateProvider(type = UpdateSqlProvider.class, method = "updateSelectiveByPrimaryKey")
     int updateSelectiveByPrimaryKey(T entity);
 
     /**
@@ -131,6 +127,6 @@ public interface BasicMapper<T,V extends T> {
      *                if no columns selected or no condition set,will throw an exception
      * @return update rows
      */
-    @UpdateProvider(type = UpdateWrapProvider.class, method = "updateSelectItem")
+    @UpdateProvider(type = UpdateSqlProvider.class, method = "updateSelectItem")
     int updateSelectItem(IUpdateWrapper wrapper);
 }

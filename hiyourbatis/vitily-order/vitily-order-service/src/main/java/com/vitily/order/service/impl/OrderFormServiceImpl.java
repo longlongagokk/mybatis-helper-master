@@ -3,17 +3,19 @@ package com.vitily.order.service.impl;
 import club.yourbatis.hi.base.Item;
 import club.yourbatis.hi.base.field.SelectField;
 import club.yourbatis.hi.base.field.SimpleField;
+import club.yourbatis.hi.base.meta.FieldWithValue;
 import club.yourbatis.hi.base.meta.PageInfo;
 import club.yourbatis.hi.base.param.FieldItem;
 import club.yourbatis.hi.base.param.ParamItem;
 import club.yourbatis.hi.base.param.ValueItem;
 import club.yourbatis.hi.enums.Order;
+import club.yourbatis.hi.wrapper.delete.DeleteWrapper;
+import club.yourbatis.hi.wrapper.factory.EnumConditionWrapper;
 import club.yourbatis.hi.wrapper.factory.StringConditionWrapper;
 import club.yourbatis.hi.wrapper.query.CountWrapper;
 import club.yourbatis.hi.wrapper.query.SelectWrapper;
 import club.yourbatis.hi.wrapper.update.UpdateWrapper;
 import com.vitily.common.service.impl.BasicServiceImpl;
-import com.vitily.common.util.ClassAssociateTableInfo;
 import com.vitily.common.util.JSONUtil;
 import com.vitily.order.mapper.OrderFormMapper;
 import com.vitily.order.module.entity.TbOrderDetail;
@@ -74,13 +76,13 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TqOrderF
 //		//deleteByPrimaryKey
 //		log.info("------------------------"+mapper.deleteByPrimaryKey(SimplePrimary.valueOf(30857))+"------------------------------");
 //
-//		//delete
-//		log.info("------------------------"+mapper.delete(
-//				new DeleteWrapper<>(new EnumConditionWrapper()).where(x->x.eq(TsOrderForm.Fields.payWayId,444).eq(
-//						FieldWithValue.withOriginalValue("id",333)
-//
-//				))
-//		)+"------------------------------");
+		//delete
+		log.info("------------------------"+mapper.delete(
+				new DeleteWrapper<>(new EnumConditionWrapper()).where(x->x.eq(TsOrderForm.Fields.payWayId,444).eq(
+						FieldWithValue.withOriginalValue("id",333)
+
+				))
+		)+"------------------------------");
 //		//delete
 //		log.info("------------------------"+mapper.delete(
 //				DeleteWrapper.build().where(x->x.e().eq(TsOrderForm.Fields.payWayId,222).eq(
@@ -144,7 +146,7 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TqOrderF
 //						.select0(
 //								SelectField.valueOf("e", TsOrderForm.Fields.area)
 //						)
-						.leftJoin(ClassAssociateTableInfo.valueOf(TbOrderDetail.class,"d"), x->
+						.leftJoin(TbOrderDetail.class,"d", x->
 										x.f()
 										.eq(
 												FieldItem.valueOf(SimpleField.valueOf("e.id")),
@@ -260,6 +262,9 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TqOrderF
 					x.eq("e.payWayId",333333))
 		))+"------------------------------");
 
+		log.info("------------------------"+JSONUtil.toJSONString(mapper.selectList(
+				queryWrapper
+		))+"------------------------------");
 		log.info("------------------------"+JSONUtil.toJSONString(mapper.selectCount(
 				new CountWrapper(queryWrapper.getWhere(),queryWrapper)
 
@@ -267,9 +272,6 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TqOrderF
 
 
 
-		log.info("------------------------"+JSONUtil.toJSONString(mapper.selectList(
-				queryWrapper
-		))+"------------------------------");
 
 		log.info("------------------------selectOne--selectSome------------------------------");
 		//selectOne--selectSome
@@ -334,7 +336,7 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TqOrderF
 //								)
 //						)
 				)
-				.leftJoin(ClassAssociateTableInfo.valueOf(TbOrderDetail.class,"x"),x->
+				.leftJoin(TbOrderDetail.class,"x",x->
 						x.eq("x.orderId",200)
 				)
 				.where(x->x.f().eq(ValueItem.valueOf(20),ValueItem.valueOf(30))
@@ -384,9 +386,7 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TqOrderF
 					.select("e.id,e.payWayName")
 
 						.select0(SelectField.valueOf("x", TsOrderForm.Fields.deliveryId))
-						.leftJoin(ClassAssociateTableInfo.valueOf(TbOrderForm.class,"x"),
-								x->x.eq("x.id",8543)
-						)
+						.leftJoin(TbOrderForm.class,"x",x->x.eq("x.id",8543))
 //						.innerJoin(ClassAssociateTableInfo.valueOf(TbOrderForm.class,"x"),
 //								)
 				)
@@ -399,7 +399,7 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TqOrderF
 		iids.add(ValueItem.valueOf("100"));
 		log.info("------------------------"+
 				mapper.selectCount(new CountWrapper<>(new StringConditionWrapper())
-						.leftJoin(ClassAssociateTableInfo.valueOf(TbOrderDetail.class,"x"),
+						.leftJoin(TbOrderDetail.class,"x",
 								x->x.eq("x.id",3)
 								)
 						.where(x->

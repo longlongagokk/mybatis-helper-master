@@ -38,10 +38,11 @@ public abstract class TableInfoHelper {
 
         for (Type parent : mapperClass.getGenericInterfaces()) {
             ResolvableType parentType = ResolvableType.forType(parent);
-            Class<?> c = parentType.getRawClass();
-            if (c == BasicMapper.class) {
-                return TableInfoCache.saveTableInfoIntoMapper(mapperClass,getTableInfoFromEntityClass(parentType.getGeneric(0).getRawClass()));
-            }
+//            Class<?> c = parentType.getRawClass();
+//            if (c == BasicMapper.class) {
+//                return TableInfoCache.saveTableInfoIntoMapper(mapperClass,getTableInfoFromEntityClass(parentType.getGeneric(0).getRawClass()));
+//            }
+            return TableInfoCache.saveTableInfoIntoMapper(mapperClass,getTableInfoFromEntityClass(parentType.getGeneric(0).getRawClass()));
         }
         throw new RuntimeException("can not load anny table info !");
     }
@@ -73,13 +74,7 @@ public abstract class TableInfoHelper {
                 }
                 allClass = allClass.getSuperclass();
             }
-            String[] columns = new String[fieldColumn.size()];
-            Iterator<Map.Entry<String,String>> it = fieldColumn.entrySet().iterator();
-            int index = 0;
-            while(it.hasNext()){
-                columns[index++] = it.next().getValue();
-            }
-            return TableInfoCache.saveTableInfoIntoEntity(entityClass,new TableMetaInfo(table.value(), primaryKey, columns, fieldColumn,fieldTypes));
+            return TableInfoCache.saveTableInfoIntoEntity(entityClass,new TableMetaInfo(table.value(), primaryKey, fieldColumn,fieldTypes));
         } catch (Exception e) {
             log.error(e.getMessage());
         }

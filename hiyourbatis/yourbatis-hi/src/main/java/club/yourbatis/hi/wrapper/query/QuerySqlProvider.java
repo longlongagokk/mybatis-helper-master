@@ -7,14 +7,13 @@ import club.yourbatis.hi.base.Sortable;
 import club.yourbatis.hi.base.field.SelectField;
 import club.yourbatis.hi.base.meta.TableMetaInfo;
 import club.yourbatis.hi.base.param.FieldItem;
-import club.yourbatis.hi.base.param.ParamItem;
-import club.yourbatis.hi.base.param.ValueItem;
 import club.yourbatis.hi.consts.ConstValue;
 import club.yourbatis.hi.enums.ConditionType;
 import club.yourbatis.hi.util.Assert;
 import club.yourbatis.hi.util.TableInfoHelper;
 import club.yourbatis.hi.wrapper.ICountWrapper;
 import club.yourbatis.hi.wrapper.ISelectorWrapper;
+import club.yourbatis.hi.wrapper.bridge.AbsSqlProvider;
 import club.yourbatis.hi.wrapper.condition.ExchangeFieldItem;
 import club.yourbatis.hi.wrapper.condition.LinkSelectItem;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +29,7 @@ import java.util.Set;
  * 后期记得加缓存
  */
 @Slf4j
-public class QuerySqlProvider {
+public class QuerySqlProvider extends AbsSqlProvider {
 
     public String selectItemByPrimaryKey(ProviderContext context, Primary primary) {
         TableMetaInfo tableMetaInfo = TableInfoHelper.getTableInfoByProviderContext(context);
@@ -72,15 +71,11 @@ public class QuerySqlProvider {
     }
     private String select(ProviderContext context, ISelectorWrapper wrapper){
         SelectWrapper selectWrapper = (SelectWrapper)wrapper;
-        TableMetaInfo tableMetaInfo = selectWrapper.getMainTableMetaInfo();
-        if(null == tableMetaInfo){
-            tableMetaInfo = TableInfoHelper.getTableInfoByProviderContext(context);
-        }
-        selectWrapper.addAliasTable(null,tableMetaInfo);//null
-        selectWrapper.addAliasTable(ConstValue.MAIN_ALIAS,tableMetaInfo);//default
+        Map<String, TableMetaInfo> tableMetaInfoMap = checkAndReturnFromTables(context,selectWrapper);
         boolean selectOwn = selectWrapper.selectMain;
         Set<SelectField> selectFields = selectWrapper.selectItems;
         StringBuilder selectSql = new StringBuilder("select ");
+        //#region select items
         //select selectItems first
         if(!CollectionUtils.isEmpty(selectFields)){
             for(SelectField field:selectFields){
@@ -96,10 +91,10 @@ public class QuerySqlProvider {
                 ;
             }
         }
-
         //select own next
         if (selectOwn || CollectionUtils.isEmpty(selectFields)) {
-            Iterator<Map.Entry<String, String>> it = tableMetaInfo.getFieldWithColumns().entrySet().iterator();
+            TableMetaInfo mainMeta = tableMetaInfoMap.get(ConstValue.MAIN_ALIAS);
+            Iterator<Map.Entry<String, String>> it = mainMeta.getFieldWithColumns().entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry<String, String> entry = it.next();
                 selectSql
@@ -115,25 +110,16 @@ public class QuerySqlProvider {
             }
         }
         selectSql.deleteCharAt(selectSql.length() - 1);
+        //#endregion
+        selectSql.append(" from ");
+        //from tables
+        createFromTableSql(selectSql,selectWrapper);
 
-        //select other table last
+        //join infos
+        createJoinInfoSql(selectSql,selectWrapper);
 
-        selectSql.append(" from ")
-                .append(tableMetaInfo.getTableName()).append(ConstValue.BLANK)
-                .append(ConstValue.MAIN_ALIAS);
-
-
-        //join and condition
-        String joinSql = selectWrapper.getJoinerSql();
-        if(!StringUtils.isEmpty(joinSql)){
-            selectSql.append(ConstValue.BLANK);
-            selectSql.append(joinSql);
-        }
-
-        String conditionSql = selectWrapper.getConditionSql();
-        if(!StringUtils.isEmpty(conditionSql)){
-            selectSql.append(" where ").append(conditionSql);
-        }
+        //conditions
+        createWhereSql(selectSql,selectWrapper);
 
         //order
         Set<Sortable> sortItems = selectWrapper.sortItems;
@@ -142,8 +128,7 @@ public class QuerySqlProvider {
             for(Sortable s:sortItems){
                 for(Field f:s.getSortFields()){
                     selectSql
-                            .append(ExchangeFieldItem.valueOf(ConditionType.DONOTHINE,
-                                    FieldItem.valueOf(f)).createSql(selectWrapper))
+                            .append(ExchangeFieldItem.valueOf(ConditionType.DONOTHINE,FieldItem.valueOf(f)).createSql(selectWrapper))
                             .append(ConstValue.BLANK)
                             .append(s.getOrder())
                             .append(ConstValue.COMMA);
@@ -157,26 +142,18 @@ public class QuerySqlProvider {
 
     public String selectCount(ProviderContext context, ICountWrapper wrapper) {
         CountWrapper countWrapper = (CountWrapper)wrapper;
-        TableMetaInfo tableMetaInfo = countWrapper.getMainTableMetaInfo();
-        if(null == tableMetaInfo){
-            tableMetaInfo = TableInfoHelper.getTableInfoByProviderContext(context);
-        }
-        countWrapper.addAliasTable(null,tableMetaInfo);//null
-        countWrapper.addAliasTable(ConstValue.MAIN_ALIAS,tableMetaInfo);//default
+        checkAndReturnFromTables(context,countWrapper);
         StringBuilder countSql = new StringBuilder("select count(1) from ");
-        countSql.append(tableMetaInfo.getTableName())
-                .append(ConstValue.BLANK)
-                .append(ConstValue.MAIN_ALIAS)
-        ;
-        String joinSql = countWrapper.getJoinerSql();
-        if(!StringUtils.isEmpty(joinSql)){
-            countSql.append(ConstValue.BLANK);
-            countSql.append(joinSql);
-        }
-        String conditionSql = countWrapper.getConditionSql();
-        if (!StringUtils.isEmpty(conditionSql)) {
-            countSql.append(" where ").append(conditionSql);
-        }
+
+        //from tables
+        createFromTableSql(countSql,countWrapper);
+
+        //join infos
+        createJoinInfoSql(countSql,countWrapper);
+
+        //conditions
+        createWhereSql(countSql,countWrapper);
+
         return countSql.toString();
     }
 

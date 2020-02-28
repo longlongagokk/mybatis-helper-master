@@ -2,7 +2,7 @@ package club.yourbatis.hi.wrapper.factory;
 
 import club.yourbatis.hi.base.Item;
 import club.yourbatis.hi.enums.ConditionType;
-import club.yourbatis.hi.wrapper.condition.AbstractConditionWrapper;
+import club.yourbatis.hi.wrapper.bridge.AbstractConditionWrapper;
 import lombok.Getter;
 
 import java.util.Collection;
@@ -20,6 +20,6 @@ public class FlexibleConditionWrapper extends AbstractConditionWrapper<Item,Item
         for(Object item:items){
             wraps[++i] = wrapItemIfHasParam((Item)item);
         }
-        return tothemoon(type,wraps);
+        return toTheMoon(type,wraps);
     }
 }

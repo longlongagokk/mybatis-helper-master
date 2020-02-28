@@ -7,7 +7,7 @@ import lombok.Setter;
 
 public class PageInfo implements Page {
     public static final int COMMON_DEFAULT_PAGE_SIZE = 10;
-    public static final int COMMON_MAX_PAGE_SIZE = 500000;
+    public static final int COMMON_MAX_PAGE_SIZE = 50000000;
     /**
      * 每页显示条数
      */
@@ -20,12 +20,6 @@ public class PageInfo implements Page {
      * 总纪录
      */
     private int recordCount;
-    @Getter
-    @Setter
-    private String sortField;
-    @Getter
-    @Setter
-    private String sortDistanct;
 
     private PageInfo(int pageIndex, int pageSize) {
         setPageIndex(pageIndex);

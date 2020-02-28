@@ -31,7 +31,7 @@ public interface BasicService<T extends BaseEntity<T>,Q,V> {
 
 	TvPageList<V> selectPageList(SelectWrapper selectWrapper);
 
-	default SelectWrapper<String,Object,StringConditionWrapper> getCommonQueryWrapper(){return SelectWrapper.build().selectMain(true);}
+	default SelectWrapper<StringConditionWrapper> getCommonQueryWrapper(){return SelectWrapper.build().selectMain(true);}
 
 	//from xml
 	List<V> getListByBean(QueryInfo<T> query);

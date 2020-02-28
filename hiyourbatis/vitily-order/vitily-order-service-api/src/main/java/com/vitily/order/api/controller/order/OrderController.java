@@ -5,11 +5,11 @@ import club.yourbatis.hi.base.meta.FieldWithValue;
 import club.yourbatis.hi.base.meta.PageInfo;
 import club.yourbatis.hi.base.param.FieldItem;
 import club.yourbatis.hi.base.param.ParamItem;
+import club.yourbatis.hi.base.param.ValueItem;
 import club.yourbatis.hi.enums.Order;
 import club.yourbatis.hi.wrapper.query.CountWrapper;
 import club.yourbatis.hi.wrapper.query.SelectWrapper;
 import com.vitily.common.module.Result;
-import com.vitily.common.util.ClassAssociateTableInfo;
 import com.vitily.order.api.mapper.TrOrderMapper;
 import com.vitily.order.module.entity.TbOrderDetail;
 import com.vitily.order.module.entity.TbOrderForm;
@@ -29,7 +29,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("order")
@@ -51,7 +50,7 @@ public class OrderController {
         ids.add(3L);
         return Result.success(orderFormService.selectList(SelectWrapper.build()
                 .select0(SelectField.valueOf("e.memberId"))
-                .leftJoin(ClassAssociateTableInfo.valueOf(TbOrderDetail.class,"od"),od->
+                .leftJoin(TbOrderDetail.class,"od",od->
                         od
                                 .eq(FieldWithValue.valueOf("e.id", FieldItem.valueOf("od.orderId")))
                                 .eq("od.productId",300L)
@@ -90,11 +89,21 @@ public class OrderController {
                 x.eq(FieldWithValue.withParamValue("e.id",123))
                 .le(FieldWithValue.withParamValue("e.createDate",new Date()))
                 )
-                .page(new PageInfo())
-                .leftJoin(ClassAssociateTableInfo.valueOf(TbOrderForm.class,"of"),of->
-                        of.eq(FieldWithValue.valueOf("e.orderId",FieldItem.valueOf("of.id"))))
+        .page(new PageInfo())
+        .leftJoin(TbOrderForm.class,"of",of->
+                of.eq(FieldWithValue.valueOf("e.orderId",FieldItem.valueOf("of.id")))
+        )
+        .leftJoin(TbOrderForm.class,"ff",of->
+                of
+                        .eq(FieldWithValue.valueOf("e.orderId",FieldItem.valueOf("ff.id")))
+                .or(x->
+                        x.ge(FieldWithValue.valueOf("e.orderId",ParamItem.valueOf("ff.id")))
+                                .neq(FieldWithValue.valueOf("e.orderId", ValueItem.valueOf("ff.id")))
+                        )
+        )
 
-        ));
+                )
+        );
     }
     @GetMapping(value = "detail/{id}")
     public Result list(@PathVariable long id)throws Exception{
@@ -104,16 +113,17 @@ public class OrderController {
     @GetMapping(value = "tr-list")
     public Result trList()throws Exception{
         //return Result.success(orderDetailService.selectOne(new QueryWrapper<TbOrderDetail>().eq(TsOrderDetail.Fields.orderId,id)));
-        trOrderMapper.selectList(SelectWrapper.DefaultSelectWrapper.build(
-                ClassAssociateTableInfo.valueOf(TbOrderForm.class,"e")
-                )
+        trOrderMapper.selectList(SelectWrapper.DefaultSelectWrapper.build()
+                .from(TbOrderForm.class)
                 .select("e.id orderId,e.orderNo,e.memberId userName")
                         .where(x->x.eq("e.id",100))
         );
-        return Result.success(trOrderMapper.selectCount(CountWrapper.build(
-                ClassAssociateTableInfo.valueOf(TbOrderForm.class,"e")
-                )
+        return Result.success(trOrderMapper.selectCount(CountWrapper.build()
+                .from(TbOrderForm.class)
+                .from(TbOrderDetail.class,"od")
                 .where(x->x.eq("e.id",100))
+                .where(x->x.eq("od.id",330))
+                .where(x->x.eq(FieldWithValue.valueOf("od.orderId",FieldItem.valueOf("e.id"))))
         ));
     }
 }

@@ -3,7 +3,7 @@ package club.yourbatis.hi.wrapper.factory;
 import club.yourbatis.hi.base.Item;
 import club.yourbatis.hi.base.param.FieldItem;
 import club.yourbatis.hi.enums.ConditionType;
-import club.yourbatis.hi.wrapper.condition.AbstractConditionWrapper;
+import club.yourbatis.hi.wrapper.bridge.AbstractConditionWrapper;
 
 import java.util.Collection;
 
@@ -22,6 +22,6 @@ public class EnumConditionWrapper extends AbstractConditionWrapper<Enum, Object,
         for (Object obj : rights) {
             wraps[++i] = wrapParamByValue(obj);
         }
-        return tothemoon(type, wraps);
+        return toTheMoon(type, wraps);
     }
 }
