@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/hiyourbatis.iml" filepath="$PROJECT_DIR$/hiyourbatis.iml" />
       <module fileurl="file://$PROJECT_DIR$/mybatis-generator/mybatis-generator.iml" filepath="$PROJECT_DIR$/mybatis-generator/mybatis-generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/vitily.iml" filepath="$PROJECT_DIR$/vitily.iml" />
       <module fileurl="file://$PROJECT_DIR$/vitily-order/vitily-order.iml" filepath="$PROJECT_DIR$/vitily-order/vitily-order.iml" />

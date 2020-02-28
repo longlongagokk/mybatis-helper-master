@@ -1,5 +1,6 @@
 package com.vitily.order.api.controller.order;
 
+import club.yourbatis.hi.base.field.OrderField;
 import club.yourbatis.hi.base.field.SelectField;
 import club.yourbatis.hi.base.meta.FieldWithValue;
 import club.yourbatis.hi.base.meta.PageInfo;
@@ -76,7 +77,7 @@ public class OrderController {
                                         )
                                 )
                         )
-                        .orderBy(Order.DESC, SelectField.valueOf("e.payWayId")
+                        .orderBy(Order.DESC, OrderField.valueOf("e.payWayId")
                         )
                         .page(PageInfo.valueOf(1,4))
                 )
@@ -90,6 +91,7 @@ public class OrderController {
                 .le(FieldWithValue.withParamValue("e.createDate",new Date()))
                 )
         .page(new PageInfo())
+                .orderBy(Order.DESC,"e.id")
         .leftJoin(TbOrderForm.class,"of",of->
                 of.eq(FieldWithValue.valueOf("e.orderId",FieldItem.valueOf("of.id")))
         )

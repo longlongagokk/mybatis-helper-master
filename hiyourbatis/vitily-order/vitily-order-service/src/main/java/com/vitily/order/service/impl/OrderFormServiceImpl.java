@@ -1,6 +1,7 @@
 package com.vitily.order.service.impl;
 
 import club.yourbatis.hi.base.Item;
+import club.yourbatis.hi.base.field.OrderField;
 import club.yourbatis.hi.base.field.SelectField;
 import club.yourbatis.hi.base.field.SimpleField;
 import club.yourbatis.hi.base.meta.FieldWithValue;
@@ -203,10 +204,10 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TqOrderF
 //				)
 						.orderBy(Order.DESC,"e.id,e.payWayName")
 						.orderBy(Order.DESC,"e.area")
-						.orderBy(Order.ASC,SimpleField.valueOf(TsOrderForm.Fields.deliveryId.name()),SimpleField.valueOf(TsOrderForm.Fields.deliveryId.name()))
+						.orderBy(Order.ASC, OrderField.valueOf("deliveryId"),OrderField.valueOf(TsOrderForm.Fields.deliveryId.name()))
 						.orderBy(Order.DESC,TsOrderForm.Fields.deliveryId.name())
-						.orderBy(Order.ASC, SimpleField.valueOf("e.updateDate")
-								, SimpleField.valueOf("e.sendDate")
+						.orderBy(Order.ASC, OrderField.valueOf("e.updateDate")
+								, OrderField.valueOf("e.sendDate")
 						)
 						.page(PageInfo.valueOf(30))
 						.where(x->x

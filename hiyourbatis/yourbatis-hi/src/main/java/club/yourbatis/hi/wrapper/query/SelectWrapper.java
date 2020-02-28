@@ -1,10 +1,9 @@
 package club.yourbatis.hi.wrapper.query;
 
-import club.yourbatis.hi.base.Field;
 import club.yourbatis.hi.base.Page;
 import club.yourbatis.hi.base.Sortable;
+import club.yourbatis.hi.base.field.OrderField;
 import club.yourbatis.hi.base.field.SelectField;
-import club.yourbatis.hi.base.field.SimpleField;
 import club.yourbatis.hi.base.meta.Sorter;
 import club.yourbatis.hi.enums.Order;
 import club.yourbatis.hi.wrapper.IOrder;
@@ -87,7 +86,7 @@ public class SelectWrapper<C extends AbstractConditionWrapper>
     }
 
     @Override
-    public SelectWrapper<C> orderBy(Order order, Field ...fields){
+    public SelectWrapper<C> orderBy(Order order, OrderField...fields){
         this.sortItems.add(Sorter.valueOf(order,fields));
         return this;
     }
@@ -97,9 +96,9 @@ public class SelectWrapper<C extends AbstractConditionWrapper>
             return this;
         }
         String[] fstr = strings.split(",");
-        Field[] fields = new Field[fstr.length];
+        OrderField[] fields = new OrderField[fstr.length];
         for(int i = 0;i<fields.length;++i){
-            fields[i] = SimpleField.valueOf(fstr[i]);
+            fields[i] = OrderField.valueOf(fstr[i]);
         }
         return orderBy(order,fields);
     }

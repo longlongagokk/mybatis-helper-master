@@ -42,7 +42,6 @@ public class PageInfo implements Page {
         return this.pageSize;
     }
 
-    @Override
     public void setPageSize(int pageSize) {
         if(pageSize > 0 && pageSize <= COMMON_MAX_PAGE_SIZE){
             this.pageSize = pageSize;
@@ -53,23 +52,19 @@ public class PageInfo implements Page {
         return this.pageIndex;
     }
 
-    @Override
     public void setPageIndex(int pageIndex) {
         if(pageIndex > 0 && pageIndex <= COMMON_MAX_PAGE_SIZE)
             this.pageIndex = pageIndex;
     }
 
-    @Override
     public int getRecordCount() {
         return this.recordCount;
     }
 
-    @Override
     public void setRecordCount(int recordCount) {
         this.recordCount = recordCount;
     }
 
-    @Override
     public int getStep() {
         //mysql
         return (getPageIndex() - 1)*getPageSize();

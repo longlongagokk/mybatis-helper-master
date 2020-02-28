@@ -3,7 +3,9 @@
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://D:/java_server/hi-yourbatis-server/dev/vitily-order/webapps/1.0.5" />
     <output-test url="file://D:/java_server/hi-yourbatis-server/dev/vitily-order/webapps/1.0.5/test-classes" />
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.12" level="project" />
