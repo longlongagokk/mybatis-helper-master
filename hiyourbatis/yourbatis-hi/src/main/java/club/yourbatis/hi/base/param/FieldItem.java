@@ -2,10 +2,14 @@ package club.yourbatis.hi.base.param;
 
 import club.yourbatis.hi.base.Field;
 import club.yourbatis.hi.base.Item;
+import club.yourbatis.hi.base.field.CompareField;
+import club.yourbatis.hi.consts.ConstValue;
 import club.yourbatis.hi.enums.ItemType;
-import club.yourbatis.hi.base.field.SimpleField;
 import lombok.Getter;
 
+/**
+ * 字段参数
+ */
 @Getter
 public class FieldItem implements Item<Field> {
     private Field value;
@@ -18,10 +22,10 @@ public class FieldItem implements Item<Field> {
         return new FieldItem(field);
     }
     public static FieldItem valueOf(String fullName) {
-        return valueOf(SimpleField.valueOf(fullName));
+        return valueOf(CompareField.valueOf(fullName));
     }
-    public static FieldItem valueOf(String alase,Enum em) {
-        return valueOf(SimpleField.valueOf(alase,em));
+    public static FieldItem valueOf(String alias,Enum em) {
+        return valueOf(CompareField.valueOf(alias + ConstValue.DOT + em.name(),false));
     }
 
     @Override

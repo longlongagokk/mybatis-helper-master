@@ -1,8 +1,8 @@
 package com.vitily.order.module.entity;
 
-import com.vitily.common.module.BaseEntity;
 import club.yourbatis.hi.annotation.Column;
 import club.yourbatis.hi.annotation.Table;
+import com.vitily.common.module.BaseEntity;
 import java.math.BigDecimal;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -10,10 +10,10 @@ import lombok.experimental.Accessors;
 /**
  * @description : 订单详情
  * @author      : Administrator
- * @createDate  : 2020-01-03
+ * @createDate  : 2020-02-29
  */
 @Table("`tb_order_detail`")
-@Data
+@Data()
 @Accessors(chain = true)
 public class TbOrderDetail extends BaseEntity<TbOrderDetail> {
     /**

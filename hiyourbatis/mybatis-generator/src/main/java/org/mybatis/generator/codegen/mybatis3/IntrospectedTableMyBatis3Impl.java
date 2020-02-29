@@ -76,15 +76,21 @@ public class IntrospectedTableMyBatis3Impl extends IntrospectedTable {
         calculateJavaModelGenerators(warnings, progressCallback);
 
         //calculetaJavaQueryModels
-        AbstractJavaQueryGenerator javaQueryGenerator = calculateJavaQueryModelGenerators(warnings,progressCallback);
-        AbstractJavaRequestGenerator javaRequestGenerator = calculateJavaRequestModelGenerators(warnings,progressCallback);
+        if(tableConfiguration.getQueryModelObjectName() != null) {
+            AbstractJavaQueryGenerator javaQueryGenerator = calculateJavaQueryModelGenerators(warnings, progressCallback);
+        }
+        if(tableConfiguration.getRequestModelObjectName() != null) {
+            AbstractJavaRequestGenerator javaRequestGenerator = calculateJavaRequestModelGenerators(warnings, progressCallback);
+        }
         //calculateJavaViewModels
-        AbstractJavaViewGenerator javaViewGenerator = calculateJavaViewModelGenerators(warnings,progressCallback);
+        if(tableConfiguration.getViewModelObjectName() != null) {
+            AbstractJavaViewGenerator javaViewGenerator = calculateJavaViewModelGenerators(warnings, progressCallback);
+        }
         
         AbstractJavaClientGenerator javaClientGenerator = calculateClientGenerators(warnings, progressCallback);
 
         //service
-        AbstractJavaServiceGenerator serviceGenerator = calculateServiceGenerators(warnings,progressCallback);
+            AbstractJavaServiceGenerator serviceGenerator = calculateServiceGenerators(warnings, progressCallback);
 
         //serviceimpl
         AbstractJavaServiceImplGenerator serviceImplGenerator = calculateServiceImplGenerators(warnings,progressCallback);
@@ -227,7 +233,8 @@ public class IntrospectedTableMyBatis3Impl extends IntrospectedTable {
     }
 
     protected AbstractJavaQueryGenerator calculateJavaQueryModelGenerators(List<String> warnings, ProgressCallback progressCallback) {
-        if (context.getJavaQueryModelGeneratorConfiguration() == null) {
+        if (context.getJavaQueryModelGeneratorConfiguration() == null
+        ) {
             return null;
         }
 

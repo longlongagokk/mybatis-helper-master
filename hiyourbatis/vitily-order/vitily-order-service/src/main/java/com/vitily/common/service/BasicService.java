@@ -14,8 +14,8 @@ import com.vitily.common.module.TvPageList;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public interface BasicService<T extends BaseEntity<T>,Q,V> {
-	int insert(Q req);
+public interface BasicService<T extends BaseEntity<T>,V> {
+	int insert(T req);
 	int insertSelective(T entity);
 	int deleteByPrimaryKey(Primary primary);
 	int delete(IDeleteWrapper wrapper);
@@ -24,7 +24,7 @@ public interface BasicService<T extends BaseEntity<T>,Q,V> {
 	List<T> selectList(ISelectorWrapper wrapper);
 	List<V> selectListV(ISelectorWrapper wrapper);
 	int selectCount(ICountWrapper wrapper);
-	int updateByPrimary(Q req);
+	int updateByPrimary(T req);
 	int updateSelectiveByPrimaryKey(T entity);
 	int updateSelectItem(IUpdateWrapper wrapper);
 

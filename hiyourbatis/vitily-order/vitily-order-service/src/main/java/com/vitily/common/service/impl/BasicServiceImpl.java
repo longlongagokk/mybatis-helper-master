@@ -3,17 +3,14 @@ package com.vitily.common.service.impl;
 import club.yourbatis.hi.base.Page;
 import club.yourbatis.hi.base.Primary;
 import club.yourbatis.hi.base.meta.PageInfo;
-import club.yourbatis.hi.mapper.BasicMapper;
 import club.yourbatis.hi.wrapper.ICountWrapper;
 import club.yourbatis.hi.wrapper.IDeleteWrapper;
 import club.yourbatis.hi.wrapper.ISelectorWrapper;
 import club.yourbatis.hi.wrapper.IUpdateWrapper;
-import club.yourbatis.hi.wrapper.factory.StringConditionWrapper;
 import club.yourbatis.hi.wrapper.query.CountWrapper;
 import club.yourbatis.hi.wrapper.query.SelectWrapper;
 import com.vitily.common.mapper.CommonBasicMapper;
 import com.vitily.common.module.BaseEntity;
-import com.vitily.common.module.BaseRequest;
 import com.vitily.common.module.QueryInfo;
 import com.vitily.common.module.TvPageList;
 import com.vitily.common.service.BasicService;
@@ -23,23 +20,23 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
-public abstract class BasicServiceImpl<T extends BaseEntity<T>,Q extends BaseRequest<T,Q>, V extends T,M extends CommonBasicMapper<T,V> >
-		implements BasicService<T,Q,V> {
+public abstract class BasicServiceImpl<T extends BaseEntity<T>, V extends T,M extends CommonBasicMapper<T,V> >
+		implements BasicService<T,V> {
 	@Autowired(required = false)
 	protected M mapper;
 
-	protected void beforeInsert(Q req){}
-	protected void afterInsert(Q req){}
+	protected void beforeInsert(T entity){}
+	protected void afterInsert(T entity){}
 	@Override
 	@Transactional
-	public int insert(Q req){
-		beforeInsert(req);
+	public int insert(T entity){
+		beforeInsert(entity);
 		Date now=new Date();
-		req.getEntity().setCreateDate(now);
-		req.getEntity().setDeltag(false);
-		int res = insertSelective(req.getEntity());
+		entity.setCreateDate(now);
+		entity.setDeltag(false);
+		int res = insertSelective(entity);
 		if(res > 0) {
-			afterInsert(req);
+			afterInsert(entity);
 		}
 		return res;
 	}
@@ -78,16 +75,16 @@ public abstract class BasicServiceImpl<T extends BaseEntity<T>,Q extends BaseReq
 	public int selectCount(ICountWrapper wrapper){
 		return mapper.selectCount(wrapper);
 	}
-	protected void beforeUpdate(Q req){}
-	protected void afterUpdate(Q req){}
+	protected void beforeUpdate(T entity){}
+	protected void afterUpdate(T entity){}
 	@Override
 	@Transactional
-	public int updateByPrimary(Q req){
-		beforeUpdate(req);
-		req.getEntity().setUpdateDate(new Date());
-		int res = updateSelectiveByPrimaryKey(req.getEntity());
+	public int updateByPrimary(T entity){
+		beforeUpdate(entity);
+		entity.setUpdateDate(new Date());
+		int res = updateSelectiveByPrimaryKey(entity);
 		if(res > 0) {
-			afterUpdate(req);
+			afterUpdate(entity);
 		}
 		return res;
 	}

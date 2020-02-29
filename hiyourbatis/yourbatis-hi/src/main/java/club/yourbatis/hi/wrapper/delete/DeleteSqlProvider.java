@@ -21,7 +21,7 @@ public class DeleteSqlProvider extends AbsSqlProvider {
         return new StringBuilder("delete from ")
                 .append(tableMetaInfo.getTableName())
                 .append(" where ")
-                .append(tableMetaInfo.getPrimary().getName())
+                .append(tableMetaInfo.getPrimary())
                 .append(" = #{value}")
                 .toString();
     }

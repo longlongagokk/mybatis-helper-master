@@ -50,7 +50,6 @@ public class JavaServiceImplGenerator extends AbstractJavaServiceImplGenerator{
             rootInterface = rootInterface.replace("#l","<");
             rootInterface = rootInterface.replace("#r",">");
             rootInterface = rootInterface.replace("$T",introspectedTable.getBaseRecordType());
-            rootInterface = rootInterface.replace("$Q",introspectedTable.getBaseRequestModelType());
             rootInterface = rootInterface.replace("$V",introspectedTable.getBaseViewModelType());
             rootInterface = rootInterface.replace("$M",introspectedTable.getMyBatis3JavaMapperType());
             FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType(rootInterface);
@@ -61,7 +60,7 @@ public class JavaServiceImplGenerator extends AbstractJavaServiceImplGenerator{
             //有继承不需要再进行编写了
         }
         classes.addImportedType(new FullyQualifiedJavaType("org.springframework.stereotype.Service"));
-        classes.addAnnotation("@Component");
+        classes.addAnnotation("@Service");
         //impl service
         FullyQualifiedJavaType serviceType = new FullyQualifiedJavaType(introspectedTable.getJavaServiceType());
         classes.addImportedType(serviceType);

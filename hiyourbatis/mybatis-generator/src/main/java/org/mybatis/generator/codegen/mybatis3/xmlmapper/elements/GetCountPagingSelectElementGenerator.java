@@ -24,7 +24,7 @@ public class GetCountPagingSelectElementGenerator extends AbstractXmlElementGene
         answer.addAttribute(new Attribute("id", introspectedTable.getGetCountPageSelectId())); //$NON-NLS-1$
         answer.addAttribute(new Attribute("resultType","java.lang.Integer"));
 
-        FullyQualifiedJavaType parameterType = new FullyQualifiedJavaType(introspectedTable.getBaseQueryModelType());
+        FullyQualifiedJavaType parameterType = new FullyQualifiedJavaType("com.vitily.common.module.QueryInfo");
         answer.addAttribute(new Attribute("parameterType",parameterType.getFullyQualifiedName()));
 
         context.getCommentGenerator().addComment(answer);

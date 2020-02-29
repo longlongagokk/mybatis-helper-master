@@ -1,6 +1,5 @@
 package club.yourbatis.hi.base.meta;
 
-import club.yourbatis.hi.base.Field;
 import lombok.Getter;
 
 import java.util.Map;
@@ -11,10 +10,10 @@ public class TableMetaInfo {
     /**
      * the primary info
      */
-    private Field primary;
+    private String primary;
     private Map<String, String> fieldWithColumns;
     private Map<String, Class<?>> fieldWithTypes;
-    public TableMetaInfo(String tableName, Field primary
+    public TableMetaInfo(String tableName, String primary
             , Map<String, String> fieldWithColumns
             , Map<String, Class<?>> fieldWithTypes
     ){

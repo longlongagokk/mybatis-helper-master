@@ -9,10 +9,10 @@ import club.yourbatis.hi.enums.ItemType;
 import club.yourbatis.hi.util.LinkStack;
 import club.yourbatis.hi.wrapper.IConditioner;
 import club.yourbatis.hi.wrapper.IWrapper;
-import club.yourbatis.hi.wrapper.condition.BetweenConditionItem;
-import club.yourbatis.hi.wrapper.condition.InsConditionItem;
-import club.yourbatis.hi.wrapper.ILinkItem;
-import club.yourbatis.hi.wrapper.condition.SimpleConditionItem;
+import club.yourbatis.hi.wrapper.seg.BetweenConditionSeg;
+import club.yourbatis.hi.wrapper.seg.InsConditionSeg;
+import club.yourbatis.hi.wrapper.ISqlSegment;
+import club.yourbatis.hi.wrapper.seg.SimpleConditionSeg;
 import club.yourbatis.hi.wrapper.factory.EnumConditionWrapper;
 import club.yourbatis.hi.wrapper.factory.FlexibleConditionWrapper;
 import club.yourbatis.hi.wrapper.factory.StringConditionWrapper;
@@ -28,7 +28,7 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
 
     protected String paramAlias;
     protected List<Item> params;
-    protected List<ILinkItem> fields;
+    protected List<ISqlSegment> fields;
     protected LinkStack<ConditionType> closure;
     private volatile boolean barrier;
     private boolean sqlCreated;
@@ -67,7 +67,7 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
             return where.toString();
         }
         sqlCreated = true;
-        for(ILinkItem e:fields){
+        for(ISqlSegment e:fields){
             where.append(e.createSql(caller));
         }
         return where.toString();
@@ -173,12 +173,12 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
             case LIKE:
             case ISNULL:
             case NOTNULL:
-                addElement(SimpleConditionItem.valueOf(type,items));
+                addElement(SimpleConditionSeg.valueOf(type,items));
                 break;
             case IN:
             case NOTIN:
                 if(items.length > 1) {
-                    addElement(InsConditionItem.valueOf(type, items));
+                    addElement(InsConditionSeg.valueOf(type, items));
                 }
                 break;
             case OR:
@@ -188,7 +188,7 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
             case RIGHTWRAPPER:
                 break;
             case BETWEEN:
-                addElement(BetweenConditionItem.valueOf(items));
+                addElement(BetweenConditionSeg.valueOf(items));
                 break;
         }
         return (S)this;
@@ -222,7 +222,7 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
         return (S)this;
     }
 
-    private void addElement(ILinkItem element){
+    private void addElement(ISqlSegment element){
         if(barrier){
             barrier = false;
         }else{

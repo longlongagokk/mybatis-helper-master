@@ -52,7 +52,6 @@ public class JavaServiceGenerator extends AbstractJavaServiceGenerator {
             rootInterface = rootInterface.replace("#l","<");
             rootInterface = rootInterface.replace("#r",">");
             rootInterface = rootInterface.replace("$T",introspectedTable.getBaseRecordType());
-            rootInterface = rootInterface.replace("$Q",introspectedTable.getBaseRequestModelType());
             rootInterface = rootInterface.replace("$V",introspectedTable.getBaseViewModelType());
             FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType(rootInterface);
             interfaze.addSuperInterface(fqjt);

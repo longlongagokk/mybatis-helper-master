@@ -1,48 +1,43 @@
 package club.yourbatis.hi.base.field;
 
 import club.yourbatis.hi.consts.ConstValue;
+import club.yourbatis.hi.util.StringUtils;
+import lombok.Getter;
 
-public class SelectField extends SimpleField {
-    private String originalInfo;
-    private boolean original;
-    /**
-     * column's alias
-     */
+@Getter
+public class SelectField extends AbsField {
     private String columnAlias;
-    public SelectField(String fullInfo, boolean original){
-        super();
-        //use original sql
+    private String fullPath;
+    private SelectField(String alias, String name,String columnAlias,boolean original) {
+        super(alias,name,original);
+        this.columnAlias = columnAlias;
+        if(!original){
+            fullPath = getFullName() + ConstValue.BLANK + ConstValue.BACKTRICKS + this.columnAlias + ConstValue.BACKTRICKS;
+        }
+    }
+    private SelectField(String fullInfo, boolean original){
         this.original = original;
         if(original){
-            this.originalInfo = fullInfo;
-            super.fullName = fullInfo;
+            this.fullPath = fullInfo.trim();
             return;
         }
 
-
-        int dotIndex = fullInfo.indexOf(ConstValue.DOT);
-        if(dotIndex == -1){
-            this.name = fullInfo.trim();
+        fullInfo = fullInfo.trim();
+        int blankIndex = fullInfo.indexOf(ConstValue.BLANK);
+        if(blankIndex != -1){
+            this.fullName = fullInfo.substring(0,blankIndex);
+            this.columnAlias = fullInfo.substring(blankIndex+1).trim();
+            if(!StringUtils.isNormalSql(this.columnAlias)){
+                this.columnAlias = null;
+            }
         }else{
-            this.alias = fullInfo.substring(0,dotIndex).trim();
-            this.name = fullInfo.substring(dotIndex+1).trim();
-        }
-
-        //end table alias，set columnAlias
-        int bkIndex = this.name.indexOf(ConstValue.BLANK);
-        if(bkIndex != -1){
-            this.columnAlias = this.name.substring(bkIndex + 1).trim();
-            this.name = this.name.substring(0,bkIndex).trim();
-
-            this.fullName = dotIndex != -1 ? this.alias + ConstValue.DOT + this.name : this.name;
-        }else{
-            this.columnAlias = this.name;
             this.fullName = fullInfo;
         }
-
-    }
-    public SelectField(String itemWithAlias){
-        this(itemWithAlias,false);
+        //fullName not with columnAlias
+        setNameAndAlias(this.fullName);
+        if(this.columnAlias == null){
+            this.columnAlias = this.name;
+        }
     }
     public static SelectField valueOf(String itemWithAlias, boolean original){
         return new SelectField(itemWithAlias,original);
@@ -50,54 +45,51 @@ public class SelectField extends SimpleField {
     public static SelectField valueOf(String itemWithAlias){
         return valueOf(itemWithAlias,false);
     }
+    public static SelectField valueOf(String alias,String name,String columnAlias,boolean original){
+        return new SelectField(alias,name,columnAlias,original);
+    }
     public static SelectField valueOf(String alias, Enum item){
-        return valueOf(alias + "." + item,false);
-    }
-    public String getOriginalInfo() {
-        return originalInfo;
+            return valueOf(alias,item.name(),item.name(),false);
     }
 
-    public boolean isOriginal() {
-        return original;
+    @Override
+    public String getFullPath() {
+        return fullPath;
     }
 
-    public String getColumnAlias() {
-        return columnAlias;
-    }
     @Override
     public String toString(){
         return "alias="+this.getAlias() + ",name=" + this.getName()
                 + ",fullName=" + this.getFullName()
-                + ",columnAlias=" + this.getColumnAlias()
-                + ",originalInfo="+ this.getOriginalInfo();
+                + ",columnAlias=" + this.getColumnAlias();
     }
 //    public static void main(String[] args){
-//        System.out.println(valueOf("id"));
-//        System.out.println(valueOf("id  "));
-//        System.out.println(valueOf("  id"));
-//        System.out.println(valueOf("  id   "));
+//        boolean iso = false;
+//        System.out.println(valueOf("id",iso));
+//        System.out.println(valueOf("id  ",iso));
+//        System.out.println(valueOf("  id",iso));
+//        System.out.println(valueOf("  id   ",iso));
 //
 //        System.out.println(("------------------------------------------------"));
 //
-//        System.out.println(valueOf("a.id"));
-//        System.out.println(valueOf("a.id   "));
-//        System.out.println(valueOf("   a.id"));
-//        System.out.println(valueOf("   a.id   "));
+//        System.out.println(valueOf("a.id",iso));
+//        System.out.println(valueOf("a.id   ",iso));
+//        System.out.println(valueOf("   a.id",iso));
+//        System.out.println(valueOf("   a.id   ",iso));
 //
 //        System.out.println(("------------------------------------------------"));
 //
 //
-//        System.out.println(valueOf("a.id    cxk"));
-//        System.out.println(valueOf("a.id    cxk   "));
-//        System.out.println(valueOf("   a.id    cxk"));
-//        System.out.println(valueOf("   a.id    cxk   "));
+//        System.out.println(valueOf("a.id    cxk",iso));
+//        System.out.println(valueOf("a.id    cxk   ",iso));
+//        System.out.println(valueOf("   a.id    cxk",iso));
+//        System.out.println(valueOf("   a.id    cxk   ",iso));
 //
 //        System.out.println(("------------------------------------------------"));
 //
-//        System.out.println(valueOf("id    cxk"));
-//        System.out.println(valueOf("id    cxk    "));
-//        System.out.println(valueOf("    id    cxk"));
-//        System.out.println(valueOf("    id    cxk    "));
+//        System.out.println(valueOf("id    cxk",iso));
+//        System.out.println(valueOf("id    cxk    ",iso));
+//        System.out.println(valueOf("    id    cxk",iso));
 //
 //    }
 }

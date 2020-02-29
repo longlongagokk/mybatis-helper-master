@@ -511,9 +511,15 @@ public abstract class IntrospectedTable {
         calculateJavaServiceImplAttributes();
         calculateJavaConsoleControllerAttributes();
         calculateModelAttributes();
-        calculateQueryModelAttribute();
-        calculateRequestModelAttribute();
-        calculateViewModelAttribute();
+        if(tableConfiguration.getQueryModelObjectName() != null) {
+            calculateQueryModelAttribute();
+        }
+        if(tableConfiguration.getRequestModelObjectName() != null) {
+            calculateRequestModelAttribute();
+        }
+        if(tableConfiguration.getViewModelObjectName() != null) {
+            calculateViewModelAttribute();
+        }
         calculateXmlAttributes();
 
         if (tableConfiguration.getModelType() == ModelType.HIERARCHICAL) {

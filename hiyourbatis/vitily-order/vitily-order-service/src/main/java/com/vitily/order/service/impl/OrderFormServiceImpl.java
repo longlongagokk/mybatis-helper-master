@@ -1,15 +1,14 @@
 package com.vitily.order.service.impl;
 
 import club.yourbatis.hi.base.Item;
+import club.yourbatis.hi.base.field.CompareField;
 import club.yourbatis.hi.base.field.OrderField;
 import club.yourbatis.hi.base.field.SelectField;
-import club.yourbatis.hi.base.field.SimpleField;
 import club.yourbatis.hi.base.meta.FieldWithValue;
 import club.yourbatis.hi.base.meta.PageInfo;
 import club.yourbatis.hi.base.param.FieldItem;
 import club.yourbatis.hi.base.param.ParamItem;
 import club.yourbatis.hi.base.param.ValueItem;
-import club.yourbatis.hi.enums.Order;
 import club.yourbatis.hi.wrapper.delete.DeleteWrapper;
 import club.yourbatis.hi.wrapper.factory.EnumConditionWrapper;
 import club.yourbatis.hi.wrapper.factory.StringConditionWrapper;
@@ -22,7 +21,6 @@ import com.vitily.order.mapper.OrderFormMapper;
 import com.vitily.order.module.entity.TbOrderDetail;
 import com.vitily.order.module.entity.TbOrderForm;
 import com.vitily.order.module.query.TsOrderForm;
-import com.vitily.order.module.request.TqOrderForm;
 import com.vitily.order.module.view.TvOrderForm;
 import com.vitily.order.service.OrderFormService;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +33,7 @@ import java.util.List;
 
 @Component
 @Slf4j
-public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TqOrderForm,TvOrderForm,OrderFormMapper> implements OrderFormService {
+public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderForm,OrderFormMapper> implements OrderFormService {
 
 	/**
 	 * nested
@@ -150,8 +148,8 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TqOrderF
 						.leftJoin(TbOrderDetail.class,"d", x->
 										x.f()
 										.eq(
-												FieldItem.valueOf(SimpleField.valueOf("e.id")),
-												FieldItem.valueOf(SimpleField.valueOf("d.orderId"))
+												FieldItem.valueOf(CompareField.valueOf("e.id")),
+												FieldItem.valueOf(CompareField.valueOf("d.orderId"))
 										).eq(
 												FieldItem.valueOf("e.id"),
 												FieldItem.valueOf("e.payState")
@@ -202,11 +200,11 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TqOrderF
 //										)
 //								)
 //				)
-						.orderBy(Order.DESC,"e.id,e.payWayName")
-						.orderBy(Order.DESC,"e.area")
-						.orderBy(Order.ASC, OrderField.valueOf("deliveryId"),OrderField.valueOf(TsOrderForm.Fields.deliveryId.name()))
-						.orderBy(Order.DESC,TsOrderForm.Fields.deliveryId.name())
-						.orderBy(Order.ASC, OrderField.valueOf("e.updateDate")
+						.orderBy("e.id desc,e.payWayName asc")
+						.orderBy("e.area")
+						.orderBy( OrderField.valueOf("deliveryId"),OrderField.valueOf(TsOrderForm.Fields.deliveryId.name()))
+						.orderBy(TsOrderForm.Fields.deliveryId.name())
+						.orderBy(OrderField.valueOf("e.updateDate")
 								, OrderField.valueOf("e.sendDate")
 						)
 						.page(PageInfo.valueOf(30))
@@ -423,22 +421,22 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TqOrderF
 //										.between("x.productId",100,200)
 //										.e()
 //										.between(TsOrderForm.Fields.orderNo,999,888)
-//										.f()
-//										.between(
-//												FieldItem.valueOf("x.id"),
-//												FieldItem.valueOf("x.id"),
-//												FieldItem.valueOf("x.id")
-//												)
-//										.between(
-//												ValueItem.valueOf("x.id"),
-//												ParamItem.valueOf("666"),
-//												ParamItem.valueOf("777")
-//										)
-//										.between(
-//												ParamItem.valueOf("x.id"),
-//												ValueItem.valueOf("666"),
-//												ParamItem.valueOf("777")
-//										)
+										.f()
+										.between(
+												FieldItem.valueOf("x.id"),
+												FieldItem.valueOf("x.id"),
+												FieldItem.valueOf("x.id")
+												)
+										.between(
+												ValueItem.valueOf("800"),
+												ParamItem.valueOf("666"),
+												ParamItem.valueOf("777")
+										)
+										.between(
+												ParamItem.valueOf("x.id"),
+												ValueItem.valueOf("666"),
+												ParamItem.valueOf("777")
+										)
 //										.d()
 //								.eq(FieldWithValue.withOriginalValue("x.productId",34))
 //								.eq(FieldWithValue.withParamValue("e.id",88))

@@ -4,6 +4,10 @@ import club.yourbatis.hi.base.Item;
 import club.yourbatis.hi.enums.ItemType;
 import lombok.Getter;
 
+/**
+ * 预编译参数
+ * @param <T>
+ */
 @Getter
 public class ParamItem<T> implements Item<T> {
     private T value;

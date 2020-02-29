@@ -89,7 +89,6 @@ public class JavaMapperGenerator extends AbstractJavaClientGenerator {
                 _ri = _ri.replace("#l", "<");
                 _ri = _ri.replace("#r", ">");
                 _ri = _ri.replace("$T", introspectedTable.getBaseRecordType());
-                _ri = _ri.replace("$S", introspectedTable.getBaseQueryModelType());
                 _ri = _ri.replace("$V", introspectedTable.getBaseViewModelType());
                 FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType(_ri);
                 interfaze.addSuperInterface(fqjt);

@@ -10,7 +10,9 @@ import club.yourbatis.hi.base.param.ValueItem;
 import club.yourbatis.hi.enums.Order;
 import club.yourbatis.hi.wrapper.query.CountWrapper;
 import club.yourbatis.hi.wrapper.query.SelectWrapper;
+import com.vitily.common.module.BaseRequest;
 import com.vitily.common.module.Result;
+import com.vitily.order.api.entity.BaseReq;
 import com.vitily.order.api.mapper.TrOrderMapper;
 import com.vitily.order.module.entity.TbOrderDetail;
 import com.vitily.order.module.entity.TbOrderForm;
@@ -19,10 +21,7 @@ import com.vitily.order.service.OrderDetailService;
 import com.vitily.order.service.OrderFormService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -77,7 +76,7 @@ public class OrderController {
                                         )
                                 )
                         )
-                        .orderBy(Order.DESC, OrderField.valueOf("e.payWayId")
+                        .orderBy(OrderField.valueOf("e.payWayId")
                         )
                         .page(PageInfo.valueOf(1,4))
                 )
@@ -86,12 +85,31 @@ public class OrderController {
     @GetMapping(value = "detail-list")
     public Result detailList(HttpServletRequest request, HttpServletResponse response)throws Exception{
         return Result.success(orderDetailService.selectPageList(SelectWrapper.build()
+                .select("e.id,e.orderId orderId,e.id bid")
+                .select0(
+                        SelectField.valueOf("e.id"),
+                        SelectField.valueOf("e.id id0"),
+                        SelectField.valueOf("e.order_id",true),
+                        SelectField.valueOf("e.order_id kbs",true)
+                )
         .where(x->
                 x.eq(FieldWithValue.withParamValue("e.id",123))
                 .le(FieldWithValue.withParamValue("e.createDate",new Date()))
                 )
         .page(new PageInfo())
-                .orderBy(Order.DESC,"e.id")
+                .orderBy("e.id,e.orderId,of.memberId desc")
+                .orderBy(
+                        OrderField.valueOf("of.create_date",true)
+                        ,
+                        OrderField.valueOf("of.create_date asc",true)
+                        ,
+                        OrderField.valueOf("of.create_date desc",true)
+                        ,
+                        OrderField.valueOf("of.createDate",false)
+                        ,
+                        OrderField.valueOf("of.updateDate",Order.DESC)
+
+                )
         .leftJoin(TbOrderForm.class,"of",of->
                 of.eq(FieldWithValue.valueOf("e.orderId",FieldItem.valueOf("of.id")))
         )

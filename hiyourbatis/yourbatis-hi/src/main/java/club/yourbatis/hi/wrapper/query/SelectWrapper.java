@@ -1,11 +1,8 @@
 package club.yourbatis.hi.wrapper.query;
 
 import club.yourbatis.hi.base.Page;
-import club.yourbatis.hi.base.Sortable;
 import club.yourbatis.hi.base.field.OrderField;
 import club.yourbatis.hi.base.field.SelectField;
-import club.yourbatis.hi.base.meta.Sorter;
-import club.yourbatis.hi.enums.Order;
 import club.yourbatis.hi.wrapper.IOrder;
 import club.yourbatis.hi.wrapper.IPager;
 import club.yourbatis.hi.wrapper.ISelectorWrapper;
@@ -16,7 +13,10 @@ import lombok.Getter;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
 public class SelectWrapper<C extends AbstractConditionWrapper>
@@ -27,17 +27,17 @@ public class SelectWrapper<C extends AbstractConditionWrapper>
     /**
      * 选取的field字段
      */
-    Set<SelectField> selectItems;
-    Set<Sortable> sortItems;
+    List<SelectField> selectItems;
+    List<OrderField> orderItems;
     @Getter
     Page page;
     protected boolean selectMain;
     protected boolean lock;
     public SelectWrapper(C where){
         super(where,new ArrayList<>(AbstractConditionWrapper.DEFAULT_CONDITION_ELEMENTS_SIZE));
-        this.selectItems = new LinkedHashSet<>(AbstractConditionWrapper.DEFAULT_CONDITION_ELEMENTS_SIZE);
+        this.selectItems = new ArrayList<>(AbstractConditionWrapper.DEFAULT_CONDITION_ELEMENTS_SIZE);
         this.selectMain = false;
-        sortItems = new LinkedHashSet<>(1<<3);
+        orderItems = new ArrayList<>(1<<3);
     }
     public static DefaultSelectWrapper build(){
         return new DefaultSelectWrapper();
@@ -86,21 +86,21 @@ public class SelectWrapper<C extends AbstractConditionWrapper>
     }
 
     @Override
-    public SelectWrapper<C> orderBy(Order order, OrderField...fields){
-        this.sortItems.add(Sorter.valueOf(order,fields));
+    public SelectWrapper<C> orderBy(OrderField...fields){
+        Assert.notEmpty(fields,"items can not be empty");
+        Collections.addAll(orderItems, fields);
         return this;
     }
     @Override
-    public SelectWrapper<C> orderBy(Order order, String strings){
+    public SelectWrapper<C> orderBy(String strings){
         if(StringUtils.isEmpty(strings)){
             return this;
         }
-        String[] fstr = strings.split(",");
-        OrderField[] fields = new OrderField[fstr.length];
-        for(int i = 0;i<fields.length;++i){
-            fields[i] = OrderField.valueOf(fstr[i]);
+        String[] split = strings.split(",");
+        for (String s : split) {
+            this.orderItems.add(OrderField.valueOf(s));
         }
-        return orderBy(order,fields);
+        return this;
     }
     @Override
     public SelectWrapper<C> page(Page page){

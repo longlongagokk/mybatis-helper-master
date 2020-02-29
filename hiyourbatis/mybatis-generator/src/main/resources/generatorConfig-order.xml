@@ -45,68 +45,57 @@
 			<property name="rootClass" value="com.vitily.common.module.BaseEntity"/>
 <!--			<property name="rootInterface" value="java.io.Serializable" />-->
 		</javaModelGenerator>
-		<javaQueryModelGenerator targetPackage="com.vitily.order.module.query" targetProject="D:\"
-								 rootClass="com.vitily.common.module.QueryInfo"
-		>
-		</javaQueryModelGenerator>
-		<javaRequestModelGenerator targetPackage="com.vitily.order.module.request" targetProject="D:\"
-								   rootClass="com.vitily.common.module.BaseRequest"
-		>
-		</javaRequestModelGenerator>
 		<!-- view -->
 		<javaViewModelGenerator targetPackage="com.vitily.order.module.view" targetProject="D:\">
 		</javaViewModelGenerator>
-		<!-- mybatis xml file -->
+
+		<!-- mybatis xml file,，不一定需要 -->
 		<!-- isMergeable:是否合并 -->
 		<sqlMapGenerator isMergeable="false" targetPackage="com.vitily.order.mapper" targetProject="D:\">
 			<property name="enableSubPackages" value="false"	/>
 		</sqlMapGenerator>
+
 		<!-- mapper class -->
 		<javaClientGenerator type="XMLMAPPER" targetPackage="com.vitily.order.mapper" targetProject="D:\">
 			<property name="enableSubPackages" value="false" />
-			<property name="rootInterface" value="com.vitily.common.mapper.CommonBasicMapper#l$T,$V#r|club.yourbatis.hi.mapper.BasicMapperl$T#l$T,$V#r" />
+			<property name="rootInterface" value="com.vitily.common.mapper.CommonBasicMapper#l$T,$V#r" />
 		</javaClientGenerator>
+		<!-- service class -->
 		<javaServiceGenerator targetPackage="com.vitily.order.service" targetProject="D:\">
 			<property name="enableSubPackages" value="false" />
-			<property name="rootInterface" value="com.vitily.common.service.BasicService#l$T,$Q,$V#r" />
+			<property name="rootInterface" value="com.vitily.common.service.BasicService#l$T,$V#r" />
 		</javaServiceGenerator>
+		<!-- service impl class -->
 		<javaServiceImplGenerator targetPackage="com.vitily.order.service.impl" targetProject="D:\">
 			<property name="enableSubPackages" value="false" />
-			<property name="rootInterface" value="com.vitily.common.service.impl.BasicServiceImpl#l$T,$Q,$V,$M#r" />
+			<property name="rootInterface" value="com.vitily.common.service.impl.BasicServiceImpl#l$T,$V,$M#r" />
 		</javaServiceImplGenerator>
-
-		<javaConsoleControllerGenerator basePath="/ftrade/coin-available-symbol/" targetPackage="com.vitily.console.order.controller.order" targetProject="D:\">
-			<property name="enableSubPackages" value="false" />
-			<property name="rootInterface" value="com.vitily.console.center.controller.BaseController#l$T,$S,$V#r" />
-			<property name="inputInnerFields" value="om.vitily.console.center.util.ViewModel" />
-		</javaConsoleControllerGenerator>
 
 		<table tableName="tb_order_detail"
 			   domainObjectName="TbOrderDetail"
-			   queryModelObjectName="TsOrderDetail"
-			   requestModelObjectName="TqOrderDetail"
 			   viewModelObjectName="TvOrderDetail"
 			   mapperAndServiceFileName="OrderDetail"
 			   delimitAllColumns="true"
 			   delimitIdentifiers="true"
+			   schema="hiyourbatis-test"
 			   alias="e"
 		>
 			<generatedKey column="id" sqlStatement="Mysql" identity="true" />
 		</table>
 
-		<table tableName="tb_order_form"
-			   domainObjectName="TbOrderForm"
-			   queryModelObjectName="TsOrderForm"
-			   requestModelObjectName="TqOrderForm"
-			   viewModelObjectName="TvOrderForm"
-			   mapperAndServiceFileName="OrderForm"
-			   delimitAllColumns="true"
-			   delimitIdentifiers="true"
-			   alias="e"
-			   schema="hiyourbatis-test"
-		>
-			<generatedKey column="id" sqlStatement="Mysql" identity="true" />
-		</table>
+<!--		<table tableName="tb_order_form"-->
+<!--			   domainObjectName="TbOrderForm"-->
+<!--			   queryModelObjectName="TsOrderForm"-->
+<!--			   requestModelObjectName="TqOrderForm"-->
+<!--			   viewModelObjectName="TvOrderForm"-->
+<!--			   mapperAndServiceFileName="OrderForm"-->
+<!--			   delimitAllColumns="true"-->
+<!--			   delimitIdentifiers="true"-->
+<!--			   alias="e"-->
+<!--			   schema="hiyourbatis-test"-->
+<!--		>-->
+<!--			<generatedKey column="id" sqlStatement="Mysql" identity="true" />-->
+<!--		</table>-->
 	</context>
 </generatorConfiguration>
 

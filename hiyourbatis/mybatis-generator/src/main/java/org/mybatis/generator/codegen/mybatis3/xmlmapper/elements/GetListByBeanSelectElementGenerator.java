@@ -28,7 +28,7 @@ public class GetListByBeanSelectElementGenerator extends AbstractXmlElementGener
         answer.addAttribute(new Attribute("id", introspectedTable.getGetListByBeanSelectId())); //$NON-NLS-1$
         answer.addAttribute(new Attribute("resultMap",introspectedTable.getListResultMapId()));
 
-        FullyQualifiedJavaType parameterType = new FullyQualifiedJavaType(introspectedTable.getBaseQueryModelType());
+        FullyQualifiedJavaType parameterType = new FullyQualifiedJavaType("com.vitily.common.module.QueryInfo");
         answer.addAttribute(new Attribute("parameterType",parameterType.getFullyQualifiedName()));
         answer.addElement(selectForListTvSqlElement());
         answer.addElement(new TextElement(" where 1=1 "));

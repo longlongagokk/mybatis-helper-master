@@ -50,7 +50,6 @@ public class JavaConsoleControllerGenerator extends AbstractConsoleControllerGen
                 rootInterface = rootInterface.replace("#l","<");
                 rootInterface = rootInterface.replace("#r",">");
                 rootInterface = rootInterface.replace("$T",introspectedTable.getBaseRecordType());
-                rootInterface = rootInterface.replace("$S",introspectedTable.getBaseQueryModelType());
                 rootInterface = rootInterface.replace("$V",introspectedTable.getBaseViewModelType());
                 FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType(rootInterface);
                 classes.addSuperInterface(fqjt);
