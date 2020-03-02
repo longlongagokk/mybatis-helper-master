@@ -3,7 +3,6 @@ package club.yourbatis.hi.base.field;
 import club.yourbatis.hi.consts.ConstValue;
 import club.yourbatis.hi.enums.Order;
 import club.yourbatis.hi.util.StringUtils;
-import com.sun.org.apache.xpath.internal.operations.Or;
 import lombok.Getter;
 
 @Getter

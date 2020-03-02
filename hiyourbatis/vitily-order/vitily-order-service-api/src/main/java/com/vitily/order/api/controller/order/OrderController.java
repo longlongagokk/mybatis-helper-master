@@ -13,6 +13,8 @@ import club.yourbatis.hi.wrapper.query.SelectWrapper;
 import com.vitily.common.module.BaseRequest;
 import com.vitily.common.module.Result;
 import com.vitily.order.api.entity.BaseReq;
+import com.vitily.order.api.entity.PageList;
+import com.vitily.order.api.entity.TrOrder;
 import com.vitily.order.api.mapper.TrOrderMapper;
 import com.vitily.order.module.entity.TbOrderDetail;
 import com.vitily.order.module.entity.TbOrderForm;
@@ -132,18 +134,21 @@ public class OrderController {
     }
     @GetMapping(value = "tr-list")
     public Result trList()throws Exception{
+        PageList<TrOrder> pageList = trOrderMapper.selectPageList(SelectWrapper.build().from(TbOrderForm.class));
+        return Result.success(pageList);
+
         //return Result.success(orderDetailService.selectOne(new QueryWrapper<TbOrderDetail>().eq(TsOrderDetail.Fields.orderId,id)));
-        trOrderMapper.selectList(SelectWrapper.DefaultSelectWrapper.build()
-                .from(TbOrderForm.class)
-                .select("e.id orderId,e.orderNo,e.memberId userName")
-                        .where(x->x.eq("e.id",100))
-        );
-        return Result.success(trOrderMapper.selectCount(CountWrapper.build()
-                .from(TbOrderForm.class)
-                .from(TbOrderDetail.class,"od")
-                .where(x->x.eq("e.id",100))
-                .where(x->x.eq("od.id",330))
-                .where(x->x.eq(FieldWithValue.valueOf("od.orderId",FieldItem.valueOf("e.id"))))
-        ));
+//        trOrderMapper.selectList(SelectWrapper.DefaultSelectWrapper.build()
+//                .from(TbOrderForm.class)
+//                .select("e.id orderId,e.orderNo,e.memberId userName")
+//                        .where(x->x.eq("e.id",100))
+//        );
+//        return Result.success(trOrderMapper.selectCount(CountWrapper.build()
+//                .from(TbOrderForm.class)
+//                .from(TbOrderDetail.class,"od")
+//                .where(x->x.eq("e.id",100))
+//                .where(x->x.eq("od.id",330))
+//                .where(x->x.eq(FieldWithValue.valueOf("od.orderId",FieldItem.valueOf("e.id"))))
+//        ));
     }
 }

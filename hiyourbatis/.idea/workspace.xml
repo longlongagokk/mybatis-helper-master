@@ -2,11 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4d02d3f-eed0-4844-aa0b-797c162c9df0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/config/YourConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/config/YourResultSetHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/entity/PageList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/mapper/TrOrderMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybatis-generator/mybatis-generator.iml" beforeDir="false" afterPath="$PROJECT_DIR$/mybatis-generator/mybatis-generator.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybatis-generator/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mybatis-generator/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/META-INF/yourbatis-hi.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/config/OrderConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/config/OrderConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/controller/order/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/controller/order/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/mapper/TrOrderMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/mapper/TrOrderMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/base/field/OrderField.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/base/field/OrderField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/query/QuerySqlProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/query/QuerySqlProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/base/field/OrderField.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/base/field/OrderField.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -48,7 +54,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../lether2018/trunk/vitily" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/mapper" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -64,11 +70,11 @@
       <recent name="com.vitily.order.api.entity" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\java_about\hiyourbatis\mybatis-helper\hiyourbatis\vitily-order\vitily-order-service-api\src\main\java\com\vitily\order\api\mapper" />
+      <recent name="D:\java_about\hiyourbatis\mybatis-helper\hiyourbatis\mybatis-generator\src\main\resources" />
       <recent name="D:\java_about\yourbatis-hi\mybatis-helper\hiyourbatis\vitily-order\vitily-order-service\src\main\java\com\vitily\order\service\impl" />
       <recent name="D:\java_about\yourbatis-hi\mybatis-helper\hiyourbatis\vitily-order\vitily-order-service\src\main\java\com\vitily\order\service" />
       <recent name="D:\java_about\yourbatis-hi\mybatis-helper\hiyourbatis\vitily-order\vitily-order-service\src\main\java\com\vitily\order\module\view" />
-      <recent name="D:\java_about\yourbatis-hi\mybatis-helper\hiyourbatis\vitily-order\vitily-order-service\src\main\java\com\vitily\order\module\entity" />
-      <recent name="D:\java_about\yourbatis-hi\mybatis-helper\hiyourbatis\vitily-order\vitily-order-service\src\main\java\com\vitily\order\mapper" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -83,7 +89,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ShellRunner">
+  <component name="RunManager" selected="Spring Boot.OrderApiApplication">
     <configuration name="OrderField" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="club.yourbatis.hi.base.field.OrderField" />
       <module name="yourbatis-hi" />
@@ -138,8 +144,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ShellRunner" />
         <item itemvalue="Spring Boot.OrderApiApplication" />
+        <item itemvalue="Application.ShellRunner" />
         <item itemvalue="Application.SelectField" />
         <item itemvalue="Application.OrderField" />
       </list>
@@ -163,7 +169,10 @@
       <workItem from="1582851167367" duration="20134000" />
       <workItem from="1582903284566" duration="3848000" />
       <workItem from="1582944001626" duration="22950000" />
-      <workItem from="1582979874542" duration="2548000" />
+      <workItem from="1582979874542" duration="4020000" />
+      <workItem from="1582992945627" duration="727000" />
+      <workItem from="1583065738413" duration="598000" />
+      <workItem from="1583151613323" duration="13166000" />
     </task>
     <servers />
   </component>
@@ -182,5 +191,12 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="this.mappedStatement.resultMaps.get(0).type" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

@@ -25,6 +25,7 @@ public class OrderConfiguration {
     public SqlSessionFactory sqlSessionFactory(@Qualifier("dataSource") DataSource datasource) throws Exception {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(datasource);
+        sessionFactory.setConfiguration(new YourConfiguration());
         return sessionFactory.getObject();
     }
 }

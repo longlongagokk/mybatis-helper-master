@@ -54,23 +54,36 @@ public class QuerySqlProvider extends AbsSqlProvider {
         return sb.toString();
     }
     public String selectOne(ProviderContext context, ISelectorWrapper wrapper) {
-        return select(context, wrapper) + " limit 1";
+        return select(context, wrapper,false) + " limit 1";
     }
 
     public String selectList(ProviderContext context, ISelectorWrapper wrapper) {
-        String sql = select(context,wrapper);
+        String sql = select(context,wrapper,false);
         Page page = wrapper.getPage();
         if (page != null) {
             return sql + " limit " + (page.getPageSize() * (page.getPageIndex() - 1)) + "," + page.getPageSize();
         }
         return sql;
     }
-    private String select(ProviderContext context, ISelectorWrapper wrapper){
+    public String selectPageList(ProviderContext context, ISelectorWrapper wrapper) {
+        String sql = select(context,wrapper,true);
+        Page page = wrapper.getPage();
+        if (page != null) {
+            return sql + " limit " + (page.getPageSize() * (page.getPageIndex() - 1)) + "," + page.getPageSize();
+        }
+        //
+        sql += ";SELECT FOUND_ROWS();";
+        return sql;
+    }
+    private String select(ProviderContext context, ISelectorWrapper wrapper,boolean SQL_CALC_FOUND_ROWS){
         SelectWrapper<?> selectWrapper = (SelectWrapper)wrapper;
         Map<String, TableMetaInfo> tableMetaInfoMap = checkAndReturnFromTables(context,selectWrapper);
         boolean selectOwn = selectWrapper.selectMain;
         List<SelectField> selectFields = selectWrapper.selectItems;
         StringBuilder selectSql = new StringBuilder("select ");
+        if(SQL_CALC_FOUND_ROWS){
+            selectSql.append(" SQL_CALC_FOUND_ROWS ");
+        }
         //#region select items
         //select selectItems first
         if(!CollectionUtils.isEmpty(selectFields)){
