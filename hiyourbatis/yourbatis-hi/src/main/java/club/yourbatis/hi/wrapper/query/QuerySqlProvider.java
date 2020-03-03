@@ -69,7 +69,7 @@ public class QuerySqlProvider extends AbsSqlProvider {
         String sql = select(context,wrapper,true);
         Page page = wrapper.getPage();
         if (page != null) {
-            return sql + " limit " + (page.getPageSize() * (page.getPageIndex() - 1)) + "," + page.getPageSize();
+            sql += " limit " + (page.getPageSize() * (page.getPageIndex() - 1)) + "," + page.getPageSize();
         }
         //
         sql += ";SELECT FOUND_ROWS();";

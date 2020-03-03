@@ -133,8 +133,10 @@ public class OrderController {
         return Result.success(orderFormService.selectOne(id));
     }
     @GetMapping(value = "tr-list")
-    public Result trList()throws Exception{
-        PageList<TrOrder> pageList = trOrderMapper.selectPageList(SelectWrapper.build().from(TbOrderForm.class));
+    public Result trList(PageInfo pageInfo)throws Exception{
+        PageList<TrOrder> pageList = trOrderMapper.selectPageList(SelectWrapper.build().from(TbOrderForm.class)
+        .select("e.id orderId,e.orderNo orderNo").page(pageInfo)
+        );
         return Result.success(pageList);
 
         //return Result.success(orderDetailService.selectOne(new QueryWrapper<TbOrderDetail>().eq(TsOrderDetail.Fields.orderId,id)));
