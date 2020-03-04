@@ -33,7 +33,6 @@ club\yourbatis\hi\wrapper\bridge\AbstractConditionWrapper$1.class
 club\yourbatis\hi\util\StringUtils.class
 club\yourbatis\hi\util\LinkStack.class
 club\yourbatis\hi\base\Item.class
-club\yourbatis\hi\base\meta\PageInfo.class
 club\yourbatis\hi\wrapper\factory\StringConditionWrapper.class
 club\yourbatis\hi\wrapper\query\QuerySqlProvider.class
 club\yourbatis\hi\util\ContextUtil.class
@@ -45,11 +44,14 @@ club\yourbatis\hi\enums\ConditionType.class
 club\yourbatis\hi\annotation\PrimaryKey.class
 club\yourbatis\hi\wrapper\insert\InsertSqlProvider.class
 club\yourbatis\hi\wrapper\seg\InsConditionSeg.class
+club\yourbatis\hi\base\meta\PageList.class
 club\yourbatis\hi\wrapper\query\CountWrapper.class
 club\yourbatis\hi\wrapper\seg\BetweenConditionSeg.class
 club\yourbatis\hi\base\meta\TableMetaInfo.class
+club\yourbatis\hi\config\YourConfiguration.class
 club\yourbatis\hi\annotation\Column.class
 club\yourbatis\hi\enums\JoinType.class
+club\yourbatis\hi\config\YourResultSetHandler.class
 club\yourbatis\hi\wrapper\ISelectorWrapper.class
 club\yourbatis\hi\wrapper\bridge\AbstractJoinerWrapper.class
 club\yourbatis\hi\wrapper\update\UpdateWrapper$DefaultUpdateWrapper.class

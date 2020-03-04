@@ -7,5 +7,6 @@ import java.util.List;
 
 @Data
 public class TvOrderForm extends TbOrderForm {
+    private String userInfo;
     private List<TvOrderDetail> orderDetails;
 }

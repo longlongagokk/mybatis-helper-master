@@ -1,32 +1,20 @@
-package com.vitily.order.api.config;
+package club.yourbatis.hi.config;
 
-import club.yourbatis.hi.util.StringUtils;
-import com.vitily.order.api.entity.PageList;
+import club.yourbatis.hi.base.meta.PageList;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.executor.ErrorContext;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.executor.parameter.ParameterHandler;
-import org.apache.ibatis.executor.result.DefaultResultContext;
 import org.apache.ibatis.executor.resultset.DefaultResultSetHandler;
-import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.executor.resultset.ResultSetWrapper;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
-import org.apache.ibatis.mapping.ResultMap;
-import org.apache.ibatis.mapping.ResultMapping;
-import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.IntegerTypeHandler;
-import org.apache.ibatis.type.LongTypeHandler;
-import org.springframework.core.ResolvableType;
 
-import java.lang.reflect.Type;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,17 +23,15 @@ import java.util.List;
 @Slf4j
 public class YourResultSetHandler extends DefaultResultSetHandler {
 
-    private boolean pager = false;
+    private final boolean pager;
     private final MappedStatement mappedStatement;
-    private final Configuration configuration;
+    private final YourConfiguration configuration;
     public YourResultSetHandler(Executor executor, MappedStatement mappedStatement, ParameterHandler parameterHandler, ResultHandler<?> resultHandler, BoundSql boundSql, RowBounds rowBounds) {
 
         super(executor, mappedStatement, parameterHandler, resultHandler, boundSql, rowBounds);
         this.mappedStatement = mappedStatement;
-        this.configuration = mappedStatement.getConfiguration();
-        if(!StringUtils.isEmpty(this.mappedStatement.getId())){
-            this.pager = this.mappedStatement.getId().contains("selectPageList");
-        }
+        this.configuration = (YourConfiguration) mappedStatement.getConfiguration();
+        this.pager = this.mappedStatement.getId().contains(this.configuration.getPageMethodName());
     }
     @Override
     public List<Object> handleResultSets(Statement stmt) throws SQLException {

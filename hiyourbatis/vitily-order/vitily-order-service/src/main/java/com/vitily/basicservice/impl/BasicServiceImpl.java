@@ -1,19 +1,19 @@
-package com.vitily.common.service.impl;
+package com.vitily.basicservice.impl;
 
 import club.yourbatis.hi.base.Page;
 import club.yourbatis.hi.base.Primary;
-import club.yourbatis.hi.base.meta.PageInfo;
+import club.yourbatis.hi.base.meta.PageList;
 import club.yourbatis.hi.wrapper.ICountWrapper;
 import club.yourbatis.hi.wrapper.IDeleteWrapper;
 import club.yourbatis.hi.wrapper.ISelectorWrapper;
 import club.yourbatis.hi.wrapper.IUpdateWrapper;
-import club.yourbatis.hi.wrapper.query.CountWrapper;
 import club.yourbatis.hi.wrapper.query.SelectWrapper;
-import com.vitily.common.mapper.CommonBasicMapper;
+import com.vitily.basicmapper.CommonBasicMapper;
+import com.vitily.common.mapper.StaticBoundMapper;
 import com.vitily.common.module.BaseEntity;
 import com.vitily.common.module.QueryInfo;
 import com.vitily.common.module.TvPageList;
-import com.vitily.common.service.BasicService;
+import com.vitily.basicservice.BasicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +24,8 @@ public abstract class BasicServiceImpl<T extends BaseEntity<T>, V extends T,M ex
 		implements BasicService<T,V> {
 	@Autowired(required = false)
 	protected M mapper;
+	@Autowired(required = true)
+	protected StaticBoundMapper staticBoundMapper;
 
 	protected void beforeInsert(T entity){}
 	protected void afterInsert(T entity){}
@@ -43,7 +45,7 @@ public abstract class BasicServiceImpl<T extends BaseEntity<T>, V extends T,M ex
 	@Override
 	@Transactional
 	public int insertSelective(T entity){
-		return mapper.insertSelective(entity);
+		return staticBoundMapper.insertSelective(entity);
 	}
 	@Override
 	@Transactional
@@ -91,7 +93,7 @@ public abstract class BasicServiceImpl<T extends BaseEntity<T>, V extends T,M ex
 	@Override
 	@Transactional
 	public int updateSelectiveByPrimaryKey(T entity){
-		return mapper.updateSelectiveByPrimaryKey(entity);
+		return staticBoundMapper.updateSelectiveByPrimaryKey(entity);
 	}
 	@Override
 	@Transactional
@@ -100,17 +102,29 @@ public abstract class BasicServiceImpl<T extends BaseEntity<T>, V extends T,M ex
 	}
 
 	@Override
-	public TvPageList<V> selectPageList(SelectWrapper wrapper){
+	public TvPageList<T> selectPageList(SelectWrapper wrapper){
 		Page page = wrapper.getPage();
 		if(page == null){
 			throw new RuntimeException("page entity can not be null !");
 		}
-		TvPageList<V> pageList = new TvPageList<>();
-		PageInfo pageInfo = PageInfo.valueOf(page.getPageIndex(),page.getPageSize());
-		pageList.setPageInfo(pageInfo);
-		pageList.setList(mapper.selectListV(wrapper));
-		pageInfo.setRecordCount(mapper.selectCount(new CountWrapper(wrapper.getWhere(),wrapper)));
-		return pageList;
+		PageList<T> oriPageList = mapper.selectPageList(wrapper);
+		TvPageList<T> targetPageList = new TvPageList<>();
+		targetPageList.setList(oriPageList.getList());
+		targetPageList.setRecordCount(oriPageList.getCount());
+		return targetPageList;
+	}
+
+	@Override
+	public TvPageList<V> selectPageListV(SelectWrapper wrapper){
+		Page page = wrapper.getPage();
+		if(page == null){
+			throw new RuntimeException("page entity can not be null !");
+		}
+		PageList<V> oriPageList = mapper.selectPageListV(wrapper);
+		TvPageList<V> targetPageList = new TvPageList<>();
+		targetPageList.setList(oriPageList.getList());
+		targetPageList.setRecordCount(oriPageList.getCount());
+		return targetPageList;
 	}
 
 	//from xml
@@ -130,10 +144,7 @@ public abstract class BasicServiceImpl<T extends BaseEntity<T>, V extends T,M ex
 			throw new RuntimeException("page entity can not be null !");
 		}
 		TvPageList<V> pageList = new TvPageList<>();
-		Page page = query.getPageInfo();
-		PageInfo pageInfo = PageInfo.valueOf(page.getPageIndex(),page.getPageSize());
-		pageInfo.setRecordCount(mapper.getCountPaging(query));
-		pageList.setPageInfo(pageInfo);
+		pageList.setRecordCount(mapper.getCountPaging(query));
 		pageList.setList(mapper.getListByBean(query));
 		return pageList;
 	}

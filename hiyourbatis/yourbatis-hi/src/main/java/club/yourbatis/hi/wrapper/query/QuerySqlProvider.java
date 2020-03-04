@@ -26,7 +26,6 @@ import java.util.Map;
  */
 @Slf4j
 public class QuerySqlProvider extends AbsSqlProvider {
-
     public String selectItemByPrimaryKey(ProviderContext context, Primary primary) {
         TableMetaInfo tableMetaInfo = TableInfoHelper.getTableInfoByProviderContext(context);
         Assert.notNull(tableMetaInfo.getPrimary(),String.format("table {0} do not have any primaryKey!", tableMetaInfo.getTableName()));

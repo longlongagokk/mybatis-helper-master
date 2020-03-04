@@ -1,7 +1,7 @@
 package com.vitily.common.module;
 
 import club.yourbatis.hi.base.field.OrderField;
-import club.yourbatis.hi.base.meta.PageInfo;
+import com.vitily.common.util.PageInfo;
 import lombok.Data;
 import lombok.Getter;
 import lombok.experimental.Accessors;

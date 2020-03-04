@@ -64,7 +64,9 @@ public class ShellRunner {
         	//writeLine(getString("RuntimeError.0")); //$NON-NLS-1$
         	//return;
         }
-        runConfigs(arguments,ShellRunner.class.getClass().getResource("/").toString().replace("file:", "")+"generatorConfig-order.xml");
+        String pp = ShellRunner.class.getClass().getResource("/").toString().replace("file:", "");
+
+        runConfigs(arguments,pp+"generatorConfig-order.xml");
     }
 
     public static void runConfigs(Map<String, String> arguments,String configfile){

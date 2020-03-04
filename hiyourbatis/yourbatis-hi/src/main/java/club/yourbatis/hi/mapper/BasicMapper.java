@@ -1,6 +1,7 @@
 package club.yourbatis.hi.mapper;
 
 import club.yourbatis.hi.base.Primary;
+import club.yourbatis.hi.base.meta.PageList;
 import club.yourbatis.hi.wrapper.ICountWrapper;
 import club.yourbatis.hi.wrapper.IDeleteWrapper;
 import club.yourbatis.hi.wrapper.ISelectorWrapper;
@@ -21,24 +22,6 @@ import java.util.List;
  * @param <T> the entity of table
  */
 public interface BasicMapper<T> {
-    /**
-     * insert full properties
-     *
-     * @param entity all the entity's properties will be insert ,the null value property not excluded
-     * @return effect row count,expected 1
-     */
-    @InsertProvider(type = InsertSqlProvider.class, method = "insert")
-    //@SelectKey(statement = "select last_insert_id()", keyProperty = "id", before = false, resultType = long.class)
-    int insert(T entity);
-
-    /**
-     * insert not null properties
-     *
-     * @param entity with not null property to insert,if the property's value is null,then skip
-     * @return effect row count,expected 1
-     */
-    @InsertProvider(type = InsertSqlProvider.class, method = "insertSelective")
-    int insertSelective(T entity);
 
     /**
      * delete by primary key,if not exists primaryKey,throw an exception
@@ -92,6 +75,15 @@ public interface BasicMapper<T> {
     List<T> selectList(ISelectorWrapper wrapper);
 
     /**
+     * select page count and list query
+     * @param wrapper select columns to query and how to query by condition
+     *                if no columns selected,it will select all columns
+     * @return page and list
+     */
+    @SelectProvider(type = QuerySqlProvider.class, method = "selectPageList")
+    PageList<T> selectPageList(ISelectorWrapper wrapper);
+
+    /**
      * select list and rowCount
      * @param wrapper select columns to query and how to query by condition
      *                if no columns selected,it will select all columns
@@ -100,25 +92,6 @@ public interface BasicMapper<T> {
     @SelectProvider(type = QuerySqlProvider.class, method = "selectCount")
     //@ResultMap("BaseResultMap")
     int selectCount(ICountWrapper wrapper);
-
-
-    /**
-     * update full properties by primaryKey,if don't have anny primary key,then throw an exception
-     *
-     * @param entity all the entity's properties will be update ,the null value property not excluded
-     * @return update rows
-     */
-    @UpdateProvider(type = UpdateSqlProvider.class, method = "updateByPrimary")
-    int updateByPrimary(T entity);
-
-    /**
-     * update not null properties,if don't have anny primary key,then throw an exception
-     *
-     * @param entity with not null property to update,if the property's value is null,then skip
-     * @return update rows
-     */
-    @UpdateProvider(type = UpdateSqlProvider.class, method = "updateSelectiveByPrimaryKey")
-    int updateSelectiveByPrimaryKey(T entity);
 
     /**
      * update select item by query

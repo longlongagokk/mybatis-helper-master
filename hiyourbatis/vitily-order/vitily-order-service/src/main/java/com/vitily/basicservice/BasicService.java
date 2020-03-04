@@ -1,4 +1,4 @@
-package com.vitily.common.service;
+package com.vitily.basicservice;
 
 import club.yourbatis.hi.base.Primary;
 import club.yourbatis.hi.wrapper.ICountWrapper;
@@ -29,7 +29,8 @@ public interface BasicService<T extends BaseEntity<T>,V> {
 	int updateSelectItem(IUpdateWrapper wrapper);
 
 
-	TvPageList<V> selectPageList(SelectWrapper selectWrapper);
+	TvPageList<T> selectPageList(SelectWrapper selectWrapper);
+	TvPageList<V> selectPageListV(SelectWrapper selectWrapper);
 
 	default SelectWrapper<StringConditionWrapper> getCommonQueryWrapper(){return SelectWrapper.build().selectMain(true);}
 

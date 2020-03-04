@@ -5,7 +5,7 @@ import club.yourbatis.hi.base.field.CompareField;
 import club.yourbatis.hi.base.field.OrderField;
 import club.yourbatis.hi.base.field.SelectField;
 import club.yourbatis.hi.base.meta.FieldWithValue;
-import club.yourbatis.hi.base.meta.PageInfo;
+import com.vitily.common.util.PageInfo;
 import club.yourbatis.hi.base.param.FieldItem;
 import club.yourbatis.hi.base.param.ParamItem;
 import club.yourbatis.hi.base.param.ValueItem;
@@ -15,7 +15,7 @@ import club.yourbatis.hi.wrapper.factory.StringConditionWrapper;
 import club.yourbatis.hi.wrapper.query.CountWrapper;
 import club.yourbatis.hi.wrapper.query.SelectWrapper;
 import club.yourbatis.hi.wrapper.update.UpdateWrapper;
-import com.vitily.common.service.impl.BasicServiceImpl;
+import com.vitily.basicservice.impl.BasicServiceImpl;
 import com.vitily.common.util.JSONUtil;
 import com.vitily.order.mapper.OrderFormMapper;
 import com.vitily.order.module.entity.TbOrderDetail;
@@ -287,7 +287,7 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 		orderForm.setMemberId(123L);
 		orderForm.setOrderNo("absfwsfdwef");
 		orderForm.setId(12345L);
-		log.info("------------------------"+mapper.updateByPrimary(new TbOrderForm())+"------------------------------");
+		log.info("------------------------"+staticBoundMapper.updateByPrimary(new TbOrderForm())+"------------------------------");
 //
 //		log.info("------------------------updateSelectiveByPrimaryKey------------------------------");
 //		//updateSelectiveByPrimaryKey
@@ -295,7 +295,7 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 		orderForm.setOrderNo("ddfea");
 		orderForm.setAmountPaid(BigDecimal.valueOf(100));
 		orderForm.setId(98L);
-		log.info("------------------------"+mapper.updateSelectiveByPrimaryKey(orderForm)+"------------------------------");
+		log.info("------------------------"+staticBoundMapper.updateSelectiveByPrimaryKey(orderForm)+"------------------------------");
 
 		log.info("------------------------updateSelectItem------------------------------");
 //		Collection<ValueItem> items = new ArrayList<>();

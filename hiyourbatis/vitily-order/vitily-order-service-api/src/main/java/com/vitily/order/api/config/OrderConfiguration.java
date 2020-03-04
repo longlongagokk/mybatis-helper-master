@@ -1,5 +1,6 @@
 package com.vitily.order.api.config;
 
+import club.yourbatis.hi.config.YourConfiguration;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;

@@ -1,6 +1,6 @@
 package com.vitily.order.service;
 
-import com.vitily.common.service.BasicService;
+import com.vitily.basicservice.BasicService;
 import com.vitily.order.module.entity.TbOrderForm;
 import com.vitily.order.module.view.TvOrderForm;
 

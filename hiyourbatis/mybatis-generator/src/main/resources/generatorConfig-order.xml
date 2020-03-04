@@ -58,17 +58,17 @@
 		<!-- mapper class -->
 		<javaClientGenerator type="XMLMAPPER" targetPackage="com.vitily.order.mapper" targetProject="D:\">
 			<property name="enableSubPackages" value="false" />
-			<property name="rootInterface" value="com.vitily.common.mapper.CommonBasicMapper#l$T,$V#r" />
+			<property name="rootInterface" value="com.vitily.basicmapper.CommonBasicMapper#l$T,$V#r" />
 		</javaClientGenerator>
 		<!-- service class -->
 		<javaServiceGenerator targetPackage="com.vitily.order.service" targetProject="D:\">
 			<property name="enableSubPackages" value="false" />
-			<property name="rootInterface" value="com.vitily.common.service.BasicService#l$T,$V#r" />
+			<property name="rootInterface" value="com.vitily.basicservice.BasicService#l$T,$V#r" />
 		</javaServiceGenerator>
 		<!-- service impl class -->
 		<javaServiceImplGenerator targetPackage="com.vitily.order.service.impl" targetProject="D:\">
 			<property name="enableSubPackages" value="false" />
-			<property name="rootInterface" value="com.vitily.common.service.impl.BasicServiceImpl#l$T,$V,$M#r" />
+			<property name="rootInterface" value="com.vitily.basicservice.impl.BasicServiceImpl#l$T,$V,$M#r" />
 		</javaServiceImplGenerator>
 
 		<table tableName="tb_order_detail"

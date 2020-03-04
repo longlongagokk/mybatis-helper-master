@@ -1,9 +1,6 @@
-package club.yourbatis.hi.base.meta;
+package com.vitily.common.util;
 
 import club.yourbatis.hi.base.Page;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 public class PageInfo implements Page {
     public static final int COMMON_DEFAULT_PAGE_SIZE = 10;
