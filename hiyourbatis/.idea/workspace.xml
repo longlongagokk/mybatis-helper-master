@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f4d02d3f-eed0-4844-aa0b-797c162c9df0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/bridge/AbstractQueryWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/bridge/AbstractQueryWrapper.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -168,7 +167,7 @@
       <workItem from="1583065738413" duration="598000" />
       <workItem from="1583151613323" duration="13166000" />
       <workItem from="1583196593063" duration="22246000" />
-      <workItem from="1583372495327" duration="20088000" />
+      <workItem from="1583372495327" duration="20774000" />
     </task>
     <servers />
   </component>
