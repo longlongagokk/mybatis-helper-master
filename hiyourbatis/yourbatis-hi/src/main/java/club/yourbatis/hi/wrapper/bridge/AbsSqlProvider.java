@@ -10,6 +10,23 @@ import org.springframework.util.StringUtils;
 import java.util.Map;
 
 public abstract class AbsSqlProvider {
+
+    public static final String insert = "insert";
+    public static final String insertSelective = "insertSelective";
+
+    public static final String deleteByPrimaryKey = "deleteByPrimaryKey";
+    public static final String delete = "deleteByPrimaryKey";
+
+    public static final String selectItemByPrimaryKey = "selectItemByPrimaryKey";
+    public static final String selectOne = "selectOne";
+    public static final String selectList = "selectList";
+    public static final String selectPageList = "selectPageList";
+    public static final String selectCount = "selectCount";
+
+    public static final String updateByPrimary = "updateByPrimary";
+    public static final String updateSelectiveByPrimaryKey = "updateSelectiveByPrimaryKey";
+    public static final String updateSelectItem = "updateSelectItem";
+
     protected Map<String, TableMetaInfo> checkAndReturnFromTables(ProviderContext context, AbstractJoinerWrapper<?,?> wrapper){
         if(wrapper.fromTables.isEmpty()){
             TableMetaInfo mainMeta = TableInfoHelper.getTableInfoByProviderContext(context);
@@ -48,9 +65,9 @@ public abstract class AbsSqlProvider {
 
     /**
      * append where sql and return has condition
-     * @param builder
-     * @param wrapper
-     * @return
+     * @param builder sqlContainer
+     * @param wrapper query container
+     * @return hasCondition when conditionSql is empty then return null else true
      */
     protected boolean createWhereSql(StringBuilder builder,AbstractJoinerWrapper<?,?> wrapper){
         String conditionSql = wrapper.where.getConditionSql();

@@ -2,43 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4d02d3f-eed0-4844-aa0b-797c162c9df0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/common/mapper/StaticBoundMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/base/meta/PageList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybatis-generator/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mybatis-generator/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybatis-generator/src/main/java/org/mybatis/generator/api/ShellRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/mybatis-generator/src/main/java/org/mybatis/generator/api/ShellRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybatis-generator/src/main/resources/generatorConfig-order.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mybatis-generator/src/main/resources/generatorConfig-order.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybatis-generator/src/main/resources/generatorConfig-sys.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/config/OrderConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/config/OrderConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/config/YourConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/config/YourConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/config/YourResultSetHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/config/YourResultSetHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/controller/order/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/controller/order/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/entity/BaseReq.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/entity/PageList.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/mapper/TrOrderMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service-api/src/main/java/com/vitily/order/api/mapper/TrOrderMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/common/mapper/CommonBasicMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/basicmapper/CommonBasicMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/common/module/QueryInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/common/module/QueryInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/common/module/TvPageList.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/common/module/TvPageList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/common/service/BasicService.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/basicservice/BasicService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/common/service/impl/BasicServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/basicservice/impl/BasicServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/mapper/OrderDetailMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/mapper/OrderDetailMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/mapper/OrderFormMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/mapper/OrderFormMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/module/view/TvOrderForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/module/view/TvOrderForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/service/OrderDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/service/OrderDetailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/service/OrderFormService.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/service/OrderFormService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/service/impl/OrderDetailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/service/impl/OrderDetailServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/service/impl/OrderFormServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/order/service/impl/OrderFormServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/base/meta/PageInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/common/util/PageInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/common/mapper/StaticBoundMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/vitily-order/vitily-order-service/src/main/java/com/vitily/common/mapper/StaticBoundMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/base/meta/PageList.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/base/meta/PageList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/config/YourConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/config/YourConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/config/YourResultSetHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/config/YourResultSetHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/mapper/BasicMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/mapper/BasicMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/query/QuerySqlProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/query/QuerySqlProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/META-INF/yourbatis-hi.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/base/meta/PageInfo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/mapper/BasicMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/mapper/BasicMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/query/QuerySqlProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/wrapper/query/QuerySqlProvider.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/yourbatis-hi-1.0.5.jar" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/yourbatis-hi-1.0.5.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/bridge/AbsSqlProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/src/main/java/club/yourbatis/hi/wrapper/bridge/AbsSqlProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/base/meta/PageList.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/base/meta/PageList.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/config/YourConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/config/YourConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/config/YourResultSetHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/yourbatis-hi/target/classes/club/yourbatis/hi/config/YourResultSetHandler.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +57,8 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../vitily" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -91,11 +67,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="club.yourbatis.hi.consts" />
       <recent name="com.vitily.basicmapper" />
       <recent name="club.yourbatis.hi.base.meta" />
       <recent name="club.yourbatis.hi.wrapper.condition" />
       <recent name="club.yourbatis.hi.base.field" />
-      <recent name="club.yourbatis.hi.wrapper.bridge" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\java_about\yourbatis-hi\mybatis-helper\hiyourbatis\vitily-order\vitily-order-service\src\main\java\com\vitily\order\service\impl" />
@@ -117,7 +93,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ShellRunner">
+  <component name="RunManager" selected="Spring Boot.OrderApiApplication">
     <configuration name="OrderField" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="club.yourbatis.hi.base.field.OrderField" />
       <module name="yourbatis-hi" />
@@ -172,8 +148,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ShellRunner" />
         <item itemvalue="Spring Boot.OrderApiApplication" />
+        <item itemvalue="Application.ShellRunner" />
         <item itemvalue="Application.SelectField" />
         <item itemvalue="Application.OrderField" />
       </list>
@@ -201,7 +177,8 @@
       <workItem from="1582992945627" duration="727000" />
       <workItem from="1583065738413" duration="598000" />
       <workItem from="1583151613323" duration="13166000" />
-      <workItem from="1583196593063" duration="22239000" />
+      <workItem from="1583196593063" duration="22246000" />
+      <workItem from="1583372495327" duration="16206000" />
     </task>
     <servers />
   </component>
@@ -222,15 +199,6 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://D:/Program Files/apache-maven-3.5.4/repository/org/mybatis/mybatis/3.4.6/mybatis-3.4.6-sources.jar!/org/apache/ibatis/builder/annotation/MapperAnnotationBuilder.java</url>
-          <line>438</line>
-          <option name="timeStamp" value="66" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="SpringBootApplicationConfigurationType">
         <watch expression="this.mappedStatement.resultMaps.get(0).type" />

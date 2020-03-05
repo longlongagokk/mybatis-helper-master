@@ -6,12 +6,11 @@ import club.yourbatis.hi.wrapper.ICountWrapper;
 import club.yourbatis.hi.wrapper.IDeleteWrapper;
 import club.yourbatis.hi.wrapper.ISelectorWrapper;
 import club.yourbatis.hi.wrapper.IUpdateWrapper;
+import club.yourbatis.hi.wrapper.bridge.AbsSqlProvider;
 import club.yourbatis.hi.wrapper.delete.DeleteSqlProvider;
-import club.yourbatis.hi.wrapper.insert.InsertSqlProvider;
 import club.yourbatis.hi.wrapper.query.QuerySqlProvider;
 import club.yourbatis.hi.wrapper.update.UpdateSqlProvider;
 import org.apache.ibatis.annotations.DeleteProvider;
-import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
 
@@ -29,7 +28,7 @@ public interface BasicMapper<T> {
      * @param primary set primary key value
      * @return effect row count,expected 1
      */
-    @DeleteProvider(type = DeleteSqlProvider.class, method = "deleteByPrimaryKey")
+    @DeleteProvider(type = DeleteSqlProvider.class, method = AbsSqlProvider.deleteByPrimaryKey)
     int deleteByPrimaryKey(Primary primary);
 
     /**
@@ -38,7 +37,7 @@ public interface BasicMapper<T> {
      * @param wrapper query condition to how to delete
      * @return effect row count
      */
-    @DeleteProvider(type = DeleteSqlProvider.class, method = "delete")
+    @DeleteProvider(type = DeleteSqlProvider.class, method = AbsSqlProvider.delete)
     int delete(IDeleteWrapper wrapper);
 
     /**
@@ -49,8 +48,7 @@ public interface BasicMapper<T> {
      *                if no columns selected,it will select all columns
      * @return if exists row then return one entity with map else null
      */
-    @SelectProvider(type = QuerySqlProvider.class, method = "selectItemByPrimaryKey")
-    //@ResultMap("BaseResultMap")
+    @SelectProvider(type = QuerySqlProvider.class, method = AbsSqlProvider.selectItemByPrimaryKey)
     T selectItemByPrimaryKey(Primary primary);
 
     /**
@@ -60,8 +58,7 @@ public interface BasicMapper<T> {
      *                if no columns selected,it will select all columns
      * @return if exists row then return one entity with map else null
      */
-    @SelectProvider(type = QuerySqlProvider.class, method = "selectOne")
-    //@ResultMap("BaseResultMap")
+    @SelectProvider(type = QuerySqlProvider.class, method = AbsSqlProvider.selectOne)
     T selectOne(ISelectorWrapper wrapper);
     /**
      * select list from table with query condition
@@ -70,8 +67,7 @@ public interface BasicMapper<T> {
      *                if no columns selected,it will select all columns
      * @return if exists row then return list entity with map else empty list
      */
-    @SelectProvider(type = QuerySqlProvider.class, method = "selectList")
-    //@ResultMap("BaseResultMap")
+    @SelectProvider(type = QuerySqlProvider.class, method = AbsSqlProvider.selectList)
     List<T> selectList(ISelectorWrapper wrapper);
 
     /**
@@ -80,7 +76,7 @@ public interface BasicMapper<T> {
      *                if no columns selected,it will select all columns
      * @return page and list
      */
-    @SelectProvider(type = QuerySqlProvider.class, method = "selectPageList")
+    @SelectProvider(type = QuerySqlProvider.class, method = AbsSqlProvider.selectPageList)
     PageList<T> selectPageList(ISelectorWrapper wrapper);
 
     /**
@@ -89,7 +85,7 @@ public interface BasicMapper<T> {
      *                if no columns selected,it will select all columns
      * @return pageInfo
      */
-    @SelectProvider(type = QuerySqlProvider.class, method = "selectCount")
+    @SelectProvider(type = QuerySqlProvider.class, method = AbsSqlProvider.selectCount)
     //@ResultMap("BaseResultMap")
     int selectCount(ICountWrapper wrapper);
 
@@ -100,6 +96,6 @@ public interface BasicMapper<T> {
      *                if no columns selected or no condition set,will throw an exception
      * @return update rows
      */
-    @UpdateProvider(type = UpdateSqlProvider.class, method = "updateSelectItem")
+    @UpdateProvider(type = UpdateSqlProvider.class, method = AbsSqlProvider.updateSelectItem)
     int updateSelectItem(IUpdateWrapper wrapper);
 }

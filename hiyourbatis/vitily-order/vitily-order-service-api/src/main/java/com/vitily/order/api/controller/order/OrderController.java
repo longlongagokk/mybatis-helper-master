@@ -151,9 +151,12 @@ public class OrderController {
         return Result.success(orderFormService.insert(orderForm));
     }
     @GetMapping(value = "tr-list")
-    public Result trList(PageInfo pageInfo)throws Exception{
+    public Result trList(Long beginId)throws Exception{
         PageList<TrOrder> pageList = trOrderMapper.selectPageList(SelectWrapper.build().from(TbOrderForm.class)
-        .select("e.id orderId,e.orderNo orderNo").page(pageInfo)
+                .select("e.id orderId,e.orderNo orderNo").page(new PageInfo())
+                .where(x -> x
+                        .ge("e.id", beginId)
+                )
         );
         return Result.success(pageList);
 
