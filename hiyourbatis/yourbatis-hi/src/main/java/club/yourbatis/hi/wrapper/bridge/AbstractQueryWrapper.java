@@ -33,15 +33,21 @@ public abstract class AbstractQueryWrapper<C extends AbstractConditionWrapper,Q 
 
     @Override
     public Q from(Class<?> tbClass, String alias) {
-        TableMetaInfo metaInfo = TableInfoHelper.getTableInfoFromEntityClass(tbClass);
-        fromTables.put(alias,metaInfo);
-        aliases.put(alias,metaInfo);
+        addMetaInfo(tbClass,alias);
         return (Q)this;
     }
 
     @Override
     public Q from(Class<?> tbClass) {
-        return from(tbClass, ConstValue.MAIN_ALIAS);
+        TableMetaInfo metaInfo = addMetaInfo(tbClass,ConstValue.MAIN_ALIAS);
+        aliases.put(null,metaInfo);
+        return (Q)this;
+    }
+    private TableMetaInfo addMetaInfo(Class<?> tbClass,String alias){
+        TableMetaInfo metaInfo = TableInfoHelper.getTableInfoFromEntityClass(tbClass);
+        fromTables.put(alias,metaInfo);
+        aliases.put(alias,metaInfo);
+        return metaInfo;
     }
 
     protected C copy()throws CloneNotSupportedException{
