@@ -8,7 +8,7 @@ import club.yourbatis.hi.wrapper.IPager;
 import club.yourbatis.hi.wrapper.ISelectorWrapper;
 import club.yourbatis.hi.wrapper.bridge.AbstractConditionWrapper;
 import club.yourbatis.hi.wrapper.bridge.AbstractJoinerWrapper;
-import club.yourbatis.hi.wrapper.factory.StringConditionWrapper;
+import club.yourbatis.hi.wrapper.factory.PropertyConditionWrapper;
 import lombok.Getter;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
@@ -42,10 +42,10 @@ public class SelectWrapper<C extends AbstractConditionWrapper>
     public static DefaultSelectWrapper build(){
         return new DefaultSelectWrapper();
     }
-    public static class DefaultSelectWrapper extends SelectWrapper<StringConditionWrapper>
+    public static class DefaultSelectWrapper extends SelectWrapper<PropertyConditionWrapper>
     {
         public DefaultSelectWrapper(){
-            super(new StringConditionWrapper());
+            super(new PropertyConditionWrapper());
         }
     }
     @Override
@@ -54,17 +54,9 @@ public class SelectWrapper<C extends AbstractConditionWrapper>
     }
 
     @Override
-    public SelectWrapper<C> select0(SelectField... fields) {
+    public SelectWrapper<C> select(SelectField... fields) {
         Assert.notEmpty(fields,"items can not be empty");
         Collections.addAll(selectItems, fields);
-        return this;
-    }
-    @Override
-    public SelectWrapper<C> select1(Enum... fields) {
-        Assert.notEmpty(fields,"items can not be empty");
-        for(Enum e:fields){
-            selectItems.add(SelectField.valueOf(e.name()));
-        }
         return this;
     }
     @Override
@@ -111,5 +103,9 @@ public class SelectWrapper<C extends AbstractConditionWrapper>
     public SelectWrapper<C> lock(boolean lock){
         this.lock = lock;
         return this;
+    }
+    @Override
+    public <N extends SelectWrapper<C>> N back(){
+        return (N)this;
     }
 }

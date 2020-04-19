@@ -7,9 +7,14 @@ import club.yourbatis.hi.wrapper.query.QuerySqlProvider;
 import com.vitily.order.api.entity.TrOrder;
 import org.apache.ibatis.annotations.SelectProvider;
 
-public interface TrOrderMapper {
+public interface TrOrderMapper<T> {
     @SelectProvider(type = QuerySqlProvider.class, method = AbsSqlProvider.selectPageList)
     PageList<TrOrder> selectPageList(ISelectorWrapper iSelectorWrapper);
+
     @SelectProvider(type = QuerySqlProvider.class, method = AbsSqlProvider.selectList)
     PageList<TrOrder> selectPageList0(ISelectorWrapper iSelectorWrapper);
+
+    @SelectProvider(type = QuerySqlProvider.class, method = AbsSqlProvider.selectOne)
+    T selectOne(ISelectorWrapper iSelectorWrapper);
+
 }

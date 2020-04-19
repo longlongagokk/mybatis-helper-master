@@ -26,14 +26,13 @@ club\yourbatis\hi\wrapper\bridge\AbsSqlProvider.class
 club\yourbatis\hi\wrapper\delete\DeleteSqlProvider.class
 club\yourbatis\hi\wrapper\IOrder.class
 club\yourbatis\hi\base\meta\FieldWithValue.class
-club\yourbatis\hi\wrapper\factory\EnumConditionWrapper.class
 club\yourbatis\hi\annotation\Table.class
 club\yourbatis\hi\base\meta\SimplePrimary.class
 club\yourbatis\hi\wrapper\bridge\AbstractConditionWrapper$1.class
 club\yourbatis\hi\util\StringUtils.class
 club\yourbatis\hi\util\LinkStack.class
+club\yourbatis\hi\wrapper\factory\PropertyConditionWrapper.class
 club\yourbatis\hi\base\Item.class
-club\yourbatis\hi\wrapper\factory\StringConditionWrapper.class
 club\yourbatis\hi\wrapper\query\QuerySqlProvider.class
 club\yourbatis\hi\util\ContextUtil.class
 club\yourbatis\hi\wrapper\IPager.class

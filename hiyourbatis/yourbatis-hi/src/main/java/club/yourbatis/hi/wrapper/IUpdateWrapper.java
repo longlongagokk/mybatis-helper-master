@@ -10,5 +10,4 @@ public interface IUpdateWrapper<S,C> extends IQueryWrapper<S,C>,
 {
     S set(FieldValue... items);
     S set(String fieldWithAlias, Object value);
-    S set(Enum field, Object value);
 }

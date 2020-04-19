@@ -7,7 +7,7 @@
     </parent>
     <groupId>com.vitily</groupId>
     <artifactId>hiyourbatis</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.61</version>
     <packaging>pom</packaging>
     <modules>
         <module>yourbatis-hi</module>
@@ -15,8 +15,8 @@
         <module>vitily-order</module>
     </modules>
     <properties>
-        <vitily.project.version>1.0.5</vitily.project.version>
-        <hiyourbatis.version>1.0.5</hiyourbatis.version>
+        <vitily.project.version>1.0.61</vitily.project.version>
+        <hiyourbatis.version>1.0.61</hiyourbatis.version>
         <org.mybatis.version>3.4.6</org.mybatis.version>
         <org.mybatis-spring.version>1.3.2</org.mybatis-spring.version>
         <com.zaxxer.HikariCP.version>3.2.0</com.zaxxer.HikariCP.version>

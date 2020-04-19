@@ -7,6 +7,9 @@ import lombok.Getter;
 
 import java.util.Collection;
 
+/**
+ * customize
+ */
 @Getter
 public class FlexibleConditionWrapper extends AbstractConditionWrapper<Item,Item, FlexibleConditionWrapper> {
     public FlexibleConditionWrapper(AbstractConditionWrapper e){

@@ -9,11 +9,11 @@ import club.yourbatis.hi.wrapper.ISelectorWrapper;
 import club.yourbatis.hi.wrapper.IUpdateWrapper;
 import club.yourbatis.hi.wrapper.query.SelectWrapper;
 import com.vitily.basicmapper.CommonBasicMapper;
+import com.vitily.basicservice.BasicService;
 import com.vitily.common.mapper.StaticBoundMapper;
 import com.vitily.common.module.BaseEntity;
 import com.vitily.common.module.QueryInfo;
 import com.vitily.common.module.TvPageList;
-import com.vitily.basicservice.BasicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 

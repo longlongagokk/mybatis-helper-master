@@ -73,13 +73,13 @@ public class YourResultSetHandler extends DefaultResultSetHandler {
     private ResultSetWrapper getFirstResultSet(Statement stmt) throws SQLException {
         ResultSet rs = stmt.getResultSet();
         while (rs == null) {
-            // move forward to get the first resultset in case the driver
-            // doesn't return the resultset as the first result (HSQLDB 2.1)
+            // move forward to get the first resultSet in case the driver
+            // doesn't return the resultSet as the first result (HSQLDB 2.1)
             if (stmt.getMoreResults()) {
                 rs = stmt.getResultSet();
             } else {
                 if (stmt.getUpdateCount() == -1) {
-                    // no more results. Must be no resultset
+                    // no more results. Must be no resultSet
                     break;
                 }
             }

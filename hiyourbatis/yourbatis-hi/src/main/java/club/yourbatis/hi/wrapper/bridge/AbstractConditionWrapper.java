@@ -8,16 +8,18 @@ import club.yourbatis.hi.enums.ConditionType;
 import club.yourbatis.hi.enums.ItemType;
 import club.yourbatis.hi.util.LinkStack;
 import club.yourbatis.hi.wrapper.IConditioner;
+import club.yourbatis.hi.wrapper.ISqlSegment;
 import club.yourbatis.hi.wrapper.IWrapper;
+import club.yourbatis.hi.wrapper.factory.FlexibleConditionWrapper;
+import club.yourbatis.hi.wrapper.factory.PropertyConditionWrapper;
 import club.yourbatis.hi.wrapper.seg.BetweenConditionSeg;
 import club.yourbatis.hi.wrapper.seg.InsConditionSeg;
-import club.yourbatis.hi.wrapper.ISqlSegment;
 import club.yourbatis.hi.wrapper.seg.SimpleConditionSeg;
-import club.yourbatis.hi.wrapper.factory.EnumConditionWrapper;
-import club.yourbatis.hi.wrapper.factory.FlexibleConditionWrapper;
-import club.yourbatis.hi.wrapper.factory.StringConditionWrapper;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.function.Consumer;
 
 public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionWrapper>
@@ -257,12 +259,8 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
 
     //*****************************switch*************************************//
 
-    public StringConditionWrapper d() {
-        return new StringConditionWrapper(this);
-    }
-
-    public EnumConditionWrapper e() {
-        return new EnumConditionWrapper(this);
+    public PropertyConditionWrapper d() {
+        return new PropertyConditionWrapper(this);
     }
 
     public FlexibleConditionWrapper f() {

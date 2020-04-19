@@ -75,7 +75,7 @@ public class QuerySqlProvider extends AbsSqlProvider {
         return sql;
     }
     private String select(ProviderContext context, ISelectorWrapper wrapper,boolean SQL_CALC_FOUND_ROWS){
-        SelectWrapper<?> selectWrapper = (SelectWrapper)wrapper;
+        SelectWrapper selectWrapper = (SelectWrapper)wrapper;
         Map<String, TableMetaInfo> tableMetaInfoMap = checkAndReturnFromTables(context,selectWrapper);
         boolean selectOwn = selectWrapper.selectMain;
         List<SelectField> selectFields = selectWrapper.selectItems;

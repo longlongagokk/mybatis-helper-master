@@ -3,10 +3,11 @@ package com.vitily.order.module.entity;
 import club.yourbatis.hi.annotation.Column;
 import club.yourbatis.hi.annotation.Table;
 import com.vitily.common.module.BaseEntity;
-import java.math.BigDecimal;
-import java.util.Date;
 import lombok.Data;
 import lombok.experimental.Accessors;
+
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @description : 订单主表

@@ -8,12 +8,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="yourbatis-hi" />
       </profile>
-      <profile name="Annotation profile for vitily-order-service" enabled="true">
-        <sourceOutputDir name="../../../../../../java_server/hi-yourbatis-server/dev/vitily-order-service/webapps/1.0.5/generated-sources/annotations" />
-        <sourceTestOutputDir name="../../../../../../java_server/hi-yourbatis-server/dev/vitily-order-service/webapps/1.0.5/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="vitily-order-service" />
-      </profile>
       <profile name="Annotation profile for mybatis-generator" enabled="true">
         <sourceOutputDir name="../../../../../java_server/hi-yourbatis-server/dev/mybatis-generator/webapps/1.3.6/generated-sources/annotations" />
         <sourceTestOutputDir name="../../../../../java_server/hi-yourbatis-server/dev/mybatis-generator/webapps/1.3.6/generated-test-sources/test-annotations" />
@@ -21,8 +15,8 @@
         <module name="mybatis-generator" />
       </profile>
       <profile name="Annotation profile for hiyourbatis" enabled="true">
-        <sourceOutputDir name="../../../../../../java_server/hi-yourbatis-server/dev/vitily-order-service-api/webapps/1.0.5/generated-sources/annotations" />
-        <sourceTestOutputDir name="../../../../../../java_server/hi-yourbatis-server/dev/vitily-order-service-api/webapps/1.0.5/generated-test-sources/test-annotations" />
+        <sourceOutputDir name="../../../../../../java_server/hi-yourbatis-server/dev/vitily-order-service-api/webapps/1.0.61/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../../../../../java_server/hi-yourbatis-server/dev/vitily-order-service-api/webapps/1.0.61/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="vitily-order-service-api" />
       </profile>

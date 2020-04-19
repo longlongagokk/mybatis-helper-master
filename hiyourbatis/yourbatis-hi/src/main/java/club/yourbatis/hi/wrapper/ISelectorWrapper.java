@@ -13,9 +13,9 @@ public interface ISelectorWrapper<S,C>
         IPager<S>, IOrder<S>
 {
     Collection<SelectField> selects();
-    S select0(SelectField... fields);
-    S select1(Enum... fields);
+    S select(SelectField... fields);
     S select(String fields);
     S selectMain(boolean selectMain);
     S lock(boolean lock);
+    <N extends S> N back();
 }

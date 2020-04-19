@@ -10,15 +10,15 @@ import java.util.Collection;
 /**
  * the default condition wrapper
  */
-public class StringConditionWrapper extends AbstractConditionWrapper<String,Object, StringConditionWrapper> {
-    public StringConditionWrapper(){
+public class PropertyConditionWrapper extends AbstractConditionWrapper<String,Object, PropertyConditionWrapper> {
+    public PropertyConditionWrapper(){
         super(DEFAULT_CONDITION_ELEMENTS_SIZE,null,"");
     }
-    public StringConditionWrapper(AbstractConditionWrapper e){
+    public PropertyConditionWrapper(AbstractConditionWrapper e){
         super(e);
     }
     @Override
-    protected StringConditionWrapper exchangeItems(ConditionType type, String left, Collection<?> rights) {
+    protected PropertyConditionWrapper exchangeItems(ConditionType type, String left, Collection<?> rights) {
         Item[] wraps = new Item[rights.size() + 1];
         wraps[0] = FieldItem.valueOf(left);
         int i = 0;

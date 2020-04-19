@@ -40,7 +40,7 @@ public class OrderController {
     @Autowired
     OrderDetailService orderDetailService;
     @Autowired
-    private TrOrderMapper trOrderMapper;
+    private TrOrderMapper<TrOrder> trOrderMapper;
 
     @GetMapping(value = "list")
     public Result list(HttpServletRequest request, HttpServletResponse response, BigDecimal amountPaid)throws Exception{
@@ -97,7 +97,7 @@ public class OrderController {
     public Result detailList(HttpServletRequest request, HttpServletResponse response)throws Exception{
         return Result.success(orderDetailService.selectPageList(SelectWrapper.build()
                 .select("e.id,e.orderId orderId,e.id bid")
-                .select0(
+                .select(
                         SelectField.valueOf("e.id"),
                         SelectField.valueOf("e.id id0"),
                         SelectField.valueOf("e.order_id",true),
@@ -150,6 +150,7 @@ public class OrderController {
         orderForm.setOrderNo(orderNo);
         return Result.success(orderFormService.insert(orderForm));
     }
+
     @GetMapping(value = "tr-list")
     public Result trList(Long beginId)throws Exception{
         PageList<TrOrder> pageList = trOrderMapper.selectPageList(SelectWrapper.build().from(TbOrderForm.class)
@@ -159,6 +160,30 @@ public class OrderController {
                 )
         );
         return Result.success(pageList);
+
+        //return Result.success(orderDetailService.selectOne(new QueryWrapper<TbOrderDetail>().eq(TsOrderDetail.Fields.orderId,id)));
+//        trOrderMapper.selectList(SelectWrapper.DefaultSelectWrapper.build()
+//                .from(TbOrderForm.class)
+//                .select("e.id orderId,e.orderNo,e.memberId userName")
+//                        .where(x->x.eq("e.id",100))
+//        );
+//        return Result.success(trOrderMapper.selectCount(CountWrapper.build()
+//                .from(TbOrderForm.class)
+//                .from(TbOrderDetail.class,"od")
+//                .where(x->x.eq("e.id",100))
+//                .where(x->x.eq("od.id",330))
+//                .where(x->x.eq(FieldWithValue.valueOf("od.orderId",FieldItem.valueOf("e.id"))))
+//        ));
+    }
+
+    @GetMapping(value = "info")
+    public Result info(Long id)throws Exception{
+        TrOrder order = trOrderMapper.selectOne(SelectWrapper.build()
+                .from(TbOrderForm.class)
+                .select("e.id orderId,e.orderNo")
+                .where(w->w.eq("e.id",id))
+        );
+        return Result.success(order);
 
         //return Result.success(orderDetailService.selectOne(new QueryWrapper<TbOrderDetail>().eq(TsOrderDetail.Fields.orderId,id)));
 //        trOrderMapper.selectList(SelectWrapper.DefaultSelectWrapper.build()

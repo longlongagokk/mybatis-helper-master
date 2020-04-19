@@ -3,7 +3,7 @@ package club.yourbatis.hi.wrapper.query;
 import club.yourbatis.hi.wrapper.ICountWrapper;
 import club.yourbatis.hi.wrapper.bridge.AbstractConditionWrapper;
 import club.yourbatis.hi.wrapper.bridge.AbstractJoinerWrapper;
-import club.yourbatis.hi.wrapper.factory.StringConditionWrapper;
+import club.yourbatis.hi.wrapper.factory.PropertyConditionWrapper;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ public class CountWrapper<C extends AbstractConditionWrapper>
     public CountWrapper(C where,AbstractJoinerWrapper absWrapper){
         super(where,absWrapper);
     }
-    public static ICountWrapper<CountWrapper<StringConditionWrapper>,StringConditionWrapper> build(){
-        return new CountWrapper<>(new StringConditionWrapper());
+    public static ICountWrapper<CountWrapper<PropertyConditionWrapper>, PropertyConditionWrapper> build(){
+        return new CountWrapper<>(new PropertyConditionWrapper());
     }
 }

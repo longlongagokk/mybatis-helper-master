@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>club.yourbatis</groupId>
     <artifactId>yourbatis-hi</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.61</version>
     <packaging>jar</packaging>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

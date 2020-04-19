@@ -3,13 +3,13 @@
     <parent>
         <groupId>com.vitily</groupId>
         <artifactId>hiyourbatis</artifactId>
-        <version>1.0.5</version>
+        <version>1.0.61</version>
     </parent>
     <artifactId>vitily-order</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.61</version>
     <packaging>pom</packaging>
     <modules>
-        <module>vitily-order-service</module>
+<!--        <module>vitily-order-service</module>-->
         <module>vitily-order-service-api</module>
     </modules>
     <properties>

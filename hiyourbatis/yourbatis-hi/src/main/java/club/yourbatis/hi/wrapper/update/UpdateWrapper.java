@@ -2,12 +2,11 @@ package club.yourbatis.hi.wrapper.update;
 
 import club.yourbatis.hi.base.FieldValue;
 import club.yourbatis.hi.base.meta.FieldWithValue;
-import club.yourbatis.hi.base.meta.TableMetaInfo;
 import club.yourbatis.hi.util.Assert;
 import club.yourbatis.hi.wrapper.IUpdateWrapper;
 import club.yourbatis.hi.wrapper.bridge.AbstractConditionWrapper;
 import club.yourbatis.hi.wrapper.bridge.AbstractJoinerWrapper;
-import club.yourbatis.hi.wrapper.factory.StringConditionWrapper;
+import club.yourbatis.hi.wrapper.factory.PropertyConditionWrapper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,10 +23,10 @@ public class UpdateWrapper<C extends AbstractConditionWrapper>
     public static DefaultUpdateWrapper build(){
         return new DefaultUpdateWrapper();
     }
-    public static class DefaultUpdateWrapper extends UpdateWrapper<StringConditionWrapper>
+    public static class DefaultUpdateWrapper extends UpdateWrapper<PropertyConditionWrapper>
     {
         public DefaultUpdateWrapper(){
-            super(new StringConditionWrapper());
+            super(new PropertyConditionWrapper());
         }
     }
     @Override
@@ -39,10 +38,5 @@ public class UpdateWrapper<C extends AbstractConditionWrapper>
     @Override
     public UpdateWrapper<C> set(String fieldWithAlias, Object value) {
         return set(FieldWithValue.withParamValue(fieldWithAlias,value));
-    }
-
-    @Override
-    public UpdateWrapper<C> set(Enum field, Object value) {
-        return set(field.name(),value);
     }
 }
