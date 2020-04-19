@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vitily.order.mapper.OrderFormMapper" >
+  <resultMap id="BaseResultMap" type="com.vitily.order.module.entity.TbOrderForm" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="deltag" property="deltag" jdbcType="TINYINT" />
+    <result column="delivery_id" property="deliveryId" jdbcType="BIGINT" />
+    <result column="member_id" property="memberId" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="pay_state" property="payState" jdbcType="INTEGER" />
+    <result column="receiver" property="receiver" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="post_code" property="postCode" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="call" property="call" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="send_date" property="sendDate" jdbcType="VARCHAR" />
+    <result column="pro_amount" property="proAmount" jdbcType="DECIMAL" />
+    <result column="delivery_cost" property="deliveryCost" jdbcType="DECIMAL" />
+    <result column="amount_pay" property="amountPay" jdbcType="DECIMAL" />
+    <result column="amount_paid" property="amountPaid" jdbcType="DECIMAL" />
+    <result column="pay_way_id" property="payWayId" jdbcType="BIGINT" />
+    <result column="vote_title" property="voteTitle" jdbcType="VARCHAR" />
+    <result column="vote_company" property="voteCompany" jdbcType="VARCHAR" />
+    <result column="vote_content" property="voteContent" jdbcType="VARCHAR" />
+    <result column="delivery_status" property="deliveryStatus" jdbcType="INTEGER" />
+    <result column="order_type_str" property="orderTypeStr" jdbcType="VARCHAR" />
+    <result column="leave_message" property="leaveMessage" jdbcType="VARCHAR" />
+    <result column="deal_status" property="dealStatus" jdbcType="INTEGER" />
+    <result column="order_date" property="orderDate" jdbcType="TIMESTAMP" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="delivery_way_name" property="deliveryWayName" jdbcType="VARCHAR" />
+    <result column="pay_way_name" property="payWayName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ListResultMap" type="com.vitily.order.module.view.TvOrderForm" extends="BaseResultMap" />
+  <resultMap id="ViewResultMap" type="com.vitily.order.module.view.TvOrderForm" extends="ListResultMap" />
+  <sql id="Base_Column_List" >
+    e.`id`, e.`create_date`, e.`update_date`, e.`deltag`, e.`delivery_id`, e.`member_id`, 
+    e.`order_no`, e.`pay_state`, e.`receiver`, e.`area`, e.`address`, e.`post_code`, 
+    e.`phone`, e.`call`, e.`email`, e.`send_date`, e.`pro_amount`, e.`delivery_cost`, 
+    e.`amount_pay`, e.`amount_paid`, e.`pay_way_id`, e.`vote_title`, e.`vote_company`, 
+    e.`vote_content`, e.`delivery_status`, e.`order_type_str`, e.`leave_message`, e.`deal_status`, 
+    e.`order_date`, e.`user_name`, e.`delivery_way_name`, e.`pay_way_name`
+  </sql>
+  <sql id="query_condition" >
+    <if test="entity != null" >
+      
+    </if>
+  </sql>
+  <sql id="select_for_list_tv" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_order_form e
+  </sql>
+  <select id="getCountPaging" resultType="java.lang.Integer" parameterType="com.vitily.order.module.query.TsOrderForm" >
+    select count(1) as recordCount from tb_order_form e where 1=1
+    <include refid="query_condition" />
+  </select>
+  <select id="getListByBean" resultMap="ListResultMap" parameterType="com.vitily.order.module.query.TsOrderForm" >
+    <include refid="select_for_list_tv" />
+     where 1=1 
+    <include refid="query_condition" />
+    <if test="orders !=null and orders.size > 0" >
+      order by ${orderStr}
+    </if>
+    <if test="null != pageInfo" >
+      limit #{pageInfo.step},#{pageInfo.pageSize}
+    </if>
+  </select>
+</mapper>
