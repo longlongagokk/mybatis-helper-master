@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<context id="context1" targetRuntime="MyBatis3">
+        <property name="beginningDelimiter" value="`"/>
+		<property name="endingDelimiter" value="`"/>
+		<!--  指定生成的java文件的编码,没有直接生成到项目时中文可能会乱码 -->
+		<property name="javaFileEncoding" value="UTF-8" />
+		<!-- mysql配置 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+						connectionURL="jdbc:mysql://localhost:3306/mybatis-helper-demo?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;failOverReadOnly=false"
+						userId="root"
+						password="123456">
+			<!-- 针对 mysql 数据库 -->
+			<property name="useInformationSchema" value="true"></property>
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- entity class -->
+		<javaModelGenerator targetPackage="com.mybatishelper.demo.order.module.entity" targetProject="D:\">
+			<property name="enableSubPackages" value="false"	/>
+			<property name="useActualColumnNames" value="true" />
+			<property name="trimStrings" value="false" />
+			<property name="setterIsBuilder" value="true" />
+			<property name="rootClass" value="com.mybatishelper.demo.common.module.BaseEntity"/>
+<!--			<property name="rootInterface" value="java.io.Serializable" />-->
+		</javaModelGenerator>
+
+		<!-- view class -->
+		<javaViewModelGenerator targetPackage="com.mybatishelper.demo.order.module.view" targetProject="D:\">
+		</javaViewModelGenerator>
+
+		<!-- mapper xml -->
+		<sqlMapGenerator isMergeable="false" targetPackage="com.mybatishelper.demo.order.mapper" targetProject="D:\">
+			<property name="enableSubPackages" value="false"	/>
+		</sqlMapGenerator>
+
+		<!-- mapper class -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.mybatishelper.demo.order.mapper" targetProject="D:\">
+			<property name="enableSubPackages" value="false" />
+			<property name="rootInterface" value="com.mybatishelper.demo.basicmapper.CommonBasicMapper#l$T,$V#r" />
+		</javaClientGenerator>
+
+		<!-- service class -->
+		<javaServiceGenerator targetPackage="com.mybatishelper.demo.order.service" targetProject="D:\">
+			<property name="enableSubPackages" value="false" />
+			<property name="rootInterface" value="com.mybatishelper.demo.basicservice.BasicService#l$T,$V#r" />
+		</javaServiceGenerator>
+
+		<!-- service impl class -->
+		<javaServiceImplGenerator targetPackage="com.mybatishelper.demo.order.service.impl" targetProject="D:\">
+			<property name="enableSubPackages" value="false" />
+			<property name="rootInterface" value="com.mybatishelper.demo.basicservice.impl.BasicServiceImpl#l$T,$V,$M#r" />
+		</javaServiceImplGenerator>
+
+		<table tableName="tb_order_detail" delimitAllColumns="true" delimitIdentifiers="true" alias="e"></table>
+		<table tableName="tb_order_form" delimitAllColumns="true" delimitIdentifiers="true" alias="e" schema="mybatis-helper-demo"></table>
+
+<!--		<table tableName="tb_order_form"-->
+<!--			   domainObjectName="TbOrderForm"-->
+<!--			   viewModelObjectName="TvOrderForm"-->
+<!--			   mapperAndServiceFileName="OrderForm"-->
+<!--			   delimitAllColumns="true"-->
+<!--			   delimitIdentifiers="true"-->
+<!--			   alias="e"-->
+<!--			   schema="mybatis-helper-demo"-->
+<!--		>-->
+<!--			<generatedKey column="id" sqlStatement="Mysql" identity="true" />-->
+<!--		</table>-->
+	</context>
+</generatorConfiguration>
+

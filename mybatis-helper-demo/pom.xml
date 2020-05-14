@@ -1,0 +1,36 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.mybatishelper</groupId>
+        <artifactId>mybatishelper-parent</artifactId>
+        <version>1.0.61</version>
+    </parent>
+    <artifactId>mybatis-helper-demo</artifactId>
+    <version>1.0.61</version>
+    <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>com.mybatishelper</groupId>
+            <artifactId>mybatishelper</artifactId>
+            <version>${mybatishelper.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>${com.zaxxer.HikariCP.version}</version>
+        </dependency>
+    </dependencies>
+    <properties>
+        <project-package-main-classes>com.mybatishelper.demo.OrderApiApplication</project-package-main-classes>
+        <skip_dependency_deploy>false</skip_dependency_deploy>
+        <skip_resource_deploy>false</skip_resource_deploy>
+    </properties>
+</project>

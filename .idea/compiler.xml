@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="mybatishelper" />
+      </profile>
+      <profile name="Annotation profile for vitily-order-service-api" enabled="true">
+        <sourceOutputDir name="../../../../../java_server/hi-yourbatis-server/dev/vitily-order-service-api/webapps/1.0.61/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../../../../java_server/hi-yourbatis-server/dev/vitily-order-service-api/webapps/1.0.61/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="vitily-order-service-api" />
+      </profile>
+      <profile name="Annotation profile for mybatis-helper-demo" enabled="true">
+        <sourceOutputDir name="../../../../java-server/mybatis-helper/dev/mybatis-helper-demo/webapps/1.0.61/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../../../java-server/mybatis-helper/dev/mybatis-helper-demo/webapps/1.0.61/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="mybatis-helper-demo" />
+      </profile>
+      <profile name="Annotation profile for mybatishelper-parent" enabled="true">
+        <sourceOutputDir name="../../../../java-server/mybatis-helper/dev/mybatis-generator/webapps/1.3.6/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../../../java-server/mybatis-helper/dev/mybatis-generator/webapps/1.3.6/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="mybatis-generator" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mybatis-generator" target="1.8" />
+      <module name="mybatis-helper" target="1.8" />
+      <module name="mybatis-helper (1)" target="1.8" />
+      <module name="mybatis-helper-demo" target="1.8" />
+      <module name="mybatishelper" target="1.8" />
+      <module name="vitily-order" target="1.8" />
+      <module name="vitily-order-service-api" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="mybatis-generator" options="-parameters" />
+      <module name="mybatis-helper-demo" options="-parameters" />
+      <module name="vitily-order-service-api" options="-parameters" />
+    </option>
+  </component>
+</project>
