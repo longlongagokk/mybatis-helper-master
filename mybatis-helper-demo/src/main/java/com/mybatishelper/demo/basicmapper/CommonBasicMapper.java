@@ -4,6 +4,7 @@ import com.mybatishelper.core.base.Primary;
 import com.mybatishelper.core.base.meta.PageList;
 import com.mybatishelper.core.mapper.BasicMapper;
 import com.mybatishelper.core.wrapper.ISelectorWrapper;
+import com.mybatishelper.core.wrapper.bridge.AbsSqlProvider;
 import com.mybatishelper.core.wrapper.query.QuerySqlProvider;
 import com.mybatishelper.demo.common.module.QueryInfo;
 import org.apache.ibatis.annotations.SelectProvider;
@@ -16,13 +17,13 @@ import java.util.List;
  * @param <V>
  */
 public interface CommonBasicMapper<T,V extends T> extends BasicMapper<T> {
-    @SelectProvider(type = QuerySqlProvider.class, method = "selectItemByPrimaryKey")
+    @SelectProvider(type = QuerySqlProvider.class, method = AbsSqlProvider.selectItemByPrimaryKey)
     V selectItemByPrimaryKeyV(Primary primary);
-    @SelectProvider(type = QuerySqlProvider.class, method = "selectOne")
+    @SelectProvider(type = QuerySqlProvider.class, method = AbsSqlProvider.selectOne)
     V selectOneV(ISelectorWrapper wrapper);
-    @SelectProvider(type = QuerySqlProvider.class, method = "selectList")
+    @SelectProvider(type = QuerySqlProvider.class, method = AbsSqlProvider.selectList)
     List<V> selectListV(ISelectorWrapper wrapper);
-    @SelectProvider(type = QuerySqlProvider.class, method = "selectPageList")
+    @SelectProvider(type = QuerySqlProvider.class, method = AbsSqlProvider.selectPageList)
     PageList<V> selectPageListV(ISelectorWrapper wrapper);
 
     int getCountPaging(QueryInfo<T> query);

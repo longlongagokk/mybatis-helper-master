@@ -1,4 +1,5 @@
 package com.mybatishelper.core.wrapper;
+import java.util.Set;
 import java.util.function.Consumer;
 
 /**
@@ -7,6 +8,7 @@ import java.util.function.Consumer;
  */
 public interface IQueryWrapper<S,C> extends IWrapper {
     C getWhere();
+    Set<String> getAliases();
     S from(Class<?> tbClass,String alias);
     S from(Class<?> tbClass);
     S where(Consumer<C> consumer);

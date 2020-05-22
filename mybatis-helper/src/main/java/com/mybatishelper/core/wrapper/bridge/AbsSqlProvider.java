@@ -30,8 +30,7 @@ public abstract class AbsSqlProvider {
     protected Map<String, TableMetaInfo> checkAndReturnFromTables(ProviderContext context, AbstractJoinerWrapper<?,?> wrapper){
         if(wrapper.fromTables.isEmpty()){
             TableMetaInfo mainMeta = TableInfoHelper.getTableInfoByProviderContext(context);
-            wrapper.aliases.put(null,mainMeta);
-            wrapper.aliases.put(ConstValue.MAIN_ALIAS,mainMeta);
+            wrapper.aliasTables.put(ConstValue.MAIN_ALIAS,mainMeta);
             wrapper.fromTables.put(ConstValue.MAIN_ALIAS,mainMeta);
         }
         return wrapper.fromTables;

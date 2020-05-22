@@ -24,8 +24,8 @@ public abstract class AbstractJoinerWrapper<C extends AbstractConditionWrapper,Q
     }
     public AbstractJoinerWrapper(C where,AbstractJoinerWrapper absWrapper) {
         super(where);
-        if(absWrapper.aliases != null){
-            this.aliases = absWrapper.aliases;
+        if(absWrapper.aliasTables != null){
+            this.aliasTables = absWrapper.aliasTables;
             this.fromTables = absWrapper.fromTables;
         }
         this.joins = absWrapper.joins;
@@ -59,7 +59,7 @@ public abstract class AbstractJoinerWrapper<C extends AbstractConditionWrapper,Q
     private Q join(Class<?> tbClass,String alias, Consumer<C> consumer, JoinType joinType) {
         TableMetaInfo tableMetaInfo = TableInfoHelper.getTableInfoFromEntityClass(tbClass);
 
-        this.aliases.put(alias,tableMetaInfo);
+        this.aliasTables.put(alias,tableMetaInfo);
         try {
             C joinWhere = (C)where.clone();
             joinWhere.reset(AbstractConditionWrapper.DEFAULT_CONDITION_ELEMENTS_SIZE,this,"joins[" + joins.size() + "].where.");
