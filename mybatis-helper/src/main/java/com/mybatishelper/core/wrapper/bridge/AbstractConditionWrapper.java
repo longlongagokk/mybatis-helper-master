@@ -154,7 +154,7 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
 
     @Override
     public S notIn(L left, Collection<?> values) {
-        return exchangeItems(ConditionType.NOTIN,left,values);
+        return exchangeItems(ConditionType.NOT_IN,left,values);
     }
 
     @Override
@@ -175,11 +175,11 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
             case LIKE:
             case ISNULL:
             case NOTNULL:
-            case DONOTHINE:
+            case DO_NOTHING:
                 addElement(SimpleConditionSeg.valueOf(type,items));
                 break;
             case IN:
-            case NOTIN:
+            case NOT_IN:
                 if(items.length > 1) {
                     addElement(InsConditionSeg.valueOf(type, items));
                 }
@@ -187,8 +187,8 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
             case OR:
             case AND:
             case CLOSURE:
-            case LEFTWRAPPER:
-            case RIGHTWRAPPER:
+            case LEFT_WRAPPER:
+            case RIGHT_WRAPPER:
                 break;
             case BETWEEN:
                 addElement(BetweenConditionSeg.valueOf(items));
@@ -217,10 +217,10 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
             final ConditionType _closureType = closure.peek();
             fields.add(w -> _closureType.getOpera());
         }
-        fields.add(w -> ConditionType.LEFTWRAPPER.getOpera());
+        fields.add(w -> ConditionType.LEFT_WRAPPER.getOpera());
         closure.push(type);
         consumer.accept((S)this);
-        fields.add(w -> ConditionType.RIGHTWRAPPER.getOpera());
+        fields.add(w -> ConditionType.RIGHT_WRAPPER.getOpera());
         closure.pop();
         return (S)this;
     }

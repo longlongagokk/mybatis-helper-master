@@ -20,13 +20,13 @@ public class InsConditionSeg extends SimpleConditionSeg {
         }
         StringBuilder sb = new StringBuilder(wrapItemSql(items[0], wrapper));
         sb.append(type.getOpera());
-        sb.append(ConditionType.LEFTWRAPPER.getOpera());
+        sb.append(ConditionType.LEFT_WRAPPER.getOpera());
         for (int i = 1; i < items.length - 1; ++i) {
             sb.append(wrapItemSql(items[i], wrapper));
             sb.append(ConstValue.COMMA);
         }
         sb.append(wrapItemSql(items[items.length - 1], wrapper));
-        sb.append(ConditionType.RIGHTWRAPPER.getOpera());
+        sb.append(ConditionType.RIGHT_WRAPPER.getOpera());
         return sb.toString();
     }
 }

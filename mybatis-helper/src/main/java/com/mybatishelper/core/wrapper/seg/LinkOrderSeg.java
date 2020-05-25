@@ -12,7 +12,7 @@ public class LinkOrderSeg extends AbsSqlSegment<OrderField> {
         super(type, orderFields);
     }
     public static LinkOrderSeg valueOf(OrderField... orderFields) {
-        return new LinkOrderSeg(ConditionType.DONOTHINE,orderFields);
+        return new LinkOrderSeg(ConditionType.DO_NOTHING,orderFields);
     }
 
     @Override

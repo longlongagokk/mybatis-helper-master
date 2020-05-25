@@ -1,9 +1,9 @@
 package com.mybatishelper.core.enums;
 
 public enum  ConditionType {
-    DONOTHINE(14," "),
-    LEFTWRAPPER(-3," ( "),
-    RIGHTWRAPPER(-2," ) "),
+    DO_NOTHING(14," "),
+    LEFT_WRAPPER(-3," ( "),
+    RIGHT_WRAPPER(-2," ) "),
     CLOSURE(-1,""),
     AND(0," and "),
     OR(1," or "),
@@ -16,7 +16,7 @@ public enum  ConditionType {
     LIKE(8," like "),
     IN(9," in "),
     BETWEEN(10," BETWEEN "),
-    NOTIN(11," not in "),
+    NOT_IN(11," not in "),
     ISNULL(12," is null "),
     NOTNULL(13," is not null "),
             ;

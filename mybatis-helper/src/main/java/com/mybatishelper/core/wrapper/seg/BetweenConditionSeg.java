@@ -15,13 +15,13 @@ public class BetweenConditionSeg extends SimpleConditionSeg {
 
     @Override
     public String createSql(AbstractQueryWrapper wrapper) {
-        StringBuilder sb = new StringBuilder(ConditionType.LEFTWRAPPER.getOpera());
+        StringBuilder sb = new StringBuilder(ConditionType.LEFT_WRAPPER.getOpera());
         sb.append(wrapItemSql(items[0],wrapper));
         sb.append(type.getOpera());
         sb.append(wrapItemSql(items[1],wrapper));
         sb.append(ConditionType.AND.getOpera());
         sb.append(wrapItemSql(items[2],wrapper));
-        sb.append(ConditionType.RIGHTWRAPPER.getOpera());
+        sb.append(ConditionType.RIGHT_WRAPPER.getOpera());
         return sb.toString();
     }
 }

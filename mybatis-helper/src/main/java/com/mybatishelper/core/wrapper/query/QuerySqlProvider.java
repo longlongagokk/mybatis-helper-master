@@ -37,9 +37,9 @@ public class QuerySqlProvider extends AbsSqlProvider {
             sb
                     .append(entry.getValue())
                     .append(ConstValue.BLANK)
-                    .append(ConstValue.BACKTRICKS)
+                    .append(ConstValue.BACK_TRICKS)
                     .append(entry.getKey())
-                    .append(ConstValue.BACKTRICKS)
+                    .append(ConstValue.BACK_TRICKS)
                     .append(ConstValue.COMMA)
             ;
         }
@@ -99,9 +99,9 @@ public class QuerySqlProvider extends AbsSqlProvider {
                         .append(ConstValue.DOT)
                         .append(entry.getValue())
                         .append(ConstValue.BLANK)
-                        .append(ConstValue.BACKTRICKS)
+                        .append(ConstValue.BACK_TRICKS)
                         .append(entry.getKey())
-                        .append(ConstValue.BACKTRICKS)
+                        .append(ConstValue.BACK_TRICKS)
                         .append(ConstValue.COMMA)
                 ;
             }

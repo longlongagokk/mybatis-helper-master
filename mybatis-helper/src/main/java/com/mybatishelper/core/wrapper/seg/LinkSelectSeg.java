@@ -12,7 +12,7 @@ public class LinkSelectSeg extends AbsSqlSegment<SelectField> {
         super(type, selectFields);
     }
     public static LinkSelectSeg valueOf(SelectField... selectFields) {
-        return new LinkSelectSeg(ConditionType.DONOTHINE,selectFields);
+        return new LinkSelectSeg(ConditionType.DO_NOTHING,selectFields);
     }
 
     @Override

@@ -12,7 +12,7 @@ public class SelectField extends AbsField {
         super(alias,name,original);
         this.columnAlias = columnAlias;
         if(!original){
-            fullPath = getFullName() + ConstValue.BLANK + ConstValue.BACKTRICKS + this.columnAlias + ConstValue.BACKTRICKS;
+            fullPath = getFullName() + ConstValue.BLANK + ConstValue.BACK_TRICKS + this.columnAlias + ConstValue.BACK_TRICKS;
         }
     }
     private SelectField(String fullInfo, boolean original){
