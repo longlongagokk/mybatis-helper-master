@@ -3,10 +3,7 @@ package com.mybatishelper.demo.basicservice.impl;
 import com.mybatishelper.core.base.Page;
 import com.mybatishelper.core.base.Primary;
 import com.mybatishelper.core.base.meta.PageList;
-import com.mybatishelper.core.wrapper.ICountWrapper;
-import com.mybatishelper.core.wrapper.IDeleteWrapper;
-import com.mybatishelper.core.wrapper.ISelectorWrapper;
-import com.mybatishelper.core.wrapper.IUpdateWrapper;
+import com.mybatishelper.core.wrapper.*;
 import com.mybatishelper.core.wrapper.query.SelectWrapper;
 import com.mybatishelper.demo.basicmapper.CommonBasicMapper;
 import com.mybatishelper.demo.basicservice.BasicService;
@@ -74,7 +71,7 @@ public abstract class BasicServiceImpl<T extends BaseEntity<T>, V extends T,M ex
 		return mapper.selectListV(wrapper);
 	}
 	@Override
-	public int selectCount(ICountWrapper wrapper){
+	public int selectCount(IQueryWrapper wrapper){
 		return mapper.selectCount(wrapper);
 	}
 	protected void beforeUpdate(T entity){}

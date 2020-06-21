@@ -10,7 +10,7 @@ import com.mybatishelper.core.base.param.ParamItem;
 import com.mybatishelper.core.base.param.ValueItem;
 import com.mybatishelper.core.wrapper.delete.DeleteWrapper;
 import com.mybatishelper.core.wrapper.factory.PropertyConditionWrapper;
-import com.mybatishelper.core.wrapper.query.CountWrapper;
+import com.mybatishelper.core.wrapper.query.QueryWrapper;
 import com.mybatishelper.core.wrapper.query.SelectWrapper;
 import com.mybatishelper.core.wrapper.update.UpdateWrapper;
 import com.mybatishelper.demo.basicservice.impl.BasicServiceImpl;
@@ -133,7 +133,7 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 
 		log.info("------------------------selectOne--all------------------------------");
 		//selectOne--all
-		SelectWrapper queryWrapper =
+		SelectWrapper<PropertyConditionWrapper> queryWrapper =
 				new SelectWrapper<>(new PropertyConditionWrapper())
 //						.select("payWayId pid")
 //						.select("payState sd")
@@ -232,7 +232,7 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 						)
 				;
 //		log.info("------------------------"+JSONUtil.toJSONString(mapper.selectCount(
-//				new CountWrapper<>(new StringConditionWrapper())
+//				new QueryWrapper<>(new StringConditionWrapper())
 //						.join(ClassAssociateTableInfo.valueOf(TbOrderDetail.class,"d"),
 //								d->
 //										d.eq("d.id",700)
@@ -253,15 +253,16 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 //
 		//queryWrapper.getWhere();queryWrapper.getJoins()
 		log.info("------------------------"+JSONUtil.toJSONString(mapper.selectCount(
-			CountWrapper.build().where(x->
+			QueryWrapper.build().where(x->
 					x.eq("e.payWayId",333333))
 		))+"------------------------------");
 
 		log.info("------------------------"+JSONUtil.toJSONString(mapper.selectList(
 				queryWrapper
 		))+"------------------------------");
+		QueryWrapper queryWrapper1 = new QueryWrapper<>(queryWrapper.getWhere(),queryWrapper);
 		log.info("------------------------"+JSONUtil.toJSONString(mapper.selectCount(
-				new CountWrapper(queryWrapper.getWhere(),queryWrapper)
+				queryWrapper1
 
 		))+"------------------------------");
 
@@ -393,7 +394,7 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 		iids.add(ParamItem.valueOf("e.orderNo"));
 		iids.add(ValueItem.valueOf("100"));
 		log.info("------------------------"+
-				mapper.selectCount(new CountWrapper<>(new PropertyConditionWrapper())
+				mapper.selectCount(new QueryWrapper<>(new PropertyConditionWrapper())
 						.leftJoin(TbOrderDetail.class,"x",
 								x->x.eq("x.id",3)
 								)
@@ -454,7 +455,7 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 
 		)+"------------------------------");
 		log.info("------------------------"+ JSONUtil.toJSONString(
-				mapper.selectCount(new CountWrapper<>(new PropertyConditionWrapper())
+				mapper.selectCount(new QueryWrapper<>(new PropertyConditionWrapper())
 						.where(x->
 								x.eq("e.payState",2))
 				)

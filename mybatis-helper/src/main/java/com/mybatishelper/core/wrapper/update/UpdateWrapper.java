@@ -5,7 +5,7 @@ import com.mybatishelper.core.base.meta.FieldWithValue;
 import com.mybatishelper.core.util.Assert;
 import com.mybatishelper.core.wrapper.IUpdateWrapper;
 import com.mybatishelper.core.wrapper.bridge.AbstractConditionWrapper;
-import com.mybatishelper.core.wrapper.bridge.AbstractJoinerWrapper;
+import com.mybatishelper.core.wrapper.bridge.AbstractQueryWrapper;
 import com.mybatishelper.core.wrapper.factory.PropertyConditionWrapper;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class UpdateWrapper<C extends AbstractConditionWrapper>
-        extends AbstractJoinerWrapper<C,UpdateWrapper<C>>
+        extends AbstractQueryWrapper<C,UpdateWrapper<C>>
         implements IUpdateWrapper<UpdateWrapper<C>,C> {
     List<FieldValue> updateItems;
     public UpdateWrapper(C where){

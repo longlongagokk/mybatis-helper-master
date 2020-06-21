@@ -26,8 +26,9 @@ public abstract class AbsSqlProvider {
     public static final String updateByPrimary = "updateByPrimary";
     public static final String updateSelectiveByPrimaryKey = "updateSelectiveByPrimaryKey";
     public static final String updateSelectItem = "updateSelectItem";
+    public static final String selectExists = "selectExists";
 
-    protected Map<String, TableMetaInfo> checkAndReturnFromTables(ProviderContext context, AbstractJoinerWrapper<?,?> wrapper){
+    protected Map<String, TableMetaInfo> checkAndReturnFromTables(ProviderContext context, AbstractQueryWrapper<?,?> wrapper){
         if(wrapper.fromTables.isEmpty()){
             TableMetaInfo mainMeta = TableInfoHelper.getTableInfoByProviderContext(context);
             wrapper.aliasTables.put(ConstValue.MAIN_ALIAS,mainMeta);
@@ -35,7 +36,7 @@ public abstract class AbsSqlProvider {
         }
         return wrapper.fromTables;
     }
-    protected void createFromTableSql(StringBuilder builder,AbstractJoinerWrapper<?,?> wrapper){
+    protected void createFromTableSql(StringBuilder builder,AbstractQueryWrapper<?,?> wrapper){
         for(Map.Entry<String,TableMetaInfo> entry:wrapper.fromTables.entrySet()){
             builder
                     .append(entry.getValue().getTableName())
@@ -46,7 +47,7 @@ public abstract class AbsSqlProvider {
         }
         builder.deleteCharAt(builder.length() - 1).append(ConstValue.BLANK);
     }
-    protected void createJoinInfoSql(StringBuilder builder,AbstractJoinerWrapper<?,?> wrapper){
+    protected void createJoinInfoSql(StringBuilder builder,AbstractQueryWrapper<?,?> wrapper){
         if(!CollectionUtils.isEmpty(wrapper.joins)){
             builder.append(ConstValue.BLANK);
             wrapper.joins.forEach(x -> {
@@ -68,7 +69,7 @@ public abstract class AbsSqlProvider {
      * @param wrapper query container
      * @return hasCondition when conditionSql is empty then return null else true
      */
-    protected boolean createWhereSql(StringBuilder builder,AbstractJoinerWrapper<?,?> wrapper){
+    protected boolean createWhereSql(StringBuilder builder,AbstractQueryWrapper<?,?> wrapper){
         String conditionSql = wrapper.where.getConditionSql();
         if(!StringUtils.isEmpty(conditionSql)){
             builder.append(" where ").append(conditionSql);

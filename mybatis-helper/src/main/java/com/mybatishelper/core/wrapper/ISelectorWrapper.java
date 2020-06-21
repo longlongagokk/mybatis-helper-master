@@ -9,7 +9,6 @@ import java.util.Collection;
  */
 public interface ISelectorWrapper<S,C>
         extends IQueryWrapper<S,C>,
-        IJoining<S,C>,
         IPager<S>, IOrder<S>
 {
     Collection<SelectField> selects();

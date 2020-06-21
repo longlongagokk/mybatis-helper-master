@@ -1,10 +1,7 @@
 package com.mybatishelper.demo.basicservice;
 
 import com.mybatishelper.core.base.Primary;
-import com.mybatishelper.core.wrapper.ICountWrapper;
-import com.mybatishelper.core.wrapper.IDeleteWrapper;
-import com.mybatishelper.core.wrapper.ISelectorWrapper;
-import com.mybatishelper.core.wrapper.IUpdateWrapper;
+import com.mybatishelper.core.wrapper.*;
 import com.mybatishelper.core.wrapper.factory.PropertyConditionWrapper;
 import com.mybatishelper.core.wrapper.query.SelectWrapper;
 import com.mybatishelper.demo.common.module.BaseEntity;
@@ -23,7 +20,7 @@ public interface BasicService<T extends BaseEntity<T>,V> {
 	V selectOne(ISelectorWrapper wrapper);
 	List<T> selectList(ISelectorWrapper wrapper);
 	List<V> selectListV(ISelectorWrapper wrapper);
-	int selectCount(ICountWrapper wrapper);
+	int selectCount(IQueryWrapper wrapper);
 	int updateByPrimary(T req);
 	int updateSelectiveByPrimaryKey(T entity);
 	int updateSelectItem(IUpdateWrapper wrapper);

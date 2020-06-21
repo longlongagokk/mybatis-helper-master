@@ -7,7 +7,7 @@ import com.mybatishelper.core.wrapper.IOrder;
 import com.mybatishelper.core.wrapper.IPager;
 import com.mybatishelper.core.wrapper.ISelectorWrapper;
 import com.mybatishelper.core.wrapper.bridge.AbstractConditionWrapper;
-import com.mybatishelper.core.wrapper.bridge.AbstractJoinerWrapper;
+import com.mybatishelper.core.wrapper.bridge.AbstractQueryWrapper;
 import com.mybatishelper.core.wrapper.factory.PropertyConditionWrapper;
 import lombok.Getter;
 import org.springframework.util.Assert;
@@ -20,7 +20,7 @@ import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
 public class SelectWrapper<C extends AbstractConditionWrapper>
-        extends AbstractJoinerWrapper<C, SelectWrapper<C>>
+        extends AbstractQueryWrapper<C, SelectWrapper<C>>
         implements ISelectorWrapper<SelectWrapper<C>,C>,
         IPager<SelectWrapper<C>>, IOrder<SelectWrapper<C>>
 {

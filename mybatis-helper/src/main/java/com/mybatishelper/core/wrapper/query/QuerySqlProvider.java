@@ -8,7 +8,7 @@ import com.mybatishelper.core.base.meta.TableMetaInfo;
 import com.mybatishelper.core.consts.ConstValue;
 import com.mybatishelper.core.util.Assert;
 import com.mybatishelper.core.util.TableInfoHelper;
-import com.mybatishelper.core.wrapper.ICountWrapper;
+import com.mybatishelper.core.wrapper.IQueryWrapper;
 import com.mybatishelper.core.wrapper.ISelectorWrapper;
 import com.mybatishelper.core.wrapper.bridge.AbsSqlProvider;
 import com.mybatishelper.core.wrapper.seg.LinkOrderSeg;
@@ -129,8 +129,8 @@ public class QuerySqlProvider extends AbsSqlProvider {
         return selectSql.toString();
     }
 
-    public String selectCount(ProviderContext context, ICountWrapper wrapper) {
-        CountWrapper countWrapper = (CountWrapper)wrapper;
+    public String selectCount(ProviderContext context, IQueryWrapper wrapper) {
+        QueryWrapper countWrapper = (QueryWrapper)wrapper;
         checkAndReturnFromTables(context,countWrapper);
         StringBuilder countSql = new StringBuilder("select count(1) from ");
 
@@ -144,6 +144,24 @@ public class QuerySqlProvider extends AbsSqlProvider {
         createWhereSql(countSql,countWrapper);
 
         return countSql.toString();
+    }
+
+    public String selectExists(ProviderContext context, IQueryWrapper wrapper) {
+        QueryWrapper queryWrapper = (QueryWrapper)wrapper;
+        checkAndReturnFromTables(context,queryWrapper);
+        StringBuilder existsSql = new StringBuilder("select case when exists(select 1 from ");
+
+        //from tables
+        createFromTableSql(existsSql,queryWrapper);
+
+        //join infos
+        createJoinInfoSql(existsSql,queryWrapper);
+
+        //conditions
+        createWhereSql(existsSql,queryWrapper);
+
+        existsSql.append(") then 1 else 0 end as exists_record from dual");
+        return existsSql.toString();
     }
 
 }

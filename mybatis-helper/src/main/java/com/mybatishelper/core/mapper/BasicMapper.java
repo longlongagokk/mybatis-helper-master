@@ -2,8 +2,8 @@ package com.mybatishelper.core.mapper;
 
 import com.mybatishelper.core.base.Primary;
 import com.mybatishelper.core.base.meta.PageList;
-import com.mybatishelper.core.wrapper.ICountWrapper;
 import com.mybatishelper.core.wrapper.IDeleteWrapper;
+import com.mybatishelper.core.wrapper.IQueryWrapper;
 import com.mybatishelper.core.wrapper.ISelectorWrapper;
 import com.mybatishelper.core.wrapper.IUpdateWrapper;
 import com.mybatishelper.core.wrapper.bridge.AbsSqlProvider;
@@ -87,7 +87,7 @@ public interface BasicMapper<T> {
      */
     @SelectProvider(type = QuerySqlProvider.class, method = AbsSqlProvider.selectCount)
     //@ResultMap("BaseResultMap")
-    int selectCount(ICountWrapper wrapper);
+    int selectCount(IQueryWrapper wrapper);
 
     /**
      * update select item by query

@@ -172,7 +172,7 @@ public class OrderTestController {
 //                .select("e.id orderId,e.orderNo,e.memberId userName")
 //                        .where(x->x.eq("e.id",100))
 //        );
-//        return Result.success(trOrderMapper.selectCount(CountWrapper.build()
+//        return Result.success(trOrderMapper.selectCount(QueryWrapper.build()
 //                .from(TbOrderForm.class)
 //                .from(TbOrderDetail.class,"od")
 //                .where(x->x.eq("e.id",100))
