@@ -9,8 +9,8 @@
         <module name="mybatis-helper" />
       </profile>
       <profile name="Annotation profile for mybatis-helper-master" enabled="true">
-        <sourceOutputDir name="../../../java-server/mybatis-helper/dev/mybatis-helper-demo/webapps/1.0.61/generated-sources/annotations" />
-        <sourceTestOutputDir name="../../../java-server/mybatis-helper/dev/mybatis-helper-demo/webapps/1.0.61/generated-test-sources/test-annotations" />
+        <sourceOutputDir name="../../../java-server/mybatis-helper/dev/mybatis-helper-demo/webapps/1.0.64/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../../java-server/mybatis-helper/dev/mybatis-helper-demo/webapps/1.0.64/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="mybatis-helper-demo" />
       </profile>
