@@ -1,7 +1,5 @@
 package com.mybatishelper.core.cache;
 
-import com.mybatishelper.core.base.meta.TableMetaInfo;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 

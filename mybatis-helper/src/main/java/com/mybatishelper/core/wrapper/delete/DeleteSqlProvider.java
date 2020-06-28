@@ -1,7 +1,7 @@
 package com.mybatishelper.core.wrapper.delete;
 
 import com.mybatishelper.core.base.Primary;
-import com.mybatishelper.core.base.meta.TableMetaInfo;
+import com.mybatishelper.core.cache.TableMetaInfo;
 import com.mybatishelper.core.consts.ConstValue;
 import com.mybatishelper.core.util.Assert;
 import com.mybatishelper.core.util.TableInfoHelper;
@@ -21,7 +21,7 @@ public class DeleteSqlProvider extends AbsSqlProvider {
         return new StringBuilder("delete from ")
                 .append(tableMetaInfo.getTableName())
                 .append(" where ")
-                .append(tableMetaInfo.getPrimary())
+                .append(tableMetaInfo.getPrimary().getColumn())
                 .append(" = #{value}")
                 .toString();
     }

@@ -1,9 +1,11 @@
 package com.mybatishelper.core.wrapper.bridge;
 
 import com.mybatishelper.core.base.Field;
-import com.mybatishelper.core.base.meta.TableMetaInfo;
+import com.mybatishelper.core.cache.EntryFieldInfo;
+import com.mybatishelper.core.cache.TableMetaInfo;
 import com.mybatishelper.core.consts.ConstValue;
 import com.mybatishelper.core.enums.ConditionType;
+import com.mybatishelper.core.util.Assert;
 import com.mybatishelper.core.util.StringUtils;
 import com.mybatishelper.core.wrapper.ISqlSegment;
 
@@ -27,11 +29,9 @@ public abstract class AbsSqlSegment<T> implements ISqlSegment {
         }
         TableMetaInfo tb = wrapper.aliasTables.get(tbAlias);
         //if tb is null then some alias not in sql,please check sql's alias
-        String column = tb.getFieldWithColumns().get(oriField.getName());
-        if(StringUtils.isEmpty(column)){
-            throw new IllegalArgumentException("column can't find in " + tb.getTableName() + " with field [" + oriField.getFullName()+"]");
-        }
-        return wrapField(oriField,column).getFullPath();
+        EntryFieldInfo fieldInfo = tb.getFieldInfos().get(oriField.getName());
+        Assert.notNull(fieldInfo,"column can't find in " + tb.getTableName() + " with field [" + oriField.getFullName()+"]");
+        return wrapField(oriField,fieldInfo.getColumn()).getFullPath();
     }
 
     protected abstract Field wrapField(Field oriField,String column);

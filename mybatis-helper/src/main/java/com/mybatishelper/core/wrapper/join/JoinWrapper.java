@@ -1,6 +1,6 @@
 package com.mybatishelper.core.wrapper.join;
 
-import com.mybatishelper.core.base.meta.TableMetaInfo;
+import com.mybatishelper.core.cache.TableMetaInfo;
 import com.mybatishelper.core.enums.JoinType;
 import com.mybatishelper.core.wrapper.bridge.AbstractConditionWrapper;
 import lombok.Getter;

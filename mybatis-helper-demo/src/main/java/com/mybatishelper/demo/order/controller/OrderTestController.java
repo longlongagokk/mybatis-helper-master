@@ -147,12 +147,21 @@ public class OrderTestController {
     }
     private final StaticBoundMapper staticBoundMapper;
     @GetMapping(value = "add/{orderNo}/{memberId}")
-    public Result list(@PathVariable String orderNo,@PathVariable Long memberId)throws Exception{
+    public Result add(@PathVariable String orderNo,@PathVariable Long memberId)throws Exception{
         //return Result.success(orderDetailService.selectOne(new QueryWrapper<TbOrderDetail>().eq(TsOrderDetail.Fields.orderId,id)));
         TbOrderForm orderForm = new TbOrderForm();
         orderForm.setMemberId(memberId);
         orderForm.setOrderNo(orderNo);
-        return Result.success(orderFormService.insert(orderForm));
+        staticBoundMapper.insertSelective(orderForm);
+        return Result.success(orderForm);
+    }
+    @GetMapping(value = "update/{orderId}/{orderDealStatus}")
+    public Result update(@PathVariable Long orderId,@PathVariable Integer orderDealStatus)throws Exception{
+        //return Result.success(orderDetailService.selectOne(new QueryWrapper<TbOrderDetail>().eq(TsOrderDetail.Fields.orderId,id)));
+        TbOrderForm orderForm = new TbOrderForm();
+        orderForm.setDealStatus(orderDealStatus);
+        orderForm.setId(orderId);
+        return Result.success(staticBoundMapper.updateSelectiveByPrimaryKey(orderForm));
     }
 
 
@@ -161,7 +170,7 @@ public class OrderTestController {
     public Result create()throws Exception{
         TbOrderForm order = new TbOrderForm();
         order.setOrderNo(new Date().getTime() + "S");
-        //order.setId(125L);
+        //order.setId(1125L);
         int result = orderFormService.insertSelective(order);
         System.out.println(result);
         return Result.success(order);

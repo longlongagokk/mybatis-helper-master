@@ -1,17 +1,12 @@
 package com.mybatishelper.core.util;
 
-import com.mybatishelper.core.annotation.Column;
-import com.mybatishelper.core.annotation.PrimaryKey;
-import com.mybatishelper.core.annotation.Table;
-import com.mybatishelper.core.base.meta.TableMetaInfo;
 import com.mybatishelper.core.cache.TableInfoCache;
+import com.mybatishelper.core.cache.TableMetaInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.springframework.core.ResolvableType;
 
 import java.lang.reflect.Type;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 public abstract class TableInfoHelper {
@@ -48,32 +43,6 @@ public abstract class TableInfoHelper {
         if (tableMetaInfo != null) {
             return tableMetaInfo;
         }
-        try {
-            Table table = entityClass.getAnnotation(Table.class);
-            Map<String, String> fieldColumn = new ConcurrentHashMap<>();
-            Map<String, Class<?>> fieldTypes = new ConcurrentHashMap<>();
-            String primaryKey = null;
-            Class<?> allClass = entityClass;
-            while (allClass != null) {//当父类为null的时候说明到达了最上层的父类(Object类).
-                java.lang.reflect.Field[] fields = allClass.getDeclaredFields();
-                for (java.lang.reflect.Field f : fields) {
-                    Column column = f.getAnnotation(Column.class);
-                    if (column != null) {
-                        fieldColumn.put(f.getName(), column.value());
-                        fieldTypes.put(f.getName(),f.getType());
-                    }
-                    PrimaryKey key = f.getAnnotation(PrimaryKey.class);
-                    if(key != null && primaryKey == null){
-                        // todo review
-                        primaryKey = column.value();
-                    }
-                }
-                allClass = allClass.getSuperclass();
-            }
-            return TableInfoCache.saveTableInfoIntoEntity(entityClass,new TableMetaInfo(table.value(), primaryKey, fieldColumn,fieldTypes));
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-        throw new RuntimeException("can not load any table info !please check your entity !");
+        return TableInfoCache.saveTableInfoIntoEntity(entityClass,new TableMetaInfo(entityClass));
     }
 }

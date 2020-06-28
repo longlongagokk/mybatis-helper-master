@@ -4,7 +4,8 @@ import com.mybatishelper.core.base.Page;
 import com.mybatishelper.core.base.Primary;
 import com.mybatishelper.core.base.field.OrderField;
 import com.mybatishelper.core.base.field.SelectField;
-import com.mybatishelper.core.base.meta.TableMetaInfo;
+import com.mybatishelper.core.cache.EntryFieldInfo;
+import com.mybatishelper.core.cache.TableMetaInfo;
 import com.mybatishelper.core.consts.ConstValue;
 import com.mybatishelper.core.util.Assert;
 import com.mybatishelper.core.util.TableInfoHelper;
@@ -17,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.springframework.util.CollectionUtils;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -29,13 +29,11 @@ public class QuerySqlProvider extends AbsSqlProvider {
     public String selectItemByPrimaryKey(ProviderContext context, Primary primary) {
         TableMetaInfo tableMetaInfo = TableInfoHelper.getTableInfoByProviderContext(context);
         Assert.notNull(tableMetaInfo.getPrimary(),String.format("table {0} do not have any primaryKey!", tableMetaInfo.getTableName()));
-        StringBuilder sb = new StringBuilder("select ");
+        StringBuilder selectSql = new StringBuilder("select ");
 
-        Iterator<Map.Entry<String, String>> it = tableMetaInfo.getFieldWithColumns().entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<String, String> entry = it.next();
-            sb
-                    .append(entry.getValue())
+        for(Map.Entry<String, EntryFieldInfo> entry : tableMetaInfo.getFieldInfos().entrySet()){
+            selectSql
+                    .append(entry.getValue().getColumn())
                     .append(ConstValue.BLANK)
                     .append(ConstValue.BACK_TRICKS)
                     .append(entry.getKey())
@@ -43,14 +41,14 @@ public class QuerySqlProvider extends AbsSqlProvider {
                     .append(ConstValue.COMMA)
             ;
         }
-        sb.deleteCharAt(sb.length()-1);
-        sb.append(" from ")
+        selectSql.deleteCharAt(selectSql.length()-1);
+        selectSql.append(" from ")
         .append(tableMetaInfo.getTableName())
         .append(" where ")
-        .append(tableMetaInfo.getPrimary())
+        .append(tableMetaInfo.getPrimary().getColumn())
         .append(" = #{value}")
         .toString();
-        return sb.toString();
+        return selectSql.toString();
     }
     public String selectOne(ProviderContext context, ISelectorWrapper wrapper) {
         return select(context, wrapper,false) + " limit 1";
@@ -91,13 +89,11 @@ public class QuerySqlProvider extends AbsSqlProvider {
         //select own next
         if (selectOwn || CollectionUtils.isEmpty(selectFields)) {
             TableMetaInfo mainMeta = tableMetaInfoMap.get(ConstValue.MAIN_ALIAS);
-            Iterator<Map.Entry<String, String>> it = mainMeta.getFieldWithColumns().entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry<String, String> entry = it.next();
+            for(Map.Entry<String, EntryFieldInfo> entry : mainMeta.getFieldInfos().entrySet()){
                 selectSql
                         .append(ConstValue.MAIN_ALIAS)
                         .append(ConstValue.DOT)
-                        .append(entry.getValue())
+                        .append(entry.getValue().getColumn())
                         .append(ConstValue.BLANK)
                         .append(ConstValue.BACK_TRICKS)
                         .append(entry.getKey())

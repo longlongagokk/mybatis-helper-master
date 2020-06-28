@@ -1,13 +1,12 @@
 package com.mybatishelper.core.wrapper.insert;
 
-import com.mybatishelper.core.annotation.Column;
-import com.mybatishelper.core.base.meta.TableMetaInfo;
+import com.mybatishelper.core.cache.EntryFieldInfo;
+import com.mybatishelper.core.cache.TableMetaInfo;
 import com.mybatishelper.core.util.Assert;
-import com.mybatishelper.core.util.ContextUtil;
 import com.mybatishelper.core.util.TableInfoHelper;
 import lombok.extern.slf4j.Slf4j;
 
-import java.lang.reflect.Field;
+import java.util.Map;
 
 /**
  * 后期记得加缓存
@@ -26,16 +25,16 @@ public class InsertSqlProvider {
         Assert.notNull(entity,"entity could not be null!");
         TableMetaInfo tableMetaInfo = TableInfoHelper.getTableInfoFromEntityClass(entity.getClass());
         StringBuilder insertSql = new StringBuilder("insert into ").append(tableMetaInfo.getTableName()).append("(");
-        Field[] fields = ContextUtil.getAllColumnFieldOfObject(entity.getClass());
         StringBuilder fieldSql = new StringBuilder();
         StringBuilder valueSql = new StringBuilder();
-        for (Field field : fields) {
-            field.setAccessible(true);
-            if (skipNull && field.get(entity) == null) {
+        for(Map.Entry<String, EntryFieldInfo> entry : tableMetaInfo.getFieldInfos().entrySet()){
+            EntryFieldInfo fieldInfo = entry.getValue();
+            fieldInfo.getField().setAccessible(true);
+            if (skipNull && fieldInfo.getField().get(entity) == null) {
                 continue;
             }
-            fieldSql.append(field.getAnnotation(Column.class).value()).append(",");
-            valueSql.append("#{").append(field.getName()).append("},");
+            fieldSql.append(fieldInfo.getColumn()).append(",");
+            valueSql.append("#{").append(entry.getKey()).append("},");
         }
         if(fieldSql.length() == 0){
             throw new IllegalArgumentException("no field to insert ！");

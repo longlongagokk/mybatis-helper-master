@@ -11,7 +11,7 @@
 		<!-- mysql配置 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
 						connectionURL="jdbc:mysql://localhost:3306/mybatis-helper-demo?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;failOverReadOnly=false"
-						userId="root"
+						userId="mybatishelper"
 						password="123456">
 			<!-- 针对 mysql 数据库 -->
 			<property name="useInformationSchema" value="true"></property>

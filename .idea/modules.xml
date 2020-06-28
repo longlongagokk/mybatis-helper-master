@@ -3,11 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/mybatis-generator/mybatis-generator.iml" filepath="$PROJECT_DIR$/mybatis-generator/mybatis-generator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/mybatis-helper.iml" filepath="$PROJECT_DIR$/.idea/mybatis-helper.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mybatis-helper/mybatis-helper (1).iml" filepath="$PROJECT_DIR$/mybatis-helper/mybatis-helper (1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/mybatis-helper/mybatis-helper.iml" filepath="$PROJECT_DIR$/mybatis-helper/mybatis-helper.iml" />
       <module fileurl="file://$PROJECT_DIR$/mybatis-helper-demo/mybatis-helper-demo.iml" filepath="$PROJECT_DIR$/mybatis-helper-demo/mybatis-helper-demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mybatis-helper/mybatishelper.iml" filepath="$PROJECT_DIR$/mybatis-helper/mybatishelper.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mybatis-helper-demo/vitily-order-service-api/vitily-order-service-api.iml" filepath="$PROJECT_DIR$/mybatis-helper-demo/vitily-order-service-api/vitily-order-service-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mybatis-helper-master.iml" filepath="$PROJECT_DIR$/mybatis-helper-master.iml" />
     </modules>
   </component>
 </project>

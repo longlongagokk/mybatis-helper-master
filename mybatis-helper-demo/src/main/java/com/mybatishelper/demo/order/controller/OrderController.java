@@ -1,5 +1,6 @@
 package com.mybatishelper.demo.order.controller;
 
+import com.mybatishelper.core.base.meta.SimplePrimary;
 import com.mybatishelper.core.wrapper.query.SelectWrapper;
 import com.mybatishelper.demo.common.module.Result;
 import com.mybatishelper.demo.order.module.entity.TbOrderForm;
@@ -17,6 +18,7 @@ import java.util.List;
 public class OrderController {
 
     final OrderFormService orderFormService;
+
     public OrderController(OrderFormService orderFormService) {
         this.orderFormService = orderFormService;
     }
@@ -25,9 +27,10 @@ public class OrderController {
      * 查询某个会员的订单ID列表
      */
     @GetMapping(value = "list")
-    public Result list(Long memberId)throws Exception{
+    public Result list(Long memberId) throws Exception {
         SelectWrapper.DefaultSelectWrapper defaultSelectWrapper = SelectWrapper.build().select("id").back();
-        List<TbOrderForm> orderList = orderFormService.selectList(defaultSelectWrapper.where(w->w.eq("memberId",memberId)));
-        return Result.success(orderList);
+        List<TbOrderForm> orderList = orderFormService.selectList(defaultSelectWrapper.where(w -> w.eq("memberId", memberId)));
+        TbOrderForm entity = orderFormService.selectItemByPrimaryKey(SimplePrimary.valueOf(memberId));
+        return Result.success(entity);
     }
 }

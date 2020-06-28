@@ -1,6 +1,6 @@
 package com.mybatishelper.core.wrapper.bridge;
 
-import com.mybatishelper.core.base.meta.TableMetaInfo;
+import com.mybatishelper.core.cache.TableMetaInfo;
 import com.mybatishelper.core.consts.ConstValue;
 import com.mybatishelper.core.util.CollectionUtils;
 import com.mybatishelper.core.util.TableInfoHelper;

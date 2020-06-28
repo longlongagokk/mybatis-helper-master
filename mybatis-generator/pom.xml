@@ -47,7 +47,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.mybatishelper</groupId>
-			<artifactId>mybatishelper</artifactId>
+			<artifactId>mybatis-helper</artifactId>
 			<version>${mybatishelper.version}</version>
 		</dependency>
 	</dependencies>
