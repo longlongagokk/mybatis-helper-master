@@ -58,15 +58,16 @@ public final class Result<T> implements Serializable{
     public static Result success(){
         return success(null);
     }
-    public static Result success(Object content){
+    public static <T> Result<T> success(T content){
         return success(content,"success");
     }
-    public  static Result success(Object content,String message){
-        return new Result()
-                .setSucceed(true)
+    public static <T> Result<T> success(T content,String message){
+        Result<T> result = new Result<>();
+        result.setSucceed(true)
                 .setCode("200")
                 .setMessage(message)
                 .setContent(content);
+        return result;
     }
 
 }

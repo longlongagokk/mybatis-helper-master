@@ -1,22 +1,35 @@
 package com.mybatishelper.demo.order.controller;
 
+import com.mybatishelper.core.base.FieldValue;
 import com.mybatishelper.core.base.field.OrderField;
 import com.mybatishelper.core.base.field.SelectField;
 import com.mybatishelper.core.base.meta.FieldWithValue;
+import com.mybatishelper.core.base.meta.PageList;
 import com.mybatishelper.core.base.param.FieldItem;
 import com.mybatishelper.core.base.param.ParamItem;
 import com.mybatishelper.core.base.param.ValueItem;
 import com.mybatishelper.core.enums.Order;
+import com.mybatishelper.core.wrapper.IDeleteWrapper;
+import com.mybatishelper.core.wrapper.IQueryWrapper;
+import com.mybatishelper.core.wrapper.ISelectorWrapper;
+import com.mybatishelper.core.wrapper.delete.DeleteWrapper;
+import com.mybatishelper.core.wrapper.factory.FlexibleConditionWrapper;
+import com.mybatishelper.core.wrapper.factory.PropertyConditionWrapper;
+import com.mybatishelper.core.wrapper.query.QueryWrapper;
 import com.mybatishelper.core.wrapper.query.SelectWrapper;
+import com.mybatishelper.core.wrapper.update.UpdateWrapper;
 import com.mybatishelper.demo.common.mapper.StaticBoundMapper;
 import com.mybatishelper.demo.common.module.Result;
+import com.mybatishelper.demo.common.module.TvPageList;
 import com.mybatishelper.demo.common.util.PageInfo;
 import com.mybatishelper.demo.order.module.entity.TbOrderDetail;
 import com.mybatishelper.demo.order.module.entity.TbOrderForm;
 import com.mybatishelper.demo.order.module.query.TsOrderForm;
+import com.mybatishelper.demo.order.module.view.TvOrderForm;
 import com.mybatishelper.demo.order.service.OrderDetailService;
 import com.mybatishelper.demo.order.service.OrderFormService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +41,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import java.util.function.Consumer;
 
 @RestController
 @RequestMapping("order-test")
@@ -38,15 +53,136 @@ public class OrderTestController {
     OrderFormService orderFormService;
     final
     OrderDetailService orderDetailService;
+    @Autowired
+    private StaticBoundMapper staticBoundMapper;
 
-    public OrderTestController(OrderFormService orderFormService, OrderDetailService orderDetailService, StaticBoundMapper staticBoundMapper) {
+    public OrderTestController(OrderFormService orderFormService, OrderDetailService orderDetailService) {
         this.orderFormService = orderFormService;
         this.orderDetailService = orderDetailService;
-        this.staticBoundMapper = staticBoundMapper;
     }
 
     @GetMapping(value = "list")
     public Result list(HttpServletRequest request, HttpServletResponse response, BigDecimal amountPaid)throws Exception{
+
+//        //构建一个简单的查询包装器
+//        QueryWrapper<PropertyConditionWrapper> queryWrapper = QueryWrapper.build();
+//
+//        //选择 TbOrderForm类对应的表，查询别名 使用默认值 e
+//        queryWrapper.from(TbOrderForm.class);
+//
+//        // where e.pay_state > 1
+//        queryWrapper.where(w->w
+//            .ge("e.payState",1)
+//        );
+//
+//        int paidOrderCount = staticBoundMapper.selectCount(queryWrapper);
+//        if(true){
+//            return Result.success(paidOrderCount);
+//        }
+
+//        //构建查询包装器
+//        SelectWrapper<PropertyConditionWrapper> selectWrapper = SelectWrapper.build();
+//
+//        //选择 TbOrderForm类对应的表，查询别名为of（）
+//        selectWrapper.from(TbOrderForm.class,"of");
+//
+//        //select of.id,of.member_id,of.order_no from `mybatis-helper-demo`.`tb_order_form`;
+//        //在类TbOrderForm中，属性id、memberId、orderNo分别对应字段 id、member_id、order_no（类的属性注解@Column）
+//        selectWrapper.select("of.id,of.memberId,of.orderNo");
+//
+//        //使用原生sql查询(假设存在 tb_order_comment 表)
+//        selectWrapper.select(SelectField.valueOf("(select count(1)from tb_order_comment where order_id=of.id) as commentCounts",true));
+//
+//        // where of.pay_state = 1
+//        selectWrapper.where(w->w
+//            .eq("of.payState",1)
+//        );
+//
+//        // limit 0,10
+//        selectWrapper.page(PageInfo.valueOf(1,10));
+//
+//        //执行查询
+//        PageList<TvOrderForm> orders = orderFormService.selectPageListV(selectWrapper);
+//
+//        if(true){
+//            return Result.success(orders);
+//        }
+
+//        //创建一个根据条件修改的修改包装器
+//        UpdateWrapper<PropertyConditionWrapper> updateWrapper = UpdateWrapper.build();
+//
+//        //update from tb_order_form
+//        updateWrapper
+//                .from(TbOrderForm.class,"of")
+//
+//                //1，根据属性匹配列更新，参数化：（of.`pay_state` = ?）
+//                .set("of.payState",1)
+//
+//                //2，值为原生sql，非参数化：（of.`deal_status` = of.pay_state）（*有sql注入风险）
+//                .set(FieldWithValue.withOriginalValue("of.dealStatus","of.pay_state"))
+//
+//                //3，同1，参数化：（of.`leave_message` = ?）
+//                .set(FieldWithValue.withParamValue("of.leaveMessage","微辣"))
+//
+//                //4，同2，非参数化：（of.`delivery_status` = 4）（*有sql注入风险）
+//                .set(FieldWithValue.valueOf("of.deliveryStatus",ValueItem.valueOf(4)))
+//
+//                //5,同1，参数化：（of.`leave_message` = ?）
+//                .set(FieldWithValue.valueOf("of.voteTitle",ParamItem.valueOf("大梅沙")))
+//
+//                //6,//根据属性匹配列之间传值，（of.`vote_content` = of.`vote_title`）
+//                .set(FieldWithValue.valueOf("of.voteContent",FieldItem.valueOf("of.voteTitle")))
+//
+//                // where of.id = 3
+//                .where(w->w.eq("of.id",3))
+//        ;
+//        int effects = staticBoundMapper.updateSelectItem(updateWrapper);
+//        if(true){
+//            return Result.success(effects);
+//        }
+        Consumer<FlexibleConditionWrapper> lc = f->
+                f.eq(FieldItem.valueOf("of.id"),FieldItem.valueOf("od.orderId"))
+                ;
+        Consumer<FlexibleConditionWrapper> c = w->
+                w.gt(FieldItem.valueOf("od.proPrice"),ValueItem.valueOf(9.9))
+                ;
+        SelectWrapper<FlexibleConditionWrapper>
+                selectWrapper = new SelectWrapper<>(new FlexibleConditionWrapper())
+                .select("od.orderId,of.dealStatus")
+                .from(TbOrderDetail.class,"od")
+                .leftJoin(TbOrderForm.class,"of",lc)
+                .where(c)
+                ;
+        List effects = orderDetailService.selectList(selectWrapper);
+        if(true){
+            return Result.success(effects);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         Collection<Long> ids = new ArrayList<>();
         ids.add(1L);
         ids.add(2L);
@@ -145,7 +281,6 @@ public class OrderTestController {
 
         return Result.success(orderFormService.selectOne(id));
     }
-    private final StaticBoundMapper staticBoundMapper;
     @GetMapping(value = "add/{orderNo}/{memberId}")
     public Result add(@PathVariable String orderNo,@PathVariable Long memberId)throws Exception{
         //return Result.success(orderDetailService.selectOne(new QueryWrapper<TbOrderDetail>().eq(TsOrderDetail.Fields.orderId,id)));

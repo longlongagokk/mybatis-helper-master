@@ -12,6 +12,9 @@ import java.util.Collection;
  */
 @Getter
 public class FlexibleConditionWrapper extends AbstractConditionWrapper<Item,Item, FlexibleConditionWrapper> {
+    public FlexibleConditionWrapper(){
+        super(DEFAULT_CONDITION_ELEMENTS_SIZE,null,"");
+    }
     public FlexibleConditionWrapper(AbstractConditionWrapper e){
         super(e);
     }

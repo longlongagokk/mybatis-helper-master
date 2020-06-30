@@ -8,5 +8,6 @@ import java.util.List;
 @Data
 public class TvOrderForm extends TbOrderForm {
     private String userInfo;
+    private int commentCounts;
     private List<TvOrderDetail> orderDetails;
 }

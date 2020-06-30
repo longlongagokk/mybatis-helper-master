@@ -89,6 +89,7 @@ public class QuerySqlProvider extends AbsSqlProvider {
         //select own next
         if (selectOwn || CollectionUtils.isEmpty(selectFields)) {
             TableMetaInfo mainMeta = tableMetaInfoMap.get(ConstValue.MAIN_ALIAS);
+            Assert.notNull(mainMeta,"alias e can not found in aliasTables，or you have none field to select");
             for(Map.Entry<String, EntryFieldInfo> entry : mainMeta.getFieldInfos().entrySet()){
                 selectSql
                         .append(ConstValue.MAIN_ALIAS)

@@ -17,7 +17,7 @@ public class DeleteWrapper<C extends AbstractConditionWrapper>
         super(where,new ArrayList<>(AbstractConditionWrapper.DEFAULT_CONDITION_ELEMENTS_SIZE));
     }
 
-    public static IDeleteWrapper<DeleteWrapper<PropertyConditionWrapper>, PropertyConditionWrapper> build(){
+    public static DeleteWrapper<PropertyConditionWrapper> build(){
         return new DeleteWrapper<>(new PropertyConditionWrapper());
     }
     @Override

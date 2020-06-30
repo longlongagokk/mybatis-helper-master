@@ -1,6 +1,7 @@
 package com.mybatishelper.demo.basicservice;
 
 import com.mybatishelper.core.base.Primary;
+import com.mybatishelper.core.base.meta.PageList;
 import com.mybatishelper.core.wrapper.*;
 import com.mybatishelper.core.wrapper.factory.PropertyConditionWrapper;
 import com.mybatishelper.core.wrapper.query.SelectWrapper;
@@ -26,8 +27,8 @@ public interface BasicService<T extends BaseEntity<T>,V> {
 	int updateSelectItem(IUpdateWrapper wrapper);
 
 
-	TvPageList<T> selectPageList(SelectWrapper selectWrapper);
-	TvPageList<V> selectPageListV(SelectWrapper selectWrapper);
+	PageList<T> selectPageList(ISelectorWrapper selectWrapper);
+	PageList<V> selectPageListV(ISelectorWrapper selectWrapper);
 
 	default SelectWrapper<PropertyConditionWrapper> getCommonQueryWrapper(){return SelectWrapper.build().selectMain(true);}
 

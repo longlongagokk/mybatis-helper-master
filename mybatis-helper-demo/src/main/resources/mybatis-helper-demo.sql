@@ -16,6 +16,22 @@ Date: 2020-05-14 21:20:12
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
+-- Table structure for `tb_order_comment`
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_order_comment`;
+CREATE TABLE `tb_order_comment` (
+  `id` bigint(20) NOT NULL,
+  `create_date` datetime DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  `deltag` tinyint(1) DEFAULT NULL,
+  `order_id` bigint(20) DEFAULT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  `state` int(2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+-- ----------------------------
 -- Table structure for `tb_order_detail`
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_order_detail`;
@@ -86,11 +102,11 @@ CREATE TABLE `tb_order_form` (
 -- ----------------------------
 INSERT INTO `tb_order_form` VALUES ('1', '2020-02-28 01:06:02', null, null, null, '123', 'absfwsfdwef', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2', null, null, null, null, null, null, null, null, null, null);
 INSERT INTO `tb_order_form` VALUES ('2', '2020-02-28 01:06:02', null, null, null, '456', '23', '2', null, null, null, null, null, null, null, null, null, null, null, '100.00000000', null, '2', null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_order_form` VALUES ('3', '2020-02-28 01:06:02', null, null, null, '123', 'absfwsfdwef', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2', null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `tb_order_form` VALUES ('3', '2020-02-28 01:06:02', null, null, null, '888', 'absfwsfdwef', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2', null, null, null, null, null, null, null, null, null, null);
 INSERT INTO `tb_order_form` VALUES ('4', '2020-02-28 01:06:02', null, null, null, '456', 'ddfea', null, null, null, null, null, null, null, null, null, null, null, null, '100.00000000', null, '2', null, null, null, null, null, null, null, null, null, null);
 INSERT INTO `tb_order_form` VALUES ('5', '2020-02-28 01:06:02', null, null, null, '123', 'absfwsfdwef', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2', null, null, null, null, null, null, null, null, null, null);
 INSERT INTO `tb_order_form` VALUES ('6', '2020-02-28 01:06:02', null, null, null, '456', 'ddfea', null, null, null, null, null, null, null, null, null, null, null, null, '100.00000000', null, '2', null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_order_form` VALUES ('7', '2020-02-28 01:06:02', null, null, null, '123', 'absfwsfdwef', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2', null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `tb_order_form` VALUES ('7', '2020-02-28 01:06:02', null, null, null, '888', 'absfwsfdwef', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2', null, null, null, null, null, null, null, null, null, null);
 INSERT INTO `tb_order_form` VALUES ('8', '2020-02-28 01:06:02', null, null, null, '456', 'ddfea', null, null, null, null, null, null, null, null, null, null, null, null, '100.00000000', null, '2', null, null, null, null, null, null, null, null, null, null);
 INSERT INTO `tb_order_form` VALUES ('9', '2020-02-28 01:06:02', null, null, null, '123', 'absfwsfdwef', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2', null, null, null, null, null, null, null, null, null, null);
 INSERT INTO `tb_order_form` VALUES ('10', '2020-02-28 01:06:02', null, null, null, '456', 'ddfea', null, null, null, null, null, null, null, null, null, null, null, null, '100.00000000', null, '2', null, null, null, null, null, null, null, null, null, null);
@@ -114,16 +130,3 @@ INSERT INTO `tb_order_form` VALUES ('35', '2020-02-28 01:06:02', null, null, nul
 INSERT INTO `tb_order_form` VALUES ('36', '2020-02-28 01:06:02', null, null, null, '456', 'ddfea', null, null, null, null, null, null, null, null, null, null, null, null, '100.00000000', null, null, null, null, null, null, null, null, null, null, null, null);
 INSERT INTO `tb_order_form` VALUES ('37', '2020-02-28 01:06:02', null, null, null, '123', 'absfwsfdwef', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 INSERT INTO `tb_order_form` VALUES ('38', '2020-02-28 01:06:02', null, null, null, '456', 'ddfea', null, null, null, null, null, null, null, null, null, null, null, null, '100.00000000', null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_order_form` VALUES ('39', null, null, null, null, null, '1587711959695S', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_order_form` VALUES ('40', null, null, null, null, null, '1587711975073S', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_order_form` VALUES ('41', null, null, null, null, null, '1587712018364S', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_order_form` VALUES ('43', null, null, null, null, null, '1587712560401S', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_order_form` VALUES ('44', null, null, null, null, null, '1587712563091S', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_order_form` VALUES ('45', null, null, null, null, null, '1587712564840S', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_order_form` VALUES ('46', null, null, null, null, null, '1587712567789S', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_order_form` VALUES ('47', null, null, null, null, null, '1587712569909S', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_order_form` VALUES ('48', null, null, null, null, null, '1587712617340S', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_order_form` VALUES ('125', null, null, null, null, null, '1587712632601S', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_order_form` VALUES ('126', null, null, null, null, null, '1587712762097S', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_order_form` VALUES ('127', null, null, null, null, null, '1588070775685S', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_order_form` VALUES ('128', null, null, null, null, null, '1588070777953S', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);

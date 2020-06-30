@@ -21,6 +21,7 @@ public class FieldWithValue<T> implements FieldValue<T> {
     public static <T> FieldWithValue withParamValue(String fieldWithAlias, T value){
         return new FieldWithValue(FieldItem.valueOf(fieldWithAlias), ParamItem.valueOf(value));
     }
+    @Deprecated
     public static <T> FieldWithValue withParamValue(Enum em, T value){
         return withParamValue(em.name(),value);
     }

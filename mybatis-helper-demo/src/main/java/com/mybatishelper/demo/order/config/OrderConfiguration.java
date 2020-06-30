@@ -27,7 +27,7 @@ public class OrderConfiguration {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(datasource);
         YourConfiguration conf = new YourConfiguration();
-        conf.setUseGeneratedKeys(true);
+        conf.setUseGeneratedKeys(true);//使用自增长id
         sessionFactory.setConfiguration(conf);
         return sessionFactory.getObject();
     }

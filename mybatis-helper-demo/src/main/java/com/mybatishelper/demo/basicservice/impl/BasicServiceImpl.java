@@ -99,29 +99,21 @@ public abstract class BasicServiceImpl<T extends BaseEntity<T>, V extends T,M ex
 	}
 
 	@Override
-	public TvPageList<T> selectPageList(SelectWrapper wrapper){
+	public PageList<T> selectPageList(ISelectorWrapper wrapper){
 		Page page = wrapper.getPage();
 		if(page == null){
 			throw new RuntimeException("page entity can not be null !");
 		}
-		PageList<T> oriPageList = mapper.selectPageList(wrapper);
-		TvPageList<T> targetPageList = new TvPageList<>();
-		targetPageList.setList(oriPageList.getList());
-		targetPageList.setRecordCount(oriPageList.getCount());
-		return targetPageList;
+		return mapper.selectPageList(wrapper);
 	}
 
 	@Override
-	public TvPageList<V> selectPageListV(SelectWrapper wrapper){
+	public PageList<V> selectPageListV(ISelectorWrapper wrapper){
 		Page page = wrapper.getPage();
 		if(page == null){
 			throw new RuntimeException("page entity can not be null !");
 		}
-		PageList<V> oriPageList = mapper.selectPageListV(wrapper);
-		TvPageList<V> targetPageList = new TvPageList<>();
-		targetPageList.setList(oriPageList.getList());
-		targetPageList.setRecordCount(oriPageList.getCount());
-		return targetPageList;
+		return mapper.selectPageListV(wrapper);
 	}
 
 	//from xml
