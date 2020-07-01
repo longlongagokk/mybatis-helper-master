@@ -1,10 +1,8 @@
 package com.mybatishelper.demo.order.controller;
 
-import com.google.common.primitives.UnsignedLong;
 import com.mybatishelper.core.base.meta.SimplePrimary;
 import com.mybatishelper.core.util.Assert;
-import com.mybatishelper.core.util.CollectionUtils;
-import com.mybatishelper.core.wrapper.ISelectorWrapper;
+import com.mybatishelper.core.wrapper.factory.SqlWrapperFactory;
 import com.mybatishelper.core.wrapper.factory.PropertyConditionWrapper;
 import com.mybatishelper.core.wrapper.query.SelectWrapper;
 import com.mybatishelper.core.wrapper.update.UpdateWrapper;
@@ -35,7 +33,7 @@ public class OrderController {
      */
     @GetMapping(value = "list")
     public Result list(long memberId){
-        SelectWrapper.DefaultSelectWrapper defaultSelectWrapper = SelectWrapper.build().select("id").back();
+        SelectWrapper<PropertyConditionWrapper> defaultSelectWrapper = SqlWrapperFactory.prop4Select().select("id").back();
         List<TbOrderForm> orderList = orderFormService.selectList(defaultSelectWrapper.where(w -> w.eq("memberId", memberId)));
         return Result.success(orderList);
     }
@@ -45,7 +43,7 @@ public class OrderController {
      */
     @GetMapping(value = "query")
     public Result<List<TbOrderForm>> query(Long memberId){
-        SelectWrapper.DefaultSelectWrapper defaultSelectWrapper = SelectWrapper.build();
+        SelectWrapper<PropertyConditionWrapper> defaultSelectWrapper = SqlWrapperFactory.prop4Select();
         Assert.notNull(memberId,"会员id不能为空");
         ArrayList<Integer> payStates = new ArrayList<>();
         payStates.add(0);
@@ -98,7 +96,7 @@ public class OrderController {
      */
     @PutMapping("i-pay/{orderId}")
     public Result<Boolean> payWithIdempotent(@PathVariable long orderId){
-        UpdateWrapper<PropertyConditionWrapper> upOrderWrapper = UpdateWrapper.build();
+        UpdateWrapper<PropertyConditionWrapper> upOrderWrapper = SqlWrapperFactory.prop4Update();
         upOrderWrapper
                 .set("payState",1)
                 .set("updateDate",new Date())

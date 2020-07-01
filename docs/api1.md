@@ -1,7 +1,8 @@
 # 条件构造器
-> 仔细就会发现，四个SQL包装器都是带有模板参数的接口，而默认实现均使用了`PropertyConditionWrapper`类作为模板参数，那么，`PropertyConditionWrapper`是什么呢？
+> 仔细就会发现，四个SQL包装器都是带有模板参数的接口，`SqlWrapperFactory` 工厂类 生产了`PropertyConditionWrapper`、`FlexibleConditionWrapper` 
+这两个类作为模板参数的包装器，那么，`PropertyConditionWrapper`是什么呢？
 其实就是一个条件构造器。除了`PropertyConditionWrapper`，框架还提供了另外一个条件构造器`FlexibleConditionWrapper`，该构造器非常灵活,两者的区别是
-`PropertyConditionWrapper` 是 `FlexibleConditionWrapper`的特殊版本，即根据数据dto的属性映射列来生成条件，查询方式为参数化查询。
+`PropertyConditionWrapper` 是 `FlexibleConditionWrapper`的特殊版本，是根据数据dto的属性映射列来生成条件，查询方式为参数化查询。
 ## PropertyConditionWrapper
 > `PropertyConditionWrapper`,属性构造器 是根据数据dto模型类中的属性进行条件转化查询，比如有以下实体类：
 ```java
@@ -31,7 +32,7 @@ public class TbOrderForm {
             .eq("e.orderNo","123456")
             .eq("e.memberId","8888");
 
-    DeleteWrapper<PropertyConditionWrapper> deleteWrapper = DeleteWrapper.build();
+    DeleteWrapper<PropertyConditionWrapper> deleteWrapper = SqlWrapperFactory.prop4Delete();
     //delete from tb_order_form where e.id = 123456 and e.member_id = 8888
     deleteWrapper
             .from(TbOrderForm.class)
@@ -62,7 +63,7 @@ Parameters: 123456(String), 8888(String)
             w.gt(FieldItem.valueOf("od.proPrice"),ValueItem.valueOf(9.9))
             ;
     SelectWrapper<FlexibleConditionWrapper>
-            selectWrapper = new SelectWrapper<>(new FlexibleConditionWrapper())
+            selectWrapper = SqlWrapperFactory.flex4Select()
             .select("od.orderId,of.dealStatus")
             .from(TbOrderDetail.class,"od")
             .leftJoin(TbOrderForm.class,"of",lc)

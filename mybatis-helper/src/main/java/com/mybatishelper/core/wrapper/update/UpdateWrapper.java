@@ -20,15 +20,6 @@ public class UpdateWrapper<C extends AbstractConditionWrapper>
         super(where,new ArrayList<>(1<<1));
         this.updateItems = new ArrayList<>(1<<3);
     }
-    public static DefaultUpdateWrapper build(){
-        return new DefaultUpdateWrapper();
-    }
-    public static class DefaultUpdateWrapper extends UpdateWrapper<PropertyConditionWrapper>
-    {
-        public DefaultUpdateWrapper(){
-            super(new PropertyConditionWrapper());
-        }
-    }
     @Override
     public UpdateWrapper<C> set(FieldValue... items) {
         Assert.notNull(items,"update items can not be empty");

@@ -3,7 +3,6 @@ package com.mybatishelper.core.wrapper.delete;
 import com.mybatishelper.core.wrapper.IDeleteWrapper;
 import com.mybatishelper.core.wrapper.bridge.AbstractConditionWrapper;
 import com.mybatishelper.core.wrapper.bridge.AbstractQueryWrapper;
-import com.mybatishelper.core.wrapper.factory.PropertyConditionWrapper;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,10 +14,6 @@ public class DeleteWrapper<C extends AbstractConditionWrapper>
     Set<String> deleteAlias = new HashSet<>(1<<1);
     public DeleteWrapper(C where){
         super(where,new ArrayList<>(AbstractConditionWrapper.DEFAULT_CONDITION_ELEMENTS_SIZE));
-    }
-
-    public static DeleteWrapper<PropertyConditionWrapper> build(){
-        return new DeleteWrapper<>(new PropertyConditionWrapper());
     }
     @Override
     public DeleteWrapper<C> delete(String alias) {

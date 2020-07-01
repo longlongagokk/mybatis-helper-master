@@ -5,12 +5,12 @@
 ```java
 
     //构建一个简单的属性查询包装器
-    QueryWrapper<PropertyConditionWrapper> queryWrapper = QueryWrapper.build();
+    QueryWrapper<PropertyConditionWrapper> queryWrapper = SqlWrapperFactory.prop4Query();
     
     //选择 TbOrderForm类对应的表，查询别名 使用默认值 e
     queryWrapper.from(TbOrderForm.class);
     
-    // where e.pay_state > 1
+    // where e.pay_state >= 1
     queryWrapper.where(w->w
         .ge("e.payState",1)
     );
@@ -21,11 +21,12 @@
 ```mysql
 select count(1) from `mybatis-helper-demo`.`tb_order_form` e where e.`pay_state` >= ?
 ```
+> _SqlWrapperFactory 类生产了不同的包装器，可以根据具体情况采用不同的包装器生成器来执行sql操作_
 ## ISelectorWrapper
 > `ISelectorWrapper<C>` 也是一个模板查询包装接口，包含查询列、分页等操作；默认实现类 `SelectWrapper`,使用方式：
 ```java
-        //构建查询包装器
-        SelectWrapper<PropertyConditionWrapper> selectWrapper = SelectWrapper.build();
+        //构建普通查询包装器
+        SelectWrapper<PropertyConditionWrapper> selectWrapper = SqlWrapperFactory.prop4Select();
 
         //选择 TbOrderForm类对应的表，查询别名为of（）
         selectWrapper.from(TbOrderForm.class,"of");
@@ -58,7 +59,7 @@ select SQL_CALC_FOUND_ROWS of.`id` `id`,of.`member_id` `memberId`,of.`order_no` 
 ```java
 
         //创建一个根据条件修改的修改包装器
-        UpdateWrapper<PropertyConditionWrapper> updateWrapper = UpdateWrapper.build();
+        UpdateWrapper<PropertyConditionWrapper> updateWrapper = SqlWrapperFactory.prop4Update();
 
         //update from tb_order_form
         updateWrapper
@@ -96,6 +97,7 @@ Parameters: 大梅沙(String), 微辣(String), 1(Integer), 3(Integer)
 > `IDeleteWrapper<C>` 是一个根据条件删除数据的sql包装器，默认实现为 `DeleteWrapper`
 ```java
 
+        DeleteWrapper<PropertyConditionWrapper> deleteWrapper = SqlWrapperFactory.prop4Delete();
         //delete of from tb_order_form of where of.id = 3
         deleteWrapper
                 .delete("of")

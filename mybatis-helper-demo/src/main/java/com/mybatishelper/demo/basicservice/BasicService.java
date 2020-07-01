@@ -4,6 +4,7 @@ import com.mybatishelper.core.base.Primary;
 import com.mybatishelper.core.base.meta.PageList;
 import com.mybatishelper.core.wrapper.*;
 import com.mybatishelper.core.wrapper.factory.PropertyConditionWrapper;
+import com.mybatishelper.core.wrapper.factory.SqlWrapperFactory;
 import com.mybatishelper.core.wrapper.query.SelectWrapper;
 import com.mybatishelper.demo.common.module.BaseEntity;
 import com.mybatishelper.demo.common.module.QueryInfo;
@@ -30,7 +31,7 @@ public interface BasicService<T extends BaseEntity<T>,V> {
 	PageList<T> selectPageList(ISelectorWrapper selectWrapper);
 	PageList<V> selectPageListV(ISelectorWrapper selectWrapper);
 
-	default SelectWrapper<PropertyConditionWrapper> getCommonQueryWrapper(){return SelectWrapper.build().selectMain(true);}
+	default SelectWrapper<PropertyConditionWrapper> getCommonQueryWrapper(){return SqlWrapperFactory.prop4Select().selectMain(true);}
 
 	//from xml
 	List<V> getListByBean(QueryInfo<T> query);

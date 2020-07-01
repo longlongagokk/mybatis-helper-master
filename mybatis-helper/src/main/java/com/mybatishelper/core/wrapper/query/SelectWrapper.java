@@ -8,7 +8,6 @@ import com.mybatishelper.core.wrapper.IPager;
 import com.mybatishelper.core.wrapper.ISelectorWrapper;
 import com.mybatishelper.core.wrapper.bridge.AbstractConditionWrapper;
 import com.mybatishelper.core.wrapper.bridge.AbstractQueryWrapper;
-import com.mybatishelper.core.wrapper.factory.PropertyConditionWrapper;
 import lombok.Getter;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
@@ -38,15 +37,6 @@ public class SelectWrapper<C extends AbstractConditionWrapper>
         this.selectItems = new ArrayList<>(AbstractConditionWrapper.DEFAULT_CONDITION_ELEMENTS_SIZE);
         this.selectMain = false;
         orderItems = new ArrayList<>(1<<3);
-    }
-    public static DefaultSelectWrapper build(){
-        return new DefaultSelectWrapper();
-    }
-    public static class DefaultSelectWrapper extends SelectWrapper<PropertyConditionWrapper>
-    {
-        public DefaultSelectWrapper(){
-            super(new PropertyConditionWrapper());
-        }
     }
     @Override
     public Collection<SelectField> selects() {

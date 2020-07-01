@@ -8,6 +8,7 @@ import com.mybatishelper.core.base.meta.FieldWithValue;
 import com.mybatishelper.core.base.param.FieldItem;
 import com.mybatishelper.core.base.param.ParamItem;
 import com.mybatishelper.core.base.param.ValueItem;
+import com.mybatishelper.core.wrapper.factory.SqlWrapperFactory;
 import com.mybatishelper.core.wrapper.delete.DeleteWrapper;
 import com.mybatishelper.core.wrapper.factory.PropertyConditionWrapper;
 import com.mybatishelper.core.wrapper.query.QueryWrapper;
@@ -253,7 +254,7 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 //
 		//queryWrapper.getWhere();queryWrapper.getJoins()
 		log.info("------------------------"+JSONUtil.toJSONString(mapper.selectCount(
-			QueryWrapper.build().where(x->
+			SqlWrapperFactory.prop4Query().where(x->
 					x.eq("e.payWayId",333333))
 		))+"------------------------------");
 
@@ -296,7 +297,7 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 
 		log.info("------------------------updateSelectItem------------------------------");
 //		Collection<ValueItem> items = new ArrayList<>();
-		UpdateWrapper wrapper = UpdateWrapper.build()
+		UpdateWrapper wrapper = SqlWrapperFactory.prop4Update()
 				.set("e.payState",88)
 //				.set(TsOrderForm.Fields.memberId.name(),30)
 //				.set(FieldWithValue.withOriginalValue("e.payState",188))
@@ -378,7 +379,7 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 
 		log.info("------------------------selectList------------------------------");
 		log.info("------------------------"+ JSONUtil.toJSONString(
-				mapper.selectOne(SelectWrapper.build()
+				mapper.selectOne(SqlWrapperFactory.prop4Select()
 					.select("e.id,e.payWayName")
 
 						.select(SelectField.valueOf("x", TsOrderForm.Fields.deliveryId))
@@ -461,7 +462,7 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 				)
 		)+"------------------------------");
 		log.info("------------------------"+ JSONUtil.toJSONString(
-				mapper.selectOne(SelectWrapper.build()
+				mapper.selectOne(SqlWrapperFactory.prop4Select()
 						.select(
 								SelectField.valueOf("e", TsOrderForm.Fields.deliveryId)
 						)
@@ -470,7 +471,7 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 				)
 		)+"------------------------------");
 		log.info("------------------------"+ JSONUtil.toJSONString(
-				mapper.selectList(SelectWrapper.build()
+				mapper.selectList(SqlWrapperFactory.prop4Select()
 						.select(
 								SelectField.valueOf("e", TsOrderForm.Fields.deliveryId)
 						)

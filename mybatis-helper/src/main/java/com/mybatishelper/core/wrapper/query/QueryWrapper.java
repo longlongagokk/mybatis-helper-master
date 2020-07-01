@@ -2,7 +2,6 @@ package com.mybatishelper.core.wrapper.query;
 
 import com.mybatishelper.core.wrapper.bridge.AbstractConditionWrapper;
 import com.mybatishelper.core.wrapper.bridge.AbstractQueryWrapper;
-import com.mybatishelper.core.wrapper.factory.PropertyConditionWrapper;
 
 import java.util.ArrayList;
 
@@ -15,8 +14,5 @@ public class QueryWrapper<C extends AbstractConditionWrapper>
     }
     public QueryWrapper(C where,AbstractQueryWrapper absWrapper) {
         super(where,absWrapper);
-    }
-    public static QueryWrapper<PropertyConditionWrapper> build(){
-        return new QueryWrapper<>(new PropertyConditionWrapper());
     }
 }

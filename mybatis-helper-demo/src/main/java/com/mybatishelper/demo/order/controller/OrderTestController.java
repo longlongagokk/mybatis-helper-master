@@ -15,6 +15,7 @@ import com.mybatishelper.core.wrapper.ISelectorWrapper;
 import com.mybatishelper.core.wrapper.delete.DeleteWrapper;
 import com.mybatishelper.core.wrapper.factory.FlexibleConditionWrapper;
 import com.mybatishelper.core.wrapper.factory.PropertyConditionWrapper;
+import com.mybatishelper.core.wrapper.factory.SqlWrapperFactory;
 import com.mybatishelper.core.wrapper.query.QueryWrapper;
 import com.mybatishelper.core.wrapper.query.SelectWrapper;
 import com.mybatishelper.core.wrapper.update.UpdateWrapper;
@@ -64,13 +65,13 @@ public class OrderTestController {
     @GetMapping(value = "list")
     public Result list(HttpServletRequest request, HttpServletResponse response, BigDecimal amountPaid)throws Exception{
 
-//        //构建一个简单的查询包装器
-//        QueryWrapper<PropertyConditionWrapper> queryWrapper = QueryWrapper.build();
-//
+////        //构建一个简单的查询包装器
+//        QueryWrapper<PropertyConditionWrapper> queryWrapper = SqlWrapperFactory.prop4Query();
+////
 //        //选择 TbOrderForm类对应的表，查询别名 使用默认值 e
 //        queryWrapper.from(TbOrderForm.class);
 //
-//        // where e.pay_state > 1
+//        // where e.pay_state >= 1
 //        queryWrapper.where(w->w
 //            .ge("e.payState",1)
 //        );
@@ -81,7 +82,7 @@ public class OrderTestController {
 //        }
 
 //        //构建查询包装器
-//        SelectWrapper<PropertyConditionWrapper> selectWrapper = SelectWrapper.build();
+//        SelectWrapper<PropertyConditionWrapper> selectWrapper = SqlWrapperFactory.prop4Select();
 //
 //        //选择 TbOrderForm类对应的表，查询别名为of（）
 //        selectWrapper.from(TbOrderForm.class,"of");
@@ -109,7 +110,7 @@ public class OrderTestController {
 //        }
 
 //        //创建一个根据条件修改的修改包装器
-//        UpdateWrapper<PropertyConditionWrapper> updateWrapper = UpdateWrapper.build();
+//        UpdateWrapper<PropertyConditionWrapper> updateWrapper = SqlWrapperFactory.prop4Update();
 //
 //        //update from tb_order_form
 //        updateWrapper
@@ -140,6 +141,32 @@ public class OrderTestController {
 //        if(true){
 //            return Result.success(effects);
 //        }
+
+//        DeleteWrapper<PropertyConditionWrapper> deleteWrapper = SqlWrapperFactory.prop4Delete();
+//        //delete of from tb_order_form of where of.id = 3
+//        deleteWrapper
+//                .delete("of")
+//                .from(TbOrderForm.class,"of")
+//                .where(w->w
+//                        .eq("of.id",389)
+//                );
+//        int effects = staticBoundMapper.delete(deleteWrapper);
+//        if(true){
+//            return Result.success(effects);
+//        }
+
+//
+//        Consumer<PropertyConditionWrapper> c = x-> x
+//                .eq("e.orderNo","123456")
+//                .eq("e.memberId","8888");
+//
+//        DeleteWrapper<PropertyConditionWrapper> deleteWrapper = SqlWrapperFactory.prop4Delete();
+//        //delete from tb_order_form where e.id = 123456 and e.member_id = 8888
+//        deleteWrapper
+//                .from(TbOrderForm.class)
+//                .where(c);
+//        int effects = staticBoundMapper.delete(deleteWrapper);
+
         Consumer<FlexibleConditionWrapper> lc = f->
                 f.eq(FieldItem.valueOf("of.id"),FieldItem.valueOf("od.orderId"))
                 ;
@@ -147,13 +174,15 @@ public class OrderTestController {
                 w.gt(FieldItem.valueOf("od.proPrice"),ValueItem.valueOf(9.9))
                 ;
         SelectWrapper<FlexibleConditionWrapper>
-                selectWrapper = new SelectWrapper<>(new FlexibleConditionWrapper())
+                selectWrapper = SqlWrapperFactory.flex4Select()
                 .select("od.orderId,of.dealStatus")
                 .from(TbOrderDetail.class,"od")
                 .leftJoin(TbOrderForm.class,"of",lc)
                 .where(c)
                 ;
         List effects = orderDetailService.selectList(selectWrapper);
+
+
         if(true){
             return Result.success(effects);
         }
@@ -187,7 +216,7 @@ public class OrderTestController {
         ids.add(1L);
         ids.add(2L);
         ids.add(3L);
-        Result.success(orderFormService.selectList(SelectWrapper.build()
+        Result.success(orderFormService.selectList(SqlWrapperFactory.prop4Select()
                 .select(("e.memberId,e.memberId userInfo"))
                 .leftJoin(TbOrderDetail.class,"od", od->
                         od
@@ -220,7 +249,7 @@ public class OrderTestController {
                         .page(PageInfo.valueOf(1,4))
                 )
         );
-        return Result.success(orderFormService.selectPageListV(SelectWrapper.build()
+        return Result.success(orderFormService.selectPageListV(SqlWrapperFactory.prop4Select()
                         .select(("e.memberId,e.memberId userInfo"))
                         .leftJoin(TbOrderDetail.class,"od",od->od
                                         .eq(FieldWithValue.valueOf("e.id", FieldItem.valueOf("od.orderId")))
@@ -234,7 +263,7 @@ public class OrderTestController {
     }
     @GetMapping(value = "detail-list")
     public Result detailList(HttpServletRequest request, HttpServletResponse response)throws Exception{
-        return Result.success(orderDetailService.selectPageList(SelectWrapper.build()
+        return Result.success(orderDetailService.selectPageList(SqlWrapperFactory.prop4Select()
                 .select("e.id,e.orderId orderId,e.id bid")
                 .select(
                         SelectField.valueOf("e.id"),

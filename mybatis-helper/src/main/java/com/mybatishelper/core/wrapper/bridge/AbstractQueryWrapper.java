@@ -6,7 +6,9 @@ import com.mybatishelper.core.enums.JoinType;
 import com.mybatishelper.core.exception.NoSupportedMethodException;
 import com.mybatishelper.core.util.TableInfoHelper;
 import com.mybatishelper.core.wrapper.IQueryWrapper;
+import com.mybatishelper.core.wrapper.factory.PropertyConditionWrapper;
 import com.mybatishelper.core.wrapper.join.JoinWrapper;
+import com.mybatishelper.core.wrapper.query.SelectWrapper;
 import lombok.Getter;
 
 import java.util.HashMap;

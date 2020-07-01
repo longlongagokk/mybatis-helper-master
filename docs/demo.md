@@ -59,19 +59,24 @@ public class OrderConfiguration {
 
 > mybatis-helper-demo/src/main/resources 下有一个简单粗糙的 mysql demo库，使用者可以建立一个名为 mybatis-helper-demo 的库然后执行该sql以便测试
 ```java
-
 package com.mybatishelper.demo.order.controller;
 
+import com.mybatishelper.core.base.meta.SimplePrimary;
+import com.mybatishelper.core.util.Assert;
+import com.mybatishelper.core.wrapper.factory.SqlWrapperFactory;
+import com.mybatishelper.core.wrapper.factory.PropertyConditionWrapper;
 import com.mybatishelper.core.wrapper.query.SelectWrapper;
+import com.mybatishelper.core.wrapper.update.UpdateWrapper;
 import com.mybatishelper.demo.common.module.Result;
 import com.mybatishelper.demo.order.module.entity.TbOrderForm;
 import com.mybatishelper.demo.order.service.OrderFormService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequestMapping("order")
@@ -87,9 +92,9 @@ public class OrderController {
      * 查询某个会员的订单ID列表
      */
     @GetMapping(value = "list")
-    public Result list(Long memberId)throws Exception{
-        SelectWrapper.DefaultSelectWrapper defaultSelectWrapper = SelectWrapper.build().select("id").back();
-        List<TbOrderForm> orderList = orderFormService.selectList(defaultSelectWrapper.where(w->w.eq("memberId",memberId)));
+    public Result list(long memberId){
+        SelectWrapper<PropertyConditionWrapper> defaultSelectWrapper = SqlWrapperFactory.prop4Select().select("id").back();
+        List<TbOrderForm> orderList = orderFormService.selectList(defaultSelectWrapper.where(w -> w.eq("memberId", memberId)));
         return Result.success(orderList);
     }
 }
@@ -217,7 +222,7 @@ public class OrderController {
      */
     @PutMapping("i-pay/{orderId}")
     public Result<Boolean> payWithIdempotent(@PathVariable long orderId){
-        UpdateWrapper<PropertyConditionWrapper> upOrderWrapper = UpdateWrapper.build();
+        UpdateWrapper<PropertyConditionWrapper> upOrderWrapper = SqlWrapperFactory.prop4Update();
         upOrderWrapper
                 .set("payState",1)
                 .set("updateDate",new Date())
@@ -251,7 +256,7 @@ public class OrderController {
      */
     @GetMapping(value = "query")
     public Result<List<TbOrderForm>> query(Long memberId){
-        SelectWrapper.DefaultSelectWrapper defaultSelectWrapper = SelectWrapper.build();
+        SelectWrapper<PropertyConditionWrapper> defaultSelectWrapper = SqlWrapperFactory.prop4Select();
         Assert.notNull(memberId,"会员id不能为空");
         ArrayList<Integer> payStates = new ArrayList<>();
         payStates.add(0);
