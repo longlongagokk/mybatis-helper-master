@@ -145,15 +145,44 @@ Parameters: 5(Integer), 6(Integer), 3(Integer), 7(Integer)
 
 > `le(FieldValue fv)`，[参考eq](#api2##eq)
 
-## le
-> `le(L left,R right)`，小于等于操作符
-- 例子：`le("orderNo","123456")` ==> sql：`order_no <= 123456`
+## and嵌套
+> 嵌套查询在现实中会频繁使用，可以把SQL包装器的where方法当做and查询的最顶级嵌套。需要注意的是，
+>and方法包裹的条件构造器里的条件是以`and` 操作符来连接的，比如：
+>> `and(x->x.eq("id",1).neq("deltag",false).ge("payState",1))`
+表示的sql条件是：` (id = 1 and deltag = false and pay_state = 1)`。
+>
+>>`or(x->x.eq("id",1).neq("deltag",false).ge("payState",1))`
+表示的sql条件是：` (id = 1 or deltag = false or pay_state = 1)`。
+>
+>> - _框架支持多重嵌套_
+- `PropertyConditionWrapper` 例子：
+```java
+//select orderNo from tb_order_form where id = 1 and pay_state != 1 and   (id = 123 or deal_status in (1,2,3) or   (id = 456 and deal_status = 4)   )   and deltag = false;代码可以如下表示
+SelectWrapper<PropertyConditionWrapper> selectWrapper =
+                SqlWrapperFactory.prop4Select().select("orderNo").where(w->w
+                        .eq("id",1)
+                        .neq("payState",1)
+                        .or(x->x
+                                .eq("id",123)
+                                .in("dealStatus",Arrays.asList(1,2,3)))
+                                .and(y->y
+                                        .eq("id",456)
+                                        .eq("dealStatus",4)
+                                )
+                        .eq("deltag",false)
+                        );
+        effects = orderFormService.selectList(selectWrapper);
+```
+> sql打印：
+```mysql
+Preparing: select `order_no` `orderNo` from `mybatis-helper-demo`.`tb_order_form` e where `id` = ? AND `pay_state` <> ? AND ( `id` = ? OR `deal_status` IN ( ?,?,? ) ) AND ( `id` = ? AND `deal_status` = ? ) AND `deltag` = ?
+Parameters: 1(Integer), 1(Integer), 123(Integer), 1(Integer), 2(Integer), 3(Integer), 456(Integer), 4(Integer), false(Boolean)
+```
+- `FlexibleConditionWrapper` 例子：
+```java
+ test
+```
 
-> `le(FieldValue fv)`，[参考eq](#api2##eq)
-
-## le
-> `le(L left,R right)`，小于等于操作符
-- 例子：`le("orderNo","123456")` ==> sql：`order_no <= 123456`
-
-> `le(FieldValue fv)`，[参考eq](#api2##eq)
+## or嵌套
+> [参考eq](#api2##and嵌套)
 

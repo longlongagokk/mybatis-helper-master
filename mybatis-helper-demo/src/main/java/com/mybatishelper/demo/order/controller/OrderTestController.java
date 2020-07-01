@@ -184,19 +184,33 @@ public class OrderTestController {
 //                //判断字段是否为空 等同：e.order_no is null
 //                .isNull(FieldItem.valueOf("e.orderNo"))
 //                ;
-        Consumer<FlexibleConditionWrapper> c = x-> x
-                //sql：e.member_id between 1 and ?;Parameters:5(Integer)
-                .between(FieldItem.valueOf("e.memberId"),ValueItem.valueOf(1),ParamItem.valueOf(5))
-
-                //sql：2 between e.member_id and ?;Parameters:6(Integer)
-                .between(ValueItem.valueOf(2),FieldItem.valueOf("e.memberId"),ParamItem.valueOf(6))
-
-                //sql：? between e.member_id and ?;Parameters:7(Integer)
-                .between(ParamItem.valueOf(3),FieldItem.valueOf("e.memberId"),ParamItem.valueOf(7))
-                ;
-
-        effects = staticBoundMapper.selectCount(SqlWrapperFactory.flex4Query().from(TbOrderForm.class).where(c));
-
+//        Consumer<FlexibleConditionWrapper> c = x-> x
+//                //sql：e.member_id between 1 and ?;Parameters:5(Integer)
+//                .between(FieldItem.valueOf("e.memberId"),ValueItem.valueOf(1),ParamItem.valueOf(5))
+//
+//                //sql：2 between e.member_id and ?;Parameters:6(Integer)
+//                .between(ValueItem.valueOf(2),FieldItem.valueOf("e.memberId"),ParamItem.valueOf(6))
+//
+//                //sql：? between e.member_id and ?;Parameters:7(Integer)
+//                .between(ParamItem.valueOf(3),FieldItem.valueOf("e.memberId"),ParamItem.valueOf(7))
+//                ;
+//
+//        effects = staticBoundMapper.selectCount(SqlWrapperFactory.flex4Query().from(TbOrderForm.class).where(c));
+        // select orderNo from tb_order_form where id = 1 and pay_state != 1 and   (id = 123 or deal_status in (1,2,3) or   (id = 456 and deal_status = 4)   )   and deltag = false;
+        SelectWrapper<PropertyConditionWrapper> selectWrapper =
+                SqlWrapperFactory.prop4Select().select("orderNo").where(w->w
+                        .eq("id",1)
+                        .neq("payState",1)
+                        .or(x->x
+                                .eq("id",123)
+                                .in("dealStatus",Arrays.asList(1,2,3)))
+                                .and(y->y
+                                        .eq("id",456)
+                                        .eq("dealStatus",4)
+                                )
+                        .eq("deltag",false)
+                        );
+        effects = orderFormService.selectList(selectWrapper);
 //        Consumer<FlexibleConditionWrapper> lc = f->
 //                f.eq(FieldItem.valueOf("of.id"),FieldItem.valueOf("od.orderId"))
 //                ;
