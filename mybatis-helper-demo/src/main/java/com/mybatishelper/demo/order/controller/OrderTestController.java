@@ -39,10 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 
 @RestController
@@ -157,9 +154,18 @@ public class OrderTestController {
 
 //
 //        Consumer<PropertyConditionWrapper> c = x-> x
-//                .eq("e.orderNo","123456")
-//                .eq("e.memberId","8888");
-//
+//                //左边属性，右边是原值：右边有sql注入风险，等同 e.order_no = '1'
+//                .eq(FieldWithValue.withOriginalValue("e.orderNo","'1'"))
+//                //左边属性，右边是参数化传值,等同 e.order_no = ? (?传 2(String类别))
+//                .eq(FieldWithValue.withParamValue("e.orderNo","2"))
+//                //左边属性，右边是原值，右边有sql注入风险，等同 e.order_no = 3
+//                .eq(FieldWithValue.valueOf("e.orderNo",ValueItem.valueOf("3")))
+//                //左边属性，右边是参数化传值,等同 e.order_no = ? (?传 4(String类别))
+//                .eq(FieldWithValue.valueOf("e.orderNo",ParamItem.valueOf("4")))
+//                //左边属性，右边也是属性,等同 e.order_no = e.member_id
+//                .eq(FieldWithValue.valueOf("e.orderNo",FieldItem.valueOf("e.memberId")))
+//                ;
+////
 //        DeleteWrapper<PropertyConditionWrapper> deleteWrapper = SqlWrapperFactory.prop4Delete();
 //        //delete from tb_order_form where e.id = 123456 and e.member_id = 8888
 //        deleteWrapper
@@ -167,22 +173,46 @@ public class OrderTestController {
 //                .where(c);
 //        int effects = staticBoundMapper.delete(deleteWrapper);
 
-        Consumer<FlexibleConditionWrapper> lc = f->
-                f.eq(FieldItem.valueOf("of.id"),FieldItem.valueOf("od.orderId"))
-                ;
-        Consumer<FlexibleConditionWrapper> c = w->
-                w.gt(FieldItem.valueOf("od.proPrice"),ValueItem.valueOf(9.9))
-                ;
-        SelectWrapper<FlexibleConditionWrapper>
-                selectWrapper = SqlWrapperFactory.flex4Select()
-                .select("od.orderId,of.dealStatus")
-                .from(TbOrderDetail.class,"od")
-                .leftJoin(TbOrderForm.class,"of",lc)
-                .where(c)
-                ;
-        List effects = orderDetailService.selectList(selectWrapper);
+        Object effects = null;
+//        Consumer<FlexibleConditionWrapper> c = x-> x
+//                //直接sql替换，等同 LENGTH(member_id) is null
+//                .isNull(ValueItem.valueOf("LENGTH(member_id)"))
+//
+//                //判断某个值是否为空，传参查询，一般用不上，等同 null is null
+//                .isNull(ParamItem.valueOf(null))
+//
+//                //判断字段是否为空 等同：e.order_no is null
+//                .isNull(FieldItem.valueOf("e.orderNo"))
+//                ;
+        Consumer<FlexibleConditionWrapper> c = x-> x
+                //sql：e.member_id between 1 and ?;Parameters:5(Integer)
+                .between(FieldItem.valueOf("e.memberId"),ValueItem.valueOf(1),ParamItem.valueOf(5))
 
+                //sql：2 between e.member_id and ?;Parameters:6(Integer)
+                .between(ValueItem.valueOf(2),FieldItem.valueOf("e.memberId"),ParamItem.valueOf(6))
 
+                //sql：? between e.member_id and ?;Parameters:7(Integer)
+                .between(ParamItem.valueOf(3),FieldItem.valueOf("e.memberId"),ParamItem.valueOf(7))
+                ;
+
+        effects = staticBoundMapper.selectCount(SqlWrapperFactory.flex4Query().from(TbOrderForm.class).where(c));
+
+//        Consumer<FlexibleConditionWrapper> lc = f->
+//                f.eq(FieldItem.valueOf("of.id"),FieldItem.valueOf("od.orderId"))
+//                ;
+//        Consumer<FlexibleConditionWrapper> c = w->
+//                w.gt(FieldItem.valueOf("od.proPrice"),ValueItem.valueOf(9.9))
+//                ;
+//        SelectWrapper<FlexibleConditionWrapper>
+//                selectWrapper = SqlWrapperFactory.flex4Select()
+//                .select("od.orderId,of.dealStatus")
+//                .from(TbOrderDetail.class,"od")
+//                .leftJoin(TbOrderForm.class,"of",lc)
+//                .where(c)
+//                ;
+//        List effects = orderDetailService.selectList(selectWrapper);
+//
+//
         if(true){
             return Result.success(effects);
         }
