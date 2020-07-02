@@ -8,6 +8,7 @@ import com.mybatishelper.core.base.meta.PageList;
 import com.mybatishelper.core.base.param.FieldItem;
 import com.mybatishelper.core.base.param.ParamItem;
 import com.mybatishelper.core.base.param.ValueItem;
+import com.mybatishelper.core.enums.ConditionType;
 import com.mybatishelper.core.enums.Order;
 import com.mybatishelper.core.wrapper.IDeleteWrapper;
 import com.mybatishelper.core.wrapper.IQueryWrapper;
@@ -197,20 +198,12 @@ public class OrderTestController {
 //
 //        effects = staticBoundMapper.selectCount(SqlWrapperFactory.flex4Query().from(TbOrderForm.class).where(c));
         // select orderNo from tb_order_form where id = 1 and pay_state != 1 and   (id = 123 or deal_status in (1,2,3) or   (id = 456 and deal_status = 4)   )   and deltag = false;
-        SelectWrapper<PropertyConditionWrapper> selectWrapper =
-                SqlWrapperFactory.prop4Select().select("orderNo").where(w->w
-                        .eq("id",1)
-                        .neq("payState",1)
-                        .or(x->x
-                                .eq("id",123)
-                                .in("dealStatus",Arrays.asList(1,2,3)))
-                                .and(y->y
-                                        .eq("id",456)
-                                        .eq("dealStatus",4)
-                                )
-                        .eq("deltag",false)
+        SelectWrapper<FlexibleConditionWrapper> selectWrapper =
+                SqlWrapperFactory.flex4Select().where(w->w
+                        .where(ConditionType.DO_NOTHING,ValueItem.valueOf("EXISTS (select 1 from tb_order_detail where order_id = e.id and deltag = 0) "),Collections.EMPTY_LIST)
                         );
         effects = orderFormService.selectList(selectWrapper);
+        //ConditionType.EQ
 //        Consumer<FlexibleConditionWrapper> lc = f->
 //                f.eq(FieldItem.valueOf("of.id"),FieldItem.valueOf("od.orderId"))
 //                ;

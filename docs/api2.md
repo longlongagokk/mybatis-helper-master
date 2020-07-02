@@ -139,11 +139,58 @@ Parameters: 5(Integer), 6(Integer), 3(Integer), 7(Integer)
 
 > `le(FieldValue fv)`，[参考eq](#api2##eq)
 
-## le
-> `le(L left,R right)`，小于等于操作符
-- 例子：`le("orderNo","123456")` ==> sql：`order_no <= 123456`
+## where
+> `where(ConditionType type, L left, Collection<?> right)`，按 ConditionType 枚举罗列的条件进行查询，比如type 值为ConditionType.EQ时，等同 `eq(L left,right)`
 
-> `le(FieldValue fv)`，[参考eq](#api2##eq)
+- `PropertyConditionWrapper` 例子：
+```java
+        SqlWrapperFactory.prop4Select().where(w->w.
+                // sql:e.id = ?;Parameter:2(Integer)
+                where(ConditionType.EQ,"e.id",Arrays.asList(2))
+                );
+```
+    > _当type = OR/AND/CLOSURE/LEFT_WRAPPER/RIGHT_WRAPPER时，该查询条件不做任何处理_    
+
+    > _当type = DO_NOTHING时，抛出异常_
+
+    >_当type = EQ/NEQ/GE/GT/LE/LT/LIKE时，要确保第三个参数只会有1个数据项，否则会出现意想不到的查询 参考[eq](#api2##eq)_
+
+    >_当type = ISNULL/NOTNULL时，要确保第三项参数为空（但是不能为null）参考[isNull/notNull](#api2##isnull)_
+
+    >_当type = IN/NOT_IN时，确保第三个参数至少有一项数据，参考[in/notIn](#api2##in)_
+
+    >_当type = BETWEEN时，确保第三个参数要有两个数据项,参考[between](#api2##between)_
+
+- `FlexibleConditionWrapper` SQL包装器的模板参数为弹性构造器时，可以灵活设置查询条件：
+    > _当type = OR/AND/CLOSURE/LEFT_WRAPPER/RIGHT_WRAPPER时，该查询条件不做任何处理_    
+
+    > _当type = DO_NOTHING时，该条件非常灵活，比如需要用到动态sql条件时，就可以把第二个参数设置为ValueItem,即可
+    进行sql注入，比如 `EXISTS (select 1 from tb_order_detail where order_id = e.id and deltag = 0) `,可以如下表示：_
+    ```java
+          SelectWrapper<FlexibleConditionWrapper> selectWrapper =
+                SqlWrapperFactory.flex4Select().where(w->w
+                        .where(ConditionType.DO_NOTHING
+                      ,ValueItem.valueOf("EXISTS (select 1 from tb_order_detail where order_id = e.id and deltag = 0) ")
+                      ,Collections.EMPTY_LIST)
+                        );
+        List<TbOrderForm> effects = orderFormService.selectList(selectWrapper);
+    ```
+    >_sql打印：_
+    ```mysql
+2020-7-2 22:53:54 DEBUG Fetching JDBC Connection from DataSource [org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection,114] 
+2020-7-2 22:53:54 DEBUG JDBC Connection [HikariProxyConnection@1707815299 wrapping com.mysql.cj.jdbc.ConnectionImpl@41d76141] will not be managed by Spring [org.mybatis.spring.transaction.SpringManagedTransaction.openConnection,87] 
+2020-7-2 22:53:54 DEBUG ==>  Preparing: select e.`pay_way_name` `payWayName`,e.`update_date` `updateDate`,e.`send_date` `sendDate`,e.`vote_company` `voteCompany`,e.`deltag` `deltag`,e.`pay_state` `payState`,e.`pro_amount` `proAmount`,e.`pay_way_id` `payWayId`,e.`delivery_id` `deliveryId`,e.`amount_paid` `amountPaid`,e.`leave_message` `leaveMessage`,e.`order_type_str` `orderTypeStr`,e.`id` `id`,e.`email` `email`,e.`member_id` `memberId`,e.`create_date` `createDate`,e.`area` `area`,e.`order_no` `orderNo`,e.`address` `address`,e.`receiver` `receiver`,e.`vote_content` `voteContent`,e.`vote_title` `voteTitle`,e.`deal_status` `dealStatus`,e.`user_name` `userName`,e.`call` `call`,e.`delivery_way_name` `deliveryWayName`,e.`phone` `phone`,e.`post_code` `postCode`,e.`amount_pay` `amountPay`,e.`order_date` `orderDate`,e.`delivery_status` `deliveryStatus`,e.`delivery_cost` `deliveryCost` from `mybatis-helper-demo`.`tb_order_form` e where EXISTS (select 1 from tb_order_detail where order_id = e.id and deltag = 0)  [com.mybatishelper.demo.order.mapper.OrderFormMapper.selectList.debug,159] 
+2020-7-2 22:53:54 DEBUG ==> Parameters:  [com.mybatishelper.demo.order.mapper.OrderFormMapper.selectList.debug,159] 
+2020-7-2 22:53:54 DEBUG <==      Total: 0 [com.mybatishelper.demo.order.mapper.OrderFormMapper.selectList.debug,159] 
+```
+
+    >_当type = EQ/NEQ/GE/GT/LE/LT/LIKE时，要确保第三个参数只会有1个数据项，否则会出现意想不到的查询 参考[eq](#api2##eq)_
+
+    >_当type = ISNULL/NOTNULL时，要确保第三项参数为空（但是不能为null）参考[isNull/notNull](#api2##isnull)_
+
+    >_当type = IN/NOT_IN时，确保第三个参数至少有一项数据，参考[in/notIn](#api2##in)_
+
+    >_当type = BETWEEN时，确保第三个参数要有两个数据项，参考[between](#api2##between)_
 
 ## and嵌套
 > 嵌套查询在现实中会频繁使用，可以把SQL包装器的where方法当做and查询的最顶级嵌套。需要注意的是，
@@ -178,10 +225,7 @@ SelectWrapper<PropertyConditionWrapper> selectWrapper =
 Preparing: select `order_no` `orderNo` from `mybatis-helper-demo`.`tb_order_form` e where `id` = ? AND `pay_state` <> ? AND ( `id` = ? OR `deal_status` IN ( ?,?,? ) ) AND ( `id` = ? AND `deal_status` = ? ) AND `deltag` = ?
 Parameters: 1(Integer), 1(Integer), 123(Integer), 1(Integer), 2(Integer), 3(Integer), 456(Integer), 4(Integer), false(Boolean)
 ```
-- `FlexibleConditionWrapper` 例子：
-```java
- test
-```
+- `FlexibleConditionWrapper` 与 `PropertyConditionWrapper`类似，只不过and的参数改为消费FlexibleConditionWrapper了。详情参考[FlexibleConditionWrapper](api1#FlexibleConditionWrapper)
 
 ## or嵌套
 > [参考eq](#api2##and嵌套)
