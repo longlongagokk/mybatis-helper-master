@@ -16,6 +16,7 @@ D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelp
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\seg\LinkSelectSeg.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\query\SelectWrapper.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\enums\ConditionType.java
+D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\factory\SqlWrapperFactory.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\field\OrderField.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\field\AbsField.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\param\ParamItem.java

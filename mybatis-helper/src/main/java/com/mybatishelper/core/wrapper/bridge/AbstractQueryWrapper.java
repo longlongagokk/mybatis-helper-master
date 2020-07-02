@@ -11,10 +11,7 @@ import com.mybatishelper.core.wrapper.join.JoinWrapper;
 import com.mybatishelper.core.wrapper.query.SelectWrapper;
 import lombok.Getter;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 
 public abstract class AbstractQueryWrapper<C extends AbstractConditionWrapper,Q extends AbstractQueryWrapper>
@@ -51,6 +48,11 @@ public abstract class AbstractQueryWrapper<C extends AbstractConditionWrapper,Q 
     @Override
     public Set<String> getAliases() {
         return fromTables.keySet();
+    }
+
+    @Override
+    public Map<String, TableMetaInfo> getAliasTableMetaInfos() {
+        return Collections.unmodifiableMap(aliasTables);
     }
 
     @Override

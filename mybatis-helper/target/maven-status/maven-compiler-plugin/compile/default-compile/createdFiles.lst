@@ -8,6 +8,7 @@ com\mybatishelper\core\wrapper\join\JoinWrapper.class
 com\mybatishelper\core\base\param\ValueItem.class
 com\mybatishelper\core\cache\EntryFieldInfo$EntryFieldInfoBuilder.class
 com\mybatishelper\core\wrapper\delete\DeleteSqlProvider.class
+com\mybatishelper\core\wrapper\factory\SqlWrapperFactory.class
 com\mybatishelper\core\wrapper\update\UpdateWrapper.class
 com\mybatishelper\core\base\Primary.class
 com\mybatishelper\core\wrapper\bridge\AbsSqlSegment.class
@@ -32,11 +33,9 @@ com\mybatishelper\core\enums\ConditionType.class
 com\mybatishelper\core\wrapper\bridge\AbstractConditionWrapper$1.class
 com\mybatishelper\core\wrapper\query\QueryWrapper.class
 com\mybatishelper\core\util\LinkStack.class
-com\mybatishelper\core\wrapper\update\UpdateWrapper$DefaultUpdateWrapper.class
 com\mybatishelper\core\enums\ItemType.class
 com\mybatishelper\core\util\SnowflakeIdWorker.class
 com\mybatishelper\core\enums\Order.class
-com\mybatishelper\core\wrapper\query\SelectWrapper$DefaultSelectWrapper.class
 com\mybatishelper\core\wrapper\query\QuerySqlProvider.class
 com\mybatishelper\core\base\meta\SimplePrimary.class
 com\mybatishelper\core\util\StringUtils.class
