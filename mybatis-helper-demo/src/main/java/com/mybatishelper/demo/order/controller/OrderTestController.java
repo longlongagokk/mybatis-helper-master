@@ -1,36 +1,26 @@
 package com.mybatishelper.demo.order.controller;
 
-import com.mybatishelper.core.base.FieldValue;
+import com.mybatishelper.core.base.field.CompareField;
 import com.mybatishelper.core.base.field.OrderField;
 import com.mybatishelper.core.base.field.SelectField;
-import com.mybatishelper.core.base.meta.FieldWithValue;
-import com.mybatishelper.core.base.meta.PageList;
+import com.mybatishelper.core.base.meta.ItemPar;
 import com.mybatishelper.core.base.param.FieldItem;
 import com.mybatishelper.core.base.param.ParamItem;
 import com.mybatishelper.core.base.param.ValueItem;
-import com.mybatishelper.core.enums.ConditionType;
 import com.mybatishelper.core.enums.Order;
-import com.mybatishelper.core.wrapper.IDeleteWrapper;
-import com.mybatishelper.core.wrapper.IQueryWrapper;
-import com.mybatishelper.core.wrapper.ISelectorWrapper;
-import com.mybatishelper.core.wrapper.delete.DeleteWrapper;
 import com.mybatishelper.core.wrapper.factory.FlexibleConditionWrapper;
-import com.mybatishelper.core.wrapper.factory.PropertyConditionWrapper;
 import com.mybatishelper.core.wrapper.factory.SqlWrapperFactory;
-import com.mybatishelper.core.wrapper.query.QueryWrapper;
 import com.mybatishelper.core.wrapper.query.SelectWrapper;
-import com.mybatishelper.core.wrapper.update.UpdateWrapper;
 import com.mybatishelper.demo.common.mapper.StaticBoundMapper;
 import com.mybatishelper.demo.common.module.Result;
-import com.mybatishelper.demo.common.module.TvPageList;
 import com.mybatishelper.demo.common.util.PageInfo;
 import com.mybatishelper.demo.order.module.entity.TbOrderDetail;
 import com.mybatishelper.demo.order.module.entity.TbOrderForm;
 import com.mybatishelper.demo.order.module.query.TsOrderForm;
-import com.mybatishelper.demo.order.module.view.TvOrderForm;
 import com.mybatishelper.demo.order.service.OrderDetailService;
 import com.mybatishelper.demo.order.service.OrderFormService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,8 +30,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
-import java.util.*;
-import java.util.function.Consumer;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 
 @RestController
 @RequestMapping("order-test")
@@ -117,21 +108,6 @@ public class OrderTestController {
 //                //1，根据属性匹配列更新，参数化：（of.`pay_state` = ?）
 //                .set("of.payState",1)
 //
-//                //2，值为原生sql，非参数化：（of.`deal_status` = of.pay_state）（*有sql注入风险）
-//                .set(FieldWithValue.withOriginalValue("of.dealStatus","of.pay_state"))
-//
-//                //3，同1，参数化：（of.`leave_message` = ?）
-//                .set(FieldWithValue.withParamValue("of.leaveMessage","微辣"))
-//
-//                //4，同2，非参数化：（of.`delivery_status` = 4）（*有sql注入风险）
-//                .set(FieldWithValue.valueOf("of.deliveryStatus",ValueItem.valueOf(4)))
-//
-//                //5,同1，参数化：（of.`leave_message` = ?）
-//                .set(FieldWithValue.valueOf("of.voteTitle",ParamItem.valueOf("大梅沙")))
-//
-//                //6,//根据属性匹配列之间传值，（of.`vote_content` = of.`vote_title`）
-//                .set(FieldWithValue.valueOf("of.voteContent",FieldItem.valueOf("of.voteTitle")))
-//
 //                // where of.id = 3
 //                .where(w->w.eq("of.id",3))
 //        ;
@@ -155,16 +131,6 @@ public class OrderTestController {
 
 //
 //        Consumer<PropertyConditionWrapper> c = x-> x
-//                //左边属性，右边是原值：右边有sql注入风险，等同 e.order_no = '1'
-//                .eq(FieldWithValue.withOriginalValue("e.orderNo","'1'"))
-//                //左边属性，右边是参数化传值,等同 e.order_no = ? (?传 2(String类别))
-//                .eq(FieldWithValue.withParamValue("e.orderNo","2"))
-//                //左边属性，右边是原值，右边有sql注入风险，等同 e.order_no = 3
-//                .eq(FieldWithValue.valueOf("e.orderNo",ValueItem.valueOf("3")))
-//                //左边属性，右边是参数化传值,等同 e.order_no = ? (?传 4(String类别))
-//                .eq(FieldWithValue.valueOf("e.orderNo",ParamItem.valueOf("4")))
-//                //左边属性，右边也是属性,等同 e.order_no = e.member_id
-//                .eq(FieldWithValue.valueOf("e.orderNo",FieldItem.valueOf("e.memberId")))
 //                ;
 ////
 //        DeleteWrapper<PropertyConditionWrapper> deleteWrapper = SqlWrapperFactory.prop4Delete();
@@ -199,10 +165,15 @@ public class OrderTestController {
 //        effects = staticBoundMapper.selectCount(SqlWrapperFactory.flex4Query().from(TbOrderForm.class).where(c));
         // select orderNo from tb_order_form where id = 1 and pay_state != 1 and   (id = 123 or deal_status in (1,2,3) or   (id = 456 and deal_status = 4)   )   and deltag = false;
         SelectWrapper<FlexibleConditionWrapper> selectWrapper =
-                SqlWrapperFactory.flex4Select().where(w->w
-                        .where(ConditionType.DO_NOTHING,ValueItem.valueOf("EXISTS (select 1 from tb_order_detail where order_id = e.id and deltag = 0) "),Collections.EMPTY_LIST)
+                SqlWrapperFactory.flex4Select()
+                        .select("e.id")
+                        .where(w->w
+//                        .where(ConditionType.DO_NOTHING,ValueItem.valueOf("EXISTS (select 1 from tb_order_detail where order_id = e.id and deltag = 0) "),Collections.EMPTY_LIST)
+//                        .eq(ValueItem.valueOf(123),ValueItem.valueOf(456))
+                        .eq(ParamItem.valueOf(123,2),ParamItem.valueOf(456))
                         );
         effects = orderFormService.selectList(selectWrapper);
+        FieldItem.valueOf(CompareField.valueOf("e.id"));
         //ConditionType.EQ
 //        Consumer<FlexibleConditionWrapper> lc = f->
 //                f.eq(FieldItem.valueOf("of.id"),FieldItem.valueOf("od.orderId"))
@@ -257,16 +228,16 @@ public class OrderTestController {
                 .select(("e.memberId,e.memberId userInfo"))
                 .leftJoin(TbOrderDetail.class,"od", od->
                         od
-                                .eq(FieldWithValue.valueOf("e.id", FieldItem.valueOf("od.orderId")))
+                                .eq(ItemPar.valueOf(FieldItem.valueOf("e.id"), FieldItem.valueOf("od.orderId")))
                                 .eq("od.productId",300L)
                         )
                 .where(w->
                         w
-                                .eq(FieldWithValue.valueOf("e.orderNo",FieldItem.valueOf("e.orderTypeStr")))
+                                .eq(ItemPar.valueOf(FieldItem.valueOf("e.id"),FieldItem.valueOf("e.orderTypeStr")))
                                 .eq("e.amountPaid",amountPaid)
                         .or(x->
                                 x
-                                        .eq(FieldWithValue.valueOf("e.amountPay",FieldItem.valueOf("e.call")))
+                                        .eq(ItemPar.valueOf(FieldItem.valueOf("e.id"),FieldItem.valueOf("e.call")))
                                         .eq("e.deliveryId",234)
                                         .in("e.id",ids)
                                         .f()
@@ -289,7 +260,7 @@ public class OrderTestController {
         return Result.success(orderFormService.selectPageListV(SqlWrapperFactory.prop4Select()
                         .select(("e.memberId,e.memberId userInfo"))
                         .leftJoin(TbOrderDetail.class,"od",od->od
-                                        .eq(FieldWithValue.valueOf("e.id", FieldItem.valueOf("od.orderId")))
+                                        .eq(ItemPar.valueOf(FieldItem.valueOf("e.id"), FieldItem.valueOf("od.orderId")))
                                         .eq("od.productId",300L)
                         )
                         .orderBy(OrderField.valueOf("e.payWayId")
@@ -302,38 +273,35 @@ public class OrderTestController {
     public Result detailList(HttpServletRequest request, HttpServletResponse response)throws Exception{
         return Result.success(orderDetailService.selectPageList(SqlWrapperFactory.prop4Select()
                 .select("e.id,e.orderId orderId,e.id bid")
-                .select(
-                        SelectField.valueOf("e.id"),
-                        SelectField.valueOf("e.id id0"),
-                        SelectField.valueOf("e.order_id",true),
-                        SelectField.valueOf("e.order_id kbs",true)
-                )
-        .where(x->x
-                .le(FieldWithValue.withParamValue("e.createDate",new Date()))
-                )
-        .page(new PageInfo())
-                .orderBy("e.id,e.orderId,of.memberId desc")
-                .orderBy(
-                        OrderField.valueOf("of.create_date",true)
-                        ,
-                        OrderField.valueOf("of.create_date asc",true)
-                        ,
-                        OrderField.valueOf("of.create_date desc",true)
-                        ,
-                        OrderField.valueOf("of.createDate",false)
-                        ,
-                        OrderField.valueOf("of.updateDate", Order.DESC)
-
-                )
+//                .select(
+//                        SelectField.valueOf("e.id"),
+//                        SelectField.valueOf("e.id id0"),
+//                        SelectField.valueOf("e.order_id",true),
+//                        SelectField.valueOf("e.order_id kbs",true)
+//                )
+                .page(new PageInfo())
+//                .orderBy("e.id,e.orderId,of.memberId desc")
+//                .orderBy(
+//                        OrderField.valueOf("of.create_date",true)
+//                        ,
+//                        OrderField.valueOf("of.create_date asc",true)
+//                        ,
+//                        OrderField.valueOf("of.create_date desc",true)
+//                        ,
+//                        OrderField.valueOf("of.createDate",false)
+//                        ,
+//                        OrderField.valueOf("of.updateDate", Order.DESC)
+//
+//                )
         .leftJoin(TbOrderForm.class,"of", of->
-                of.eq(FieldWithValue.valueOf("e.orderId",FieldItem.valueOf("of.id")))
+                of.eq(ItemPar.valueOf(ParamItem.valueOf("e.orderId"),FieldItem.valueOf("of.id")))
         )
         .leftJoin(TbOrderForm.class,"ff",of->
                 of
-                        .eq(FieldWithValue.valueOf("e.orderId",FieldItem.valueOf("ff.id")))
+                        .eq(ItemPar.valueOf(FieldItem.valueOf("e.orderId"),FieldItem.valueOf("ff.id")))
                 .or(x->
-                        x.ge(FieldWithValue.valueOf("e.orderId",ParamItem.valueOf("ff.id")))
-                                .neq(FieldWithValue.valueOf("e.orderId", ValueItem.valueOf("ff.id")))
+                        x.ge(ItemPar.valueOf(FieldItem.valueOf("e.orderId"),ParamItem.valueOf("ff.id")))
+                                .neq(ItemPar.valueOf(FieldItem.valueOf("e.orderId"), ValueItem.valueOf("ff.id")))
                         )
         )
 
@@ -387,7 +355,6 @@ public class OrderTestController {
 //                .from(TbOrderDetail.class,"od")
 //                .where(x->x.eq("e.id",100))
 //                .where(x->x.eq("od.id",330))
-//                .where(x->x.eq(FieldWithValue.valueOf("od.orderId",FieldItem.valueOf("e.id"))))
 //        ));
     }
 

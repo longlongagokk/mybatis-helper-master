@@ -14,4 +14,7 @@ public abstract class Assert {
     public static void notNull(Object obj,String message){
         org.springframework.util.Assert.notNull(obj,message);
     }
+    public static void state(boolean expression, String message) {
+        org.springframework.util.Assert.state(expression,message);
+    }
 }

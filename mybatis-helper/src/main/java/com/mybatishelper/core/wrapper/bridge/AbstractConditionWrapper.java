@@ -1,7 +1,7 @@
 package com.mybatishelper.core.wrapper.bridge;
 
-import com.mybatishelper.core.base.FieldValue;
 import com.mybatishelper.core.base.Item;
+import com.mybatishelper.core.base.meta.ItemPar;
 import com.mybatishelper.core.base.param.ParamItem;
 import com.mybatishelper.core.base.param.ValueItem;
 import com.mybatishelper.core.enums.ConditionType;
@@ -80,7 +80,7 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
         return exchangeItems(ConditionType.EQ, left, Collections.singletonList(right));
     }
     @Override
-    public S eq(FieldValue fv) {
+    public S eq(ItemPar fv) {
         return exchangeItems(ConditionType.EQ,fv);
     }
 
@@ -89,7 +89,7 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
         return exchangeItems(ConditionType.GT, left,Collections.singletonList(right));
     }
     @Override
-    public S gt(FieldValue fv) {
+    public S gt(ItemPar fv) {
         return exchangeItems(ConditionType.GT,fv);
     }
 
@@ -98,7 +98,7 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
         return exchangeItems(ConditionType.LT, left,Collections.singletonList(right));
     }
     @Override
-    public S lt(FieldValue fv) {
+    public S lt(ItemPar fv) {
         return exchangeItems(ConditionType.LT,fv);
     }
 
@@ -107,7 +107,7 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
         return exchangeItems(ConditionType.GE, left,Collections.singletonList(right));
     }
     @Override
-    public S ge(FieldValue fv) {
+    public S ge(ItemPar fv) {
         return exchangeItems(ConditionType.GE,fv);
     }
 
@@ -116,7 +116,7 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
         return exchangeItems(ConditionType.LE, left,Collections.singletonList(right));
     }
     @Override
-    public S le(FieldValue fv) {
+    public S le(ItemPar fv) {
         return exchangeItems(ConditionType.LE,fv);
     }
 
@@ -125,7 +125,7 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
         return exchangeItems(ConditionType.NEQ, left,Collections.singletonList(right));
     }
     @Override
-    public S neq(FieldValue fv) {
+    public S neq(ItemPar fv) {
         return exchangeItems(ConditionType.NEQ,fv);
     }
 
@@ -134,7 +134,7 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
         return exchangeItems(ConditionType.LIKE, left,Collections.singletonList(right));
     }
     @Override
-    public S like(FieldValue fv) {
+    public S like(ItemPar fv) {
         return exchangeItems(ConditionType.LIKE,fv);
     }
 
@@ -247,9 +247,10 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
     }
 
     protected abstract S exchangeItems(ConditionType type,L left, Collection<?> rights);
-    private S exchangeItems(ConditionType type, FieldValue fv){
-        Item right = wrapItemIfHasParam(fv.getRight());
-        return toTheMoon(type,fv.getLeft(),right);
+    private S exchangeItems(ConditionType type, ItemPar fv){
+        Item right = wrapItemIfHasParam(fv.getValue());
+        Item left = wrapItemIfHasParam(fv.getKey());
+        return toTheMoon(type,left,right);
     }
 
     @Override

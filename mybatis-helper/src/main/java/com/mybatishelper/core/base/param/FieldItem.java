@@ -18,20 +18,15 @@ public class FieldItem implements Item<Field> {
         this.value = field;
     }
 
-    public static FieldItem valueOf(Field field) {
+    public static Item<Field> valueOf(Field field) {
         return new FieldItem(field);
     }
-    public static FieldItem valueOf(String fullName) {
+    public static Item<Field> valueOf(String fullName) {
         return valueOf(CompareField.valueOf(fullName));
     }
-    public static FieldItem valueOf(String alias,Enum em) {
+    @Deprecated
+    public static Item<Field> valueOf(String alias,Enum em) {
         return valueOf(CompareField.valueOf(alias + ConstValue.DOT + em.name(),false));
-    }
-
-    @Override
-    public Item<Field> withValue(Field value) {
-        this.value = value;
-        return this;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.mybatishelper.core.wrapper;
 
-import com.mybatishelper.core.base.FieldValue;
 import com.mybatishelper.core.base.Item;
+import com.mybatishelper.core.base.meta.ItemPar;
 import com.mybatishelper.core.enums.ConditionType;
 import com.mybatishelper.core.wrapper.factory.FlexibleConditionWrapper;
 
@@ -20,49 +20,49 @@ public interface IConditioner<L,R,S> {
      *
      */
     S eq(L left, R right);
-    S eq(FieldValue fv);
+    S eq(ItemPar fv);
 
     /**
      * 大于
      *
      */
     S gt(L left, R right);
-    S gt(FieldValue fv);
+    S gt(ItemPar fv);
 
     /**
      * 小于
      *
      */
     S lt(L left, R right);
-    S lt(FieldValue fv);
+    S lt(ItemPar fv);
 
     /**
      * 大于等于
      *
      */
     S ge(L left, R right);
-    S ge(FieldValue fv);
+    S ge(ItemPar fv);
 
     /**
      * 小于等于
      *
      */
     S le(L left, R right);
-    S le(FieldValue fv);
+    S le(ItemPar fv);
 
     /**
      * 不等于
      *
      */
     S neq(L left, R right);
-    S neq(FieldValue fv);
+    S neq(ItemPar fv);
 
     /**
      * like
      *
      */
     S like(L left, R right);
-    S like(FieldValue fv);
+    S like(ItemPar fv);
 
     /**
      * 空

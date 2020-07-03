@@ -1,8 +1,9 @@
 package com.mybatishelper.core.wrapper.update;
 
-import com.mybatishelper.core.base.FieldValue;
 import com.mybatishelper.core.base.Item;
+import com.mybatishelper.core.base.meta.ItemPar;
 import com.mybatishelper.core.base.param.ParamItem;
+import com.mybatishelper.core.base.param.ValueItem;
 import com.mybatishelper.core.cache.EntryFieldInfo;
 import com.mybatishelper.core.cache.TableMetaInfo;
 import com.mybatishelper.core.consts.ConstValue;
@@ -16,10 +17,9 @@ import com.mybatishelper.core.wrapper.seg.SimpleConditionSeg;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  *
@@ -59,8 +59,10 @@ public class UpdateSqlProvider extends AbsSqlProvider {
 
     public String updateSelectItem(ProviderContext context, IUpdateWrapper wrapper) {
         UpdateWrapper updateWrapper = (UpdateWrapper)wrapper;
-        List fv = updateWrapper.updateItems;
-        Assert.notEmpty(fv,"update elements can not be empty !");
+        Assert.notEmpty(updateWrapper.itemPars,"update elements can not be empty !");
+        updateWrapper.updateItems = new ArrayList(updateWrapper.itemPars);
+        //已经是非重复且按顺序的了
+        List<ItemPar> fvs = updateWrapper.updateItems;
 
         checkAndReturnFromTables(context,updateWrapper);
 
@@ -73,19 +75,14 @@ public class UpdateSqlProvider extends AbsSqlProvider {
         createJoinInfoSql(updateSql,updateWrapper);
 
         updateSql.append(" set ");
-        Set<String> keyWithAlias = new HashSet<>(fv.size()<<1);
-        //reverse
-        for(int i = fv.size()-1;i>=0;--i){
-            FieldValue fieldValue = (FieldValue) fv.get(i);
-            if(!keyWithAlias.add(fieldValue.getLeft().toString())){
-                continue;
-            }
-            //如果右边是param
-            Item value = fieldValue.getRight();
+        for(int i = 0; i < fvs.size(); ++i){
+            ItemPar par = fvs.get(i);
+            Assert.state(!ItemType.PARAM.equals(par.getKey().getType()),"key type can not be param !");
+            Item value = par.getValue();
             if(value.getType() == ItemType.PARAM){
-                value = ParamItem.valueOf("updateItems",i);
+                value = ValueItem.valueOf("#{updateItems["+i+"].value.value}");
             }
-            updateSql.append(SimpleConditionSeg.valueOf(ConditionType.EQ,fieldValue.getLeft(),value).createSql(updateWrapper)).append(ConstValue.COMMA);
+            updateSql.append(SimpleConditionSeg.valueOf(ConditionType.EQ,par.getKey(),value).createSql(updateWrapper)).append(ConstValue.COMMA);
         }
         updateSql.deleteCharAt(updateSql.length() - 1);
         //conditions

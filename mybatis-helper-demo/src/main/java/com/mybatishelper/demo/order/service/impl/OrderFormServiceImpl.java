@@ -4,7 +4,7 @@ import com.mybatishelper.core.base.Item;
 import com.mybatishelper.core.base.field.CompareField;
 import com.mybatishelper.core.base.field.OrderField;
 import com.mybatishelper.core.base.field.SelectField;
-import com.mybatishelper.core.base.meta.FieldWithValue;
+import com.mybatishelper.core.base.meta.ItemPar;
 import com.mybatishelper.core.base.param.FieldItem;
 import com.mybatishelper.core.base.param.ParamItem;
 import com.mybatishelper.core.base.param.ValueItem;
@@ -77,22 +77,21 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 //
 		//delete
 		log.info("------------------------"+mapper.delete(
-				new DeleteWrapper<>(new PropertyConditionWrapper()).where(x->x.eq(TsOrderForm.Fields.payWayId.name(),444).eq(
-						FieldWithValue.withOriginalValue("id",333)
+				new DeleteWrapper<>(new PropertyConditionWrapper()).where(x->x
+						.eq(TsOrderForm.Fields.payWayId.name(),444)
+						.eq(ItemPar.valueOf(FieldItem.valueOf("e.id"),ParamItem.valueOf(3))
 
 				))
 		)+"------------------------------");
 //		//delete
 //		log.info("------------------------"+mapper.delete(
 //				DeleteWrapper.build().where(x->x.e().eq(TsOrderForm.Fields.payWayId,222).eq(
-//						FieldWithValue.withOriginalValue("id",1001)
 //
 //				))
 //		)+"------------------------------");
 //		//delete
 //		log.info("------------------------"+mapper.delete(
 //				new DeleteWrapper<>(new StringConditionWrapper()).where(x->x.e().eq(TsOrderForm.Fields.payWayId,999).eq(
-//						FieldWithValue.withOriginalValue("id",888)
 //
 //				))
 //		)+"------------------------------");
@@ -141,7 +140,7 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 //						.select("userName    ")
 //						.select("   dealStatus    ")
 //						.select("   orderDate   ")
-						.select(SelectField.valueOf("(select count(0) from Tb_cms_news) counts",true))
+						.select(SelectField.valueOf("(select count(0) from tb_order_form) counts",true))
 //						.select0(
 //								SelectField.valueOf("e", TsOrderForm.Fields.area)
 //						)
@@ -300,15 +299,10 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 		UpdateWrapper wrapper = SqlWrapperFactory.prop4Update()
 				.set("e.payState",88)
 //				.set(TsOrderForm.Fields.memberId.name(),30)
-//				.set(FieldWithValue.withOriginalValue("e.payState",188))
 //				.set(
-//						FieldWithValue.withOriginalValue("e.phone",11),
-//						FieldWithValue.withParamValue(TsOrderForm.Fields.payWayId,22),
-//						FieldWithValue.withParamValue("e.payState",33),
-//						FieldWithValue.withParamValue(TsOrderForm.Fields.deliveryId,44),
-//						FieldWithValue.valueOf("e.phone",FieldItem.valueOf("e.id"))
 //				)
 				.set(TsOrderForm.Fields.amountPay.name(),88.88)
+				.set(ItemPar.valueOf(ValueItem.valueOf("e.order_no"),ValueItem.valueOf("666")))
 
 				.where(x->
 						x
@@ -338,11 +332,6 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 				)
 				.where(x->x.f().eq(ValueItem.valueOf(20),ValueItem.valueOf(30))
 				)
-//				.where(x->
-//						x.or(k->
-//								k.eq(FieldValue.valueOf("e.id",1874544423L))
-//										.eq(FieldValue.valueOf("e.orderNo",1874544423L)))
-//				)
 				;
 		log.info("------------------------"+mapper.updateSelectItem(wrapper
 
@@ -436,9 +425,6 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 												ParamItem.valueOf("777")
 										)
 //										.d()
-//								.eq(FieldWithValue.withOriginalValue("x.productId",34))
-//								.eq(FieldWithValue.withParamValue("e.id",88))
-//								.eq(FieldWithValue.valueOf("e.payState",FieldItem.valueOf("e.orderNo")))
 //								.isNull("e.payState")
 //								.or(k->k
 //										.e().notNull(TsOrderForm.Fields.memberId)

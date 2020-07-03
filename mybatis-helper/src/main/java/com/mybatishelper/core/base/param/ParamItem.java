@@ -21,18 +21,13 @@ public class ParamItem<T> implements Item<T> {
         this.index = index;
     }
 
-    public static <T> ParamItem valueOf(T value, int index) {
-        return new ParamItem(value, index);
+    public static <T> ParamItem<T> valueOf(T value, int index) {
+        return new ParamItem<>(value, index);
     }
-    public static <T> ParamItem valueOf(T value) {
+    public static <T> ParamItem<T> valueOf(T value) {
         return valueOf(value,0);
     }
 
-    @Override
-    public ParamItem<T> withValue(T value) {
-        this.value = value;
-        return this;
-    }
 
     @Override
     public String toString() {
