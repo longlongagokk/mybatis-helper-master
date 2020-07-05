@@ -7,54 +7,108 @@
         //Parameters: 123456(String)
         Consumer<PropertyConditionWrapper> c = x-> x.eq("e.orderNo","123456");
 ```
-> `eq(FieldValue fv)`，`=`操作符左边为dto对象属性对应的列，右边为自定义，如：
+> `eq(ItemPar par)`，以一个键值对ItemPar为条件项，key为操作符左边，value为操作符右边，如：
 ```java
     Consumer<PropertyConditionWrapper> c = x-> x
             //左边属性，右边是原值：右边有sql注入风险，等同 e.order_no = '1'
-            .eq(FieldWithValue.withOriginalValue("e.orderNo","'1'"))
+            .eq(ItemPar.withFieldValue("e.orderNo","'1'"))
 
-            //左边属性，右边是参数化传值,等同 e.order_no = ? (?传 2(String类别))
-            .eq(FieldWithValue.withParamValue("e.orderNo","2"))
-
-            //左边属性，右边是原值，右边有sql注入风险，等同 e.order_no = 3
-            .eq(FieldWithValue.valueOf("e.orderNo",ValueItem.valueOf("3")))
-
-            //左边属性，右边是参数化传值,等同 e.order_no = ? (?传 4(String类别))
-            .eq(FieldWithValue.valueOf("e.orderNo",ParamItem.valueOf("4")))
+            //左边属性，右边是参数化传值,等同 e.order_no = ? (Parameters: 2(String))
+            .eq(ItemPar.withFieldParam("e.orderNo","2"))
 
             //左边属性，右边也是属性,等同 e.order_no = e.member_id
-            .eq(FieldWithValue.valueOf("e.orderNo",FieldItem.valueOf("e.memberId")))
+            .eq(ItemPar.withFieldField("e.orderNo","e.memberId"))
             ;
 ```
+
+- ### `ItemPar` 
+> 一个以[item](api1#item)为键和值的键值对，常用在查询条件处，其中属性key为键，即左操作项目，value为右操作项目。
+
+    <table>
+     <tr>
+         <th>构造方法</th>
+         <th>描述</th>
+         <th>示例</th>
+     </tr>
+     <tr>
+         <td>withFieldField(String, String)</td>
+         <td>以两个属性关联的方式进行查询</td>
+         <td>`eq(ItemPar.withFieldField("e.memberId","e.orderNo")` ==> sql: `e.member_id = e.order_no`</td>
+     </tr>
+     <tr>
+         <td>withFieldValue(String, T)</td>
+         <td>键为属性、值为原值</td>
+         <td>`eq(ItemPar.withFieldValue("e.memberId",12345)` ==> sql: `e.member_id = 12345`</td>
+     </tr>
+     <tr>
+         <td>withFieldParam(String, T)</td>
+         <td>键为属性、值为参数化替换</td>
+         <td>`eq(ItemPar.withFieldParam("e.memberId",12345)` ==> sql: `e.member_id = ?`;Parameters:12345(Integer);</td>
+     </tr>
+     <tr>
+         <td>withValueField(T, String)</td>
+         <td>键为原值、值为可替换列的属性对象</td>
+         <td>`eq(ItemPar.withValueField("e.member_id","e.orderNo")` ==> sql: `e.member_id = e.order_no`;</td>
+     </tr>
+     <tr>
+         <td>withValueValue(T0, T1)</td>
+         <td>键为原值、值也为原值</td>
+         <td>`eq(ItemPar.withValueValue("e.member_id",12345)` ==> sql: `e.member_id = 12345`;</td>
+     </tr>
+     <tr>
+         <td>withValueParam(T0, T1)</td>
+         <td>键为原值、值为参数化替换</td>
+         <td>`eq(ItemPar.withValueParam("e.member_id",12345)` ==> sql: `e.member_id = ?`;Parameters:12345(Integer);</td>
+     </tr>
+     <tr>
+         <td>withParamField(T, String)</td>
+         <td>键为参数化替换、值为可替换列的属性对象</td>
+         <td>`eq(ItemPar.withParamField("e.member_id","e.orderNo")` ==> sql: `? = e.order_no`;Parameters:e.member_id(String)</td>
+     </tr>
+     <tr>
+         <td>withParamValue(T0, T1)</td>
+         <td>键为参数化替换、值为原值</td>
+         <td>`eq(ItemPar.withParamValue("e.member_id",12345)` ==> sql: `? = 12345`;Parameters:e.member_id(String)</td>
+     </tr>
+     <tr>
+         <td>withParamParam(T0, T1)</td>
+         <td>键为参数化替换、值也为参数化替换</td>
+         <td>`eq(ItemPar.withParamParam("e.member_id",12345)` ==> sql: `? = ?`;Parameters:e.member_id(String),12345(Integer);</td>
+     </tr>
+     </table>
+     
+    >_参考 [TbOrderForm](api1#tborderform)_
+
+
 ## gt
 > `gt(L left,R right)`，大于操作符
 - `PropertyConditionWrapper` 例子：`gt("orderNo","123456")` ==> sql：`order_no > 123456`
 
-> `gt(FieldValue fv)`，[参考eq](#api2##eq)
+> `gt(ItemPar par)`，[参考eq](#api2##eq)
 
 ## lt
 > `lt(L left,R right)`，小于操作符
 - `PropertyConditionWrapper` 例子：`lt("orderNo","123456")` ==> sql：`order_no < 123456`
 
-> `lt(FieldValue fv)`，[参考eq](#api2##eq)
+> `lt(ItemPar par)`，[参考eq](#api2##eq)
 
 ## ge
 > `ge(L left,R right)`，大于等于操作符
 - `PropertyConditionWrapper` 例子：`ge("orderNo","123456")` ==> sql：`order_no >= 123456`
 
-> `ge(FieldValue fv)`，[参考eq](#api2##eq)
+> `ge(ItemPar par)`，[参考eq](#api2##eq)
 
 ## le
 > `le(L left,R right)`，小于等于操作符
 - `PropertyConditionWrapper` 例子：`le("orderNo","123456")` ==> sql：`order_no <= 123456`
 
-> `le(FieldValue fv)`，[参考eq](#api2##eq)
+> `le(ItemPar parfv)`，[参考eq](#api2##eq)
 
 ## neq
 > `neq(L left,R right)`，不等于操作符
 - `PropertyConditionWrapper` 例子：`neq("orderNo","123456")` ==> sql：`order_no <> 123456`
 
-> `neq(FieldValue fv)`，[参考eq](#api2##eq)
+> `neq(ItemPar par)`，[参考eq](#api2##eq)
 
 ## like
 > `like(L left,R right)`，like 操作符
@@ -64,7 +118,7 @@
     String likeWhat = "%" + "123456" + "%";
     Consumer<PropertyConditionWrapper> c = x-> x.like("e.orderNo",likeWhat);
 ```
-> `like(FieldValue fv)`，[参考eq](#api2##eq)
+> `like(ItemPar par)`，[参考eq](#api2##eq)
 
 ## isNull
 > `isNull(L left)`，判断为空操作符：生成的sql为：xxx is null
@@ -137,7 +191,7 @@ Parameters: 5(Integer), 6(Integer), 3(Integer), 7(Integer)
 
 >
 
-> `le(FieldValue fv)`，[参考eq](#api2##eq)
+> `le(ItemPar par)`，[参考eq](#api2##eq)
 
 ## where
 > `where(ConditionType type, L left, Collection<?> right)`，按 ConditionType 枚举罗列的条件进行查询，比如type 值为ConditionType.EQ时，等同 `eq(L left,right)`

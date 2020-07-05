@@ -1,8 +1,8 @@
 package com.mybatishelper.core.wrapper.seg;
 
-import com.mybatishelper.core.base.Field;
 import com.mybatishelper.core.base.Item;
-import com.mybatishelper.core.base.field.CompareField;
+import com.mybatishelper.core.base.param.FieldItem;
+import com.mybatishelper.core.consts.ConstValue;
 import com.mybatishelper.core.enums.ConditionType;
 import com.mybatishelper.core.enums.ItemType;
 import com.mybatishelper.core.wrapper.bridge.AbsSqlSegment;
@@ -15,11 +15,6 @@ public class SimpleConditionSeg extends AbsSqlSegment<Item> {
 
     public static SimpleConditionSeg valueOf(ConditionType type, Item... items) {
         return new SimpleConditionSeg(type,items);
-    }
-
-    @Override
-    protected Field wrapField(Field oriField, String column) {
-        return CompareField.valueOf(oriField.getAlias(),column,oriField.isOriginal());
     }
 
     @Override
@@ -37,7 +32,7 @@ public class SimpleConditionSeg extends AbsSqlSegment<Item> {
 
     String wrapItemSql(Item it, AbstractQueryWrapper<?, ?> wrapper){
         if(it.getType() == ItemType.FIELD){
-            return wrapSql((Field)it.getValue(),wrapper);
+            return wrapSql(it,wrapper);
         }
         return it.toString();
     }

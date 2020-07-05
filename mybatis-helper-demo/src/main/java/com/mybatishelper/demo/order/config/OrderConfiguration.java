@@ -34,6 +34,7 @@ public class OrderConfiguration {
         YourConfiguration conf = new YourConfiguration();
         conf.setUseGeneratedKeys(true);//使用自增长id
         sessionFactory.setConfiguration(conf);
+        //sessionFactory.setTypeAliasesPackage("com.mybatishelper.demo.common.mapper");
         return sessionFactory.getObject();
     }
 }

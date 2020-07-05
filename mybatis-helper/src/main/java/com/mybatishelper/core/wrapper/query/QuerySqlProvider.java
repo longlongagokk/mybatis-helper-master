@@ -2,12 +2,13 @@ package com.mybatishelper.core.wrapper.query;
 
 import com.mybatishelper.core.base.Page;
 import com.mybatishelper.core.base.Primary;
-import com.mybatishelper.core.base.field.OrderField;
-import com.mybatishelper.core.base.field.SelectField;
+import com.mybatishelper.core.base.meta.SelectInfo;
+import com.mybatishelper.core.base.meta.SortInfo;
 import com.mybatishelper.core.cache.EntryFieldInfo;
 import com.mybatishelper.core.cache.TableMetaInfo;
 import com.mybatishelper.core.consts.ConstValue;
 import com.mybatishelper.core.util.Assert;
+import com.mybatishelper.core.util.CollectionUtils;
 import com.mybatishelper.core.util.TableInfoHelper;
 import com.mybatishelper.core.wrapper.IQueryWrapper;
 import com.mybatishelper.core.wrapper.ISelectorWrapper;
@@ -16,7 +17,6 @@ import com.mybatishelper.core.wrapper.seg.LinkOrderSeg;
 import com.mybatishelper.core.wrapper.seg.LinkSelectSeg;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.builder.annotation.ProviderContext;
-import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -76,18 +76,18 @@ public class QuerySqlProvider extends AbsSqlProvider {
         SelectWrapper selectWrapper = (SelectWrapper)wrapper;
         Map<String, TableMetaInfo> tableMetaInfoMap = checkAndReturnFromTables(context,selectWrapper);
         boolean selectOwn = selectWrapper.selectMain;
-        List<SelectField> selectFields = selectWrapper.selectItems;
+        List<SelectInfo> selectInfos = selectWrapper.selectItems;
         StringBuilder selectSql = new StringBuilder("select ");
         if(SQL_CALC_FOUND_ROWS){
             selectSql.append(" SQL_CALC_FOUND_ROWS ");
         }
         //#region select items
         //select selectItems first
-        if(!CollectionUtils.isEmpty(selectFields)){
-            selectSql.append(LinkSelectSeg.valueOf(selectFields.toArray(new SelectField[0])).createSql(selectWrapper));
+        if(!CollectionUtils.isEmpty(selectInfos)){
+            selectSql.append(LinkSelectSeg.valueOf(selectInfos.toArray(new SelectInfo[0])).createSql(selectWrapper));
         }
         //select own next
-        if (selectOwn || CollectionUtils.isEmpty(selectFields)) {
+        if (selectOwn || CollectionUtils.isEmpty(selectInfos)) {
             TableMetaInfo mainMeta = tableMetaInfoMap.get(ConstValue.MAIN_ALIAS);
             Assert.notNull(mainMeta,"alias e can not found in aliasTables，or you have none field to select");
             for(Map.Entry<String, EntryFieldInfo> entry : mainMeta.getFieldInfos().entrySet()){
@@ -116,11 +116,9 @@ public class QuerySqlProvider extends AbsSqlProvider {
         createWhereSql(selectSql,selectWrapper);
 
         //order
-        List<OrderField> sortItems = selectWrapper.orderItems;
+        List<SortInfo> sortItems = selectWrapper.sortItems;
         if(!sortItems.isEmpty()){
-            selectSql.append(" order by ");
-            selectSql.append(LinkOrderSeg.valueOf(sortItems.toArray(new OrderField[0])).createSql(selectWrapper));
-            selectSql.deleteCharAt(selectSql.length() - 1);
+            selectSql.append(LinkOrderSeg.valueOf(sortItems.toArray(new SortInfo[0])).createSql(selectWrapper));
         }
 
         return selectSql.toString();

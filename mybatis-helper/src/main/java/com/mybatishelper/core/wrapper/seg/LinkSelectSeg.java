@@ -1,18 +1,21 @@
 package com.mybatishelper.core.wrapper.seg;
 
-import com.mybatishelper.core.base.Field;
-import com.mybatishelper.core.base.field.SelectField;
+import com.mybatishelper.core.base.Item;
+import com.mybatishelper.core.base.meta.SelectInfo;
+import com.mybatishelper.core.base.param.FieldItem;
 import com.mybatishelper.core.consts.ConstValue;
 import com.mybatishelper.core.enums.ConditionType;
+import com.mybatishelper.core.enums.ItemType;
+import com.mybatishelper.core.util.StringUtils;
 import com.mybatishelper.core.wrapper.bridge.AbsSqlSegment;
 import com.mybatishelper.core.wrapper.bridge.AbstractQueryWrapper;
 
-public class LinkSelectSeg extends AbsSqlSegment<SelectField> {
-    private LinkSelectSeg(ConditionType type, SelectField... selectFields) {
-        super(type, selectFields);
+public class LinkSelectSeg extends AbsSqlSegment<SelectInfo> {
+    private LinkSelectSeg(ConditionType type, SelectInfo... selectInfos) {
+        super(type, selectInfos);
     }
-    public static LinkSelectSeg valueOf(SelectField... selectFields) {
-        return new LinkSelectSeg(ConditionType.DO_NOTHING,selectFields);
+    public static LinkSelectSeg valueOf(SelectInfo... selectInfos) {
+        return new LinkSelectSeg(ConditionType.DO_NOTHING,selectInfos);
     }
 
     @Override
@@ -20,18 +23,23 @@ public class LinkSelectSeg extends AbsSqlSegment<SelectField> {
         if(items == null || items.length == 0){
             return "";
         }
-        StringBuilder fieldSql = new StringBuilder();
-        for(SelectField field:items){
-            fieldSql
-                    .append(wrapSql(field,wrapper))
-                    .append(ConstValue.COMMA)
-            ;
+        StringBuilder selectItemSql = new StringBuilder();
+        for(SelectInfo item:items){
+            Item it = item.getValue();
+            if(it.getType() == ItemType.FIELD){
+                selectItemSql.append(wrapSql(it,wrapper));
+                if(!StringUtils.isEmpty(item.getColumnAlias())){
+                    selectItemSql
+                            .append(ConstValue.BLANK)
+                            .append(ConstValue.BACK_TRICKS)
+                            .append(item.getColumnAlias())
+                            .append(ConstValue.BACK_TRICKS);
+                }
+            }else{
+                selectItemSql.append(it.toString());
+            }
+            selectItemSql.append(ConstValue.COMMA);
         }
-        return fieldSql.toString();
-    }
-    @Override
-    protected Field wrapField(Field oriField, String column){
-        SelectField of = (SelectField)oriField;
-        return SelectField.valueOf(of.getAlias(),column,of.getColumnAlias(),of.isOriginal());
+        return selectItemSql.toString();
     }
 }

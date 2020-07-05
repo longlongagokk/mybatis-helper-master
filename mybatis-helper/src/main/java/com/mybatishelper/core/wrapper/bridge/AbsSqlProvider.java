@@ -3,9 +3,9 @@ package com.mybatishelper.core.wrapper.bridge;
 import com.mybatishelper.core.cache.TableMetaInfo;
 import com.mybatishelper.core.consts.ConstValue;
 import com.mybatishelper.core.util.CollectionUtils;
+import com.mybatishelper.core.util.StringUtils;
 import com.mybatishelper.core.util.TableInfoHelper;
 import org.apache.ibatis.builder.annotation.ProviderContext;
-import org.springframework.util.StringUtils;
 
 import java.util.Map;
 

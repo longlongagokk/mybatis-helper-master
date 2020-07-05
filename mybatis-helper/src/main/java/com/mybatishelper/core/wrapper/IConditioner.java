@@ -20,49 +20,48 @@ public interface IConditioner<L,R,S> {
      *
      */
     S eq(L left, R right);
-    S eq(ItemPar fv);
-
+    S eq(ItemPar par);
     /**
      * 大于
      *
      */
     S gt(L left, R right);
-    S gt(ItemPar fv);
+    S gt(ItemPar par);
 
     /**
      * 小于
      *
      */
     S lt(L left, R right);
-    S lt(ItemPar fv);
+    S lt(ItemPar par);
 
     /**
      * 大于等于
      *
      */
     S ge(L left, R right);
-    S ge(ItemPar fv);
+    S ge(ItemPar par);
 
     /**
      * 小于等于
      *
      */
     S le(L left, R right);
-    S le(ItemPar fv);
+    S le(ItemPar par);
 
     /**
      * 不等于
      *
      */
     S neq(L left, R right);
-    S neq(ItemPar fv);
+    S neq(ItemPar par);
 
     /**
      * like
      *
      */
     S like(L left, R right);
-    S like(ItemPar fv);
+    S like(ItemPar par);
 
     /**
      * 空

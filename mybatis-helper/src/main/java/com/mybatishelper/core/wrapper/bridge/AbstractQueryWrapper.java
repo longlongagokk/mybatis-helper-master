@@ -20,8 +20,8 @@ public abstract class AbstractQueryWrapper<C extends AbstractConditionWrapper,Q 
     protected List<JoinWrapper> joins;
     @Getter
     protected C where;
-    protected Map<String, TableMetaInfo> aliasTables;// check
-    protected Map<String, TableMetaInfo> fromTables = new HashMap<>(1<<2);//from
+    Map<String, TableMetaInfo> aliasTables;// check
+    Map<String, TableMetaInfo> fromTables = new HashMap<>(1<<2);//from
     public AbstractQueryWrapper(C where){
         this(where,new HashMap<>(1<<2));
     }
@@ -43,11 +43,6 @@ public abstract class AbstractQueryWrapper<C extends AbstractConditionWrapper,Q 
             this.fromTables = absWrapper.fromTables;
         }
         this.joins = absWrapper.joins;
-    }
-
-    @Override
-    public Set<String> getAliases() {
-        return fromTables.keySet();
     }
 
     @Override
@@ -91,11 +86,6 @@ public abstract class AbstractQueryWrapper<C extends AbstractConditionWrapper,Q 
     @Override
     public Q innerJoin(Class<?> tbClass,String alias, Consumer<C> consumer) {
         return join(tbClass,alias, consumer, JoinType.INNER_JOIN);
-    }
-
-    @Override
-    public Q outerJoin(Class<?> tbClass,String alias, Consumer<C> consumer) {
-        return join(tbClass,alias, consumer, JoinType.OUTER_JOIN);
     }
 
     private Q join(Class<?> tbClass,String alias, Consumer<C> consumer, JoinType joinType) {

@@ -8,7 +8,11 @@ import com.mybatishelper.core.wrapper.delete.DeleteSqlProvider;
 import com.mybatishelper.core.wrapper.insert.InsertSqlProvider;
 import com.mybatishelper.core.wrapper.query.QuerySqlProvider;
 import com.mybatishelper.core.wrapper.update.UpdateSqlProvider;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.DeleteProvider;
+import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.UpdateProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * tools-Sql

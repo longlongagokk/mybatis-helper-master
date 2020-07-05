@@ -3,10 +3,10 @@
     <parent>
         <groupId>com.mybatishelper</groupId>
         <artifactId>mybatis-helper-master</artifactId>
-        <version>1.0.64</version>
+        <version>1.0.65</version>
     </parent>
     <artifactId>mybatis-helper-demo</artifactId>
-    <version>1.0.64</version>
+    <version>1.0.65</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
@@ -26,6 +26,26 @@
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
             <version>${com.zaxxer.HikariCP.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${mybatishelper.spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${mybatishelper.spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>${org.mybatis-spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mybatishelper.mysql.version}</version>
         </dependency>
     </dependencies>
     <properties>

@@ -2,17 +2,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mybatishelper</groupId>
     <artifactId>mybatis-helper</artifactId>
-    <version>1.0.64</version>
+    <version>1.0.65</version>
     <packaging>jar</packaging>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <mybatishelper.mysql.version>8.0.15</mybatishelper.mysql.version>
-        <mybatishelper.spring.version>5.0.6.RELEASE</mybatishelper.spring.version>
         <org.mybatis.version>3.4.6</org.mybatis.version>
-        <org.mybatis-spring.version>1.3.2</org.mybatis-spring.version>
         <slf4j.version>1.7.18</slf4j.version>
         <skip_resource_deploy>false</skip_resource_deploy>
     </properties>
@@ -32,29 +29,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-            <version>${mybatishelper.spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${mybatishelper.spring.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
             <version>${org.mybatis.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
-            <version>${org.mybatis-spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mybatishelper.mysql.version}</version>
         </dependency>
     </dependencies>
 </project>

@@ -4,7 +4,7 @@ import com.mybatishelper.core.cache.TableInfoCache;
 import com.mybatishelper.core.cache.TableMetaInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.builder.annotation.ProviderContext;
-import org.springframework.core.ResolvableType;
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 import java.lang.reflect.Type;
 
@@ -28,12 +28,9 @@ public abstract class TableInfoHelper {
         }
 
         for (Type parent : mapperClass.getGenericInterfaces()) {
-            ResolvableType parentType = ResolvableType.forType(parent);
-//            Class<?> c = parentType.getRawClass();
-//            if (c == BasicMapper.class) {
-//                return TableInfoCache.saveTableInfoIntoMapper(mapperClass,getTableInfoFromEntityClass(parentType.getGeneric(0).getRawClass()));
-//            }
-            return TableInfoCache.saveTableInfoIntoMapper(mapperClass,getTableInfoFromEntityClass(parentType.getGeneric(0).getRawClass()));
+            if(parent instanceof ParameterizedTypeImpl){
+                return TableInfoCache.saveTableInfoIntoMapper(mapperClass,getTableInfoFromEntityClass((Class<?>) ((ParameterizedTypeImpl)parent).getActualTypeArguments()[0]));
+            }
         }
         throw new RuntimeException("can not load anny table info !");
     }

@@ -8,13 +8,32 @@ public abstract class Assert {
             throw new IllegalArgumentException(message);
         }
     }
-    public static void notEmpty(Collection<?> collections, String message){
-        org.springframework.util.Assert.notEmpty(collections,message);
+    public static void notEmpty(Collection<?> collection, String message){
+        if (CollectionUtils.isEmpty(collection)) {
+            throw new IllegalArgumentException(message);
+        }
     }
-    public static void notNull(Object obj,String message){
-        org.springframework.util.Assert.notNull(obj,message);
+    /**
+     * Assert that an array contains elements; that is, it must not be
+     * {@code null} and must contain at least one element.
+     * <pre class="code">Assert.notEmpty(array, "The array must contain elements");</pre>
+     * @param array the array to check
+     * @param message the exception message to use if the assertion fails
+     * @throws IllegalArgumentException if the object array is {@code null} or contains no elements
+     */
+    public static void notEmpty(Object[] array, String message) {
+        if (CollectionUtils.isEmpty(array)) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+    public static void notNull(Object object,String message){
+        if (object == null) {
+            throw new IllegalArgumentException(message);
+        }
     }
     public static void state(boolean expression, String message) {
-        org.springframework.util.Assert.state(expression,message);
+        if (!expression) {
+            throw new IllegalStateException(message);
+        }
     }
 }

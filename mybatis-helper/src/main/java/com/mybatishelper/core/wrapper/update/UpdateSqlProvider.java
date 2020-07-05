@@ -1,8 +1,7 @@
 package com.mybatishelper.core.wrapper.update;
 
 import com.mybatishelper.core.base.Item;
-import com.mybatishelper.core.base.meta.ItemPar;
-import com.mybatishelper.core.base.param.ParamItem;
+import com.mybatishelper.core.base.meta.UpdateInfo;
 import com.mybatishelper.core.base.param.ValueItem;
 import com.mybatishelper.core.cache.EntryFieldInfo;
 import com.mybatishelper.core.cache.TableMetaInfo;
@@ -59,10 +58,10 @@ public class UpdateSqlProvider extends AbsSqlProvider {
 
     public String updateSelectItem(ProviderContext context, IUpdateWrapper wrapper) {
         UpdateWrapper updateWrapper = (UpdateWrapper)wrapper;
-        Assert.notEmpty(updateWrapper.itemPars,"update elements can not be empty !");
-        updateWrapper.updateItems = new ArrayList(updateWrapper.itemPars);
+        Assert.notEmpty(updateWrapper.updateInfos,"update elements can not be empty !");
+        updateWrapper.updateItems = new ArrayList(updateWrapper.updateInfos);
         //已经是非重复且按顺序的了
-        List<ItemPar> fvs = updateWrapper.updateItems;
+        List<UpdateInfo> fvs = updateWrapper.updateItems;
 
         checkAndReturnFromTables(context,updateWrapper);
 
@@ -76,13 +75,12 @@ public class UpdateSqlProvider extends AbsSqlProvider {
 
         updateSql.append(" set ");
         for(int i = 0; i < fvs.size(); ++i){
-            ItemPar par = fvs.get(i);
-            Assert.state(!ItemType.PARAM.equals(par.getKey().getType()),"key type can not be param !");
-            Item value = par.getValue();
+            UpdateInfo info = fvs.get(i);
+            Item value = info.getValue();
             if(value.getType() == ItemType.PARAM){
                 value = ValueItem.valueOf("#{updateItems["+i+"].value.value}");
             }
-            updateSql.append(SimpleConditionSeg.valueOf(ConditionType.EQ,par.getKey(),value).createSql(updateWrapper)).append(ConstValue.COMMA);
+            updateSql.append(SimpleConditionSeg.valueOf(ConditionType.EQ,info.getKey(),value).createSql(updateWrapper)).append(ConstValue.COMMA);
         }
         updateSql.deleteCharAt(updateSql.length() - 1);
         //conditions

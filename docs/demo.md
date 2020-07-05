@@ -5,8 +5,8 @@
 ```xml
 <dependency>
     <groupId>com.mybatishelper</groupId>
-    <artifactId>mybatishelper</artifactId>
-    <version>1.0.61</version>
+    <artifactId>mybatis-helper</artifactId>
+    <version>1.0.65</version>
 </dependency>
 ```
 ## 依赖注入

@@ -1,16 +1,16 @@
 package com.mybatishelper.core.wrapper.query;
 
 import com.mybatishelper.core.base.Page;
-import com.mybatishelper.core.base.field.OrderField;
-import com.mybatishelper.core.base.field.SelectField;
+import com.mybatishelper.core.base.meta.SelectInfo;
+import com.mybatishelper.core.base.meta.SortInfo;
+import com.mybatishelper.core.util.Assert;
+import com.mybatishelper.core.util.StringUtils;
 import com.mybatishelper.core.wrapper.IOrder;
 import com.mybatishelper.core.wrapper.IPager;
 import com.mybatishelper.core.wrapper.ISelectorWrapper;
 import com.mybatishelper.core.wrapper.bridge.AbstractConditionWrapper;
 import com.mybatishelper.core.wrapper.bridge.AbstractQueryWrapper;
 import lombok.Getter;
-import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,8 +26,9 @@ public class SelectWrapper<C extends AbstractConditionWrapper>
     /**
      * 选取的field字段
      */
-    List<SelectField> selectItems;
-    List<OrderField> orderItems;
+    List<SelectInfo> selectItems;
+    List<SortInfo> sortItems;
+
     @Getter
     Page page;
     protected boolean selectMain;
@@ -36,15 +37,15 @@ public class SelectWrapper<C extends AbstractConditionWrapper>
         super(where,new ArrayList<>(AbstractConditionWrapper.DEFAULT_CONDITION_ELEMENTS_SIZE));
         this.selectItems = new ArrayList<>(AbstractConditionWrapper.DEFAULT_CONDITION_ELEMENTS_SIZE);
         this.selectMain = false;
-        orderItems = new ArrayList<>(1<<3);
+        sortItems = new ArrayList<>(1<<3);
     }
     @Override
-    public Collection<SelectField> selects() {
+    public Collection<SelectInfo> selects() {
         return this.selectItems;
     }
 
     @Override
-    public SelectWrapper<C> select(SelectField... fields) {
+    public SelectWrapper<C> select(SelectInfo... fields) {
         Assert.notEmpty(fields,"items can not be empty");
         Collections.addAll(selectItems, fields);
         return this;
@@ -56,7 +57,7 @@ public class SelectWrapper<C extends AbstractConditionWrapper>
         }
         String[] split = fields.split(",");
         for (String s : split) {
-            this.selectItems.add(SelectField.valueOf(s));
+            this.selectItems.add(SelectInfo.withField(s));
         }
         return this;
     }
@@ -68,9 +69,9 @@ public class SelectWrapper<C extends AbstractConditionWrapper>
     }
 
     @Override
-    public SelectWrapper<C> orderBy(OrderField...fields){
-        Assert.notEmpty(fields,"items can not be empty");
-        Collections.addAll(orderItems, fields);
+    public SelectWrapper<C> orderBy(SortInfo...sortInfos){
+        Assert.notEmpty(sortInfos,"items can not be empty");
+        Collections.addAll(sortItems, sortInfos);
         return this;
     }
     @Override
@@ -80,7 +81,7 @@ public class SelectWrapper<C extends AbstractConditionWrapper>
         }
         String[] split = strings.split(",");
         for (String s : split) {
-            this.orderItems.add(OrderField.valueOf(s));
+            this.sortItems.add(SortInfo.withField(s));
         }
         return this;
     }

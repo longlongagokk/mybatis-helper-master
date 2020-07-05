@@ -1,8 +1,8 @@
-D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\Field.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\IConditioner.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\IOrder.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\Page.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\util\LinkStack.java
+D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\meta\UpdateInfo.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\seg\LinkOrderSeg.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\enums\ItemType.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\query\QuerySqlProvider.java
@@ -17,8 +17,6 @@ D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelp
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\query\SelectWrapper.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\enums\ConditionType.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\factory\SqlWrapperFactory.java
-D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\field\OrderField.java
-D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\field\AbsField.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\param\ParamItem.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\util\Assert.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\delete\DeleteWrapper.java
@@ -28,19 +26,18 @@ D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelp
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\cache\TableMetaInfo.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\factory\FlexibleConditionWrapper.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\insert\InsertSqlProvider.java
+D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\meta\SelectInfo.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\IQueryWrapper.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\Primary.java
-D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\field\CompareField.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\meta\PageList.java
+D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\meta\SortInfo.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\cache\TableInfoCache.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\ISqlSegment.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\bridge\AbstractConditionWrapper.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\update\UpdateSqlProvider.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\update\UpdateWrapper.java
-D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\meta\FieldWithValue.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\ISelectorWrapper.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\enums\Order.java
-D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\util\ContextUtil.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\IUpdateWrapper.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\IWrapper.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\IPager.java
@@ -52,7 +49,6 @@ D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelp
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\join\JoinWrapper.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\seg\BetweenConditionSeg.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\IDeleteWrapper.java
-D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\field\SelectField.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\bridge\AbsSqlSegment.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\config\YourResultSetHandler.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\param\FieldItem.java
@@ -62,5 +58,5 @@ D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelp
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\delete\DeleteSqlProvider.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\seg\SimpleConditionSeg.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\bridge\AbsSqlProvider.java
-D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\FieldValue.java
+D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\meta\ItemPar.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\util\SnowflakeIdWorker.java

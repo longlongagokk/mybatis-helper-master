@@ -11,7 +11,6 @@ import java.util.function.Consumer;
  */
 public interface IQueryWrapper<S,C> extends IWrapper {
     C getWhere();
-    Set<String> getAliases();
     Map<String, TableMetaInfo> getAliasTableMetaInfos();
     S from(Class<?> tbClass,String alias);
     S from(Class<?> tbClass);
@@ -19,6 +18,5 @@ public interface IQueryWrapper<S,C> extends IWrapper {
     S leftJoin(Class<?> tbClass,String alias, Consumer<C> consumer);
     S rightJoin(Class<?> tbClass,String alias, Consumer<C> consumer);
     S innerJoin(Class<?> tbClass,String alias, Consumer<C> consumer);
-    S outerJoin(Class<?> tbClass,String alias, Consumer<C> consumer);
     S where(Consumer<C> consumer);
 }

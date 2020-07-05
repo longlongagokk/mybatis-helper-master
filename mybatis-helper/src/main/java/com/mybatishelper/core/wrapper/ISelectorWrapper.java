@@ -1,6 +1,6 @@
 package com.mybatishelper.core.wrapper;
 
-import com.mybatishelper.core.base.field.SelectField;
+import com.mybatishelper.core.base.meta.SelectInfo;
 
 import java.util.Collection;
 
@@ -11,8 +11,8 @@ public interface ISelectorWrapper<S,C>
         extends IQueryWrapper<S,C>,
         IPager<S>, IOrder<S>
 {
-    Collection<SelectField> selects();
-    S select(SelectField... fields);
+    Collection<SelectInfo> selects();
+    S select(SelectInfo... fields);
     S select(String fields);
     S selectMain(boolean selectMain);
     S lock(boolean lock);

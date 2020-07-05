@@ -1,8 +1,6 @@
 package com.mybatishelper.core.base.param;
 
-import com.mybatishelper.core.base.Field;
 import com.mybatishelper.core.base.Item;
-import com.mybatishelper.core.base.field.CompareField;
 import com.mybatishelper.core.consts.ConstValue;
 import com.mybatishelper.core.enums.ItemType;
 import lombok.Getter;
@@ -11,27 +9,37 @@ import lombok.Getter;
  * 字段参数
  */
 @Getter
-public class FieldItem implements Item<Field> {
-    private Field value;
-
-    private FieldItem(Field field) {
-        this.value = field;
+public class FieldItem<T> implements Item<T> {
+    private String alias;
+    private String name;
+    private T value;
+    private FieldItem(String fieldWithAlias) {
+        setNameAndAlias(fieldWithAlias);
+    }
+    private FieldItem(String alias,String name) {
+        this.alias = alias;
+        this.name = name;
     }
 
-    public static Item<Field> valueOf(Field field) {
-        return new FieldItem(field);
+    public static <T> FieldItem<T> valueOf(String fieldWithAlias) {
+        return new FieldItem<>(fieldWithAlias);
     }
-    public static Item<Field> valueOf(String fullName) {
-        return valueOf(CompareField.valueOf(fullName));
+    public static <T> FieldItem<T> valueOf(String alias,String name) {
+        return new FieldItem<>(alias,name);
     }
-    @Deprecated
-    public static Item<Field> valueOf(String alias,Enum em) {
-        return valueOf(CompareField.valueOf(alias + ConstValue.DOT + em.name(),false));
+    private void setNameAndAlias(String nameWithAlias){
+        int dotIndex = nameWithAlias.indexOf(ConstValue.DOT);
+        if(dotIndex == -1){
+            name = nameWithAlias;
+        }else{
+            alias = nameWithAlias.substring(0,dotIndex);
+            name = nameWithAlias.substring(dotIndex + 1);
+        }
     }
 
     @Override
-    public String toString() {
-        return value.getFullName();
+    public T getValue() {
+        return value;
     }
     @Override
     public ItemType getType() {

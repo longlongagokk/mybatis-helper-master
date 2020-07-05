@@ -1,5 +1,6 @@
 package com.mybatishelper.demo.order.controller;
 
+import com.mybatishelper.core.base.meta.SelectInfo;
 import com.mybatishelper.core.base.meta.SimplePrimary;
 import com.mybatishelper.core.util.Assert;
 import com.mybatishelper.core.wrapper.factory.SqlWrapperFactory;
@@ -33,7 +34,9 @@ public class OrderController {
      */
     @GetMapping(value = "list")
     public Result list(long memberId){
-        SelectWrapper<PropertyConditionWrapper> defaultSelectWrapper = SqlWrapperFactory.prop4Select().select("id").back();
+        SelectWrapper<PropertyConditionWrapper> defaultSelectWrapper = SqlWrapperFactory.prop4Select()
+                .select("id")
+                .back();
         List<TbOrderForm> orderList = orderFormService.selectList(defaultSelectWrapper.where(w -> w.eq("memberId", memberId)));
         return Result.success(orderList);
     }

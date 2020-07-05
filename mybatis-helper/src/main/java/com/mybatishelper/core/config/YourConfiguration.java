@@ -49,7 +49,6 @@ public class YourConfiguration extends Configuration {
                 addPageResultMap(resultMap);
             }
         }
-
     }
 
     private Class<?> getReturnType(Method method,Type srcType) {

@@ -1,10 +1,10 @@
 package com.mybatishelper.demo.order.service.impl;
 
 import com.mybatishelper.core.base.Item;
-import com.mybatishelper.core.base.field.CompareField;
-import com.mybatishelper.core.base.field.OrderField;
-import com.mybatishelper.core.base.field.SelectField;
 import com.mybatishelper.core.base.meta.ItemPar;
+import com.mybatishelper.core.base.meta.SelectInfo;
+import com.mybatishelper.core.base.meta.SortInfo;
+import com.mybatishelper.core.base.meta.UpdateInfo;
 import com.mybatishelper.core.base.param.FieldItem;
 import com.mybatishelper.core.base.param.ParamItem;
 import com.mybatishelper.core.base.param.ValueItem;
@@ -79,7 +79,7 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 		log.info("------------------------"+mapper.delete(
 				new DeleteWrapper<>(new PropertyConditionWrapper()).where(x->x
 						.eq(TsOrderForm.Fields.payWayId.name(),444)
-						.eq(ItemPar.valueOf(FieldItem.valueOf("e.id"),ParamItem.valueOf(3))
+						.eq(ItemPar.withFieldParam("e.id",3)
 
 				))
 		)+"------------------------------");
@@ -140,15 +140,15 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 //						.select("userName    ")
 //						.select("   dealStatus    ")
 //						.select("   orderDate   ")
-						.select(SelectField.valueOf("(select count(0) from tb_order_form) counts",true))
+						.select(SelectInfo.withOriginal("(select count(0) from tb_order_form) counts"))
 //						.select0(
 //								SelectField.valueOf("e", TsOrderForm.Fields.area)
 //						)
 						.leftJoin(TbOrderDetail.class,"d", x->
 										x.f()
 										.eq(
-												FieldItem.valueOf(CompareField.valueOf("e.id")),
-												FieldItem.valueOf(CompareField.valueOf("d.orderId"))
+												FieldItem.valueOf("e.id"),
+												FieldItem.valueOf("d.orderId")
 										).eq(
 												FieldItem.valueOf("e.id"),
 												FieldItem.valueOf("e.payState")
@@ -201,10 +201,10 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 //				)
 						.orderBy("e.id desc,e.payWayName asc")
 						.orderBy("e.area")
-						.orderBy( OrderField.valueOf("deliveryId"),OrderField.valueOf(TsOrderForm.Fields.deliveryId.name()))
+						.orderBy(SortInfo.withField("deliveryId"),SortInfo.withField(TsOrderForm.Fields.deliveryId.name()))
 						.orderBy(TsOrderForm.Fields.deliveryId.name())
-						.orderBy(OrderField.valueOf("e.updateDate")
-								, OrderField.valueOf("e.sendDate")
+						.orderBy(SortInfo.withField("e.updateDate")
+								, SortInfo.withField("e.sendDate")
 						)
 						.page(PageInfo.valueOf(30))
 						.where(x->x
@@ -302,7 +302,10 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 //				.set(
 //				)
 				.set(TsOrderForm.Fields.amountPay.name(),88.88)
-				.set(ItemPar.valueOf(ValueItem.valueOf("e.order_no"),ValueItem.valueOf("666")))
+
+				.set(UpdateInfo.withColumnParam("e.order_no",666))
+				.set(UpdateInfo.withColumnField("e.order_no","e.orderNo"))
+				.set(UpdateInfo.withColumnValue("e.order_no","777"))
 
 				.where(x->
 						x
@@ -371,7 +374,7 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 				mapper.selectOne(SqlWrapperFactory.prop4Select()
 					.select("e.id,e.payWayName")
 
-						.select(SelectField.valueOf("x", TsOrderForm.Fields.deliveryId))
+						.select(SelectInfo.withField("x.deliveryId"))
 						.leftJoin(TbOrderForm.class,"x",x->x.eq("x.id",8543))
 //						.innerJoin(ClassAssociateTableInfo.valueOf(TbOrderForm.class,"x"),
 //								)
@@ -449,18 +452,14 @@ public class OrderFormServiceImpl extends BasicServiceImpl<TbOrderForm, TvOrderF
 		)+"------------------------------");
 		log.info("------------------------"+ JSONUtil.toJSONString(
 				mapper.selectOne(SqlWrapperFactory.prop4Select()
-						.select(
-								SelectField.valueOf("e", TsOrderForm.Fields.deliveryId)
-						)
+						.select(SelectInfo.withField("e.deliveryId"))
 						.where(x->x
 								.eq(TsOrderForm.Fields.memberId.name(),3))
 				)
 		)+"------------------------------");
 		log.info("------------------------"+ JSONUtil.toJSONString(
 				mapper.selectList(SqlWrapperFactory.prop4Select()
-						.select(
-								SelectField.valueOf("e", TsOrderForm.Fields.deliveryId)
-						)
+						.select(SelectInfo.withField("e.deliveryId"))
 						.where(x->x
 								.eq(TsOrderForm.Fields.memberId.name(),3))
 				)

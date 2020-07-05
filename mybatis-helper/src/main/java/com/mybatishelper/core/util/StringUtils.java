@@ -11,6 +11,6 @@ public abstract class StringUtils {
         return null != sql && sql.matches("^[a-z0-9A-Z,_.`(),\\s]*$");
     }
     public static boolean isEmpty(String str){
-        return org.springframework.util.StringUtils.isEmpty(str);
+        return (str == null || "".equals(str));
     }
 }

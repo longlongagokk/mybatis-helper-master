@@ -7,7 +7,7 @@
     </parent>
     <groupId>com.mybatishelper</groupId>
     <artifactId>mybatis-helper-master</artifactId>
-    <version>1.0.64</version>
+    <version>1.0.65</version>
     <packaging>pom</packaging>
     <modules>
         <module>mybatis-helper</module>
@@ -15,11 +15,13 @@
         <module>mybatis-helper-demo</module>
     </modules>
     <properties>
-        <mybatishelper.version>1.0.64</mybatishelper.version>
+        <mybatishelper.version>1.0.65</mybatishelper.version>
         <org.mybatis.version>3.4.6</org.mybatis.version>
         <org.mybatis-spring.version>1.3.2</org.mybatis-spring.version>
         <com.zaxxer.HikariCP.version>3.2.0</com.zaxxer.HikariCP.version>
         <fastdfs.version>1.26.6</fastdfs.version>
+        <mybatishelper.spring.version>5.0.6.RELEASE</mybatishelper.spring.version>
+        <mybatishelper.mysql.version>8.0.15</mybatishelper.mysql.version>
 
 
         <skip_dependency_deploy>true</skip_dependency_deploy>
