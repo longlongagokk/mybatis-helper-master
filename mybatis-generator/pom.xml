@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
-		<groupId>com.mybatishelper</groupId>
+		<groupId>com.mybatis-helper</groupId>
 		<artifactId>mybatis-helper-master</artifactId>
 		<version>1.0.65</version>
 	</parent>
@@ -46,7 +46,7 @@
 			<version>1.9.0</version>
 		</dependency>
 		<dependency>
-			<groupId>com.mybatishelper</groupId>
+			<groupId>com.mybatis-helper</groupId>
 			<artifactId>mybatis-helper</artifactId>
 			<version>${mybatishelper.version}</version>
 		</dependency>
