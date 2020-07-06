@@ -4,7 +4,7 @@
 ## 引入资源
 ```xml
 <dependency>
-    <groupId>com.mybatishelper</groupId>
+    <groupId>com.mybatis-helper</groupId>
     <artifactId>mybatis-helper</artifactId>
     <version>1.0.65</version>
 </dependency>
