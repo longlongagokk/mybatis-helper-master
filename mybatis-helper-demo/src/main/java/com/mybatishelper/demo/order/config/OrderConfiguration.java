@@ -33,8 +33,8 @@ public class OrderConfiguration {
         sessionFactory.setDataSource(datasource);
         YourConfiguration conf = new YourConfiguration();
         conf.setUseGeneratedKeys(true);//使用自增长id
+        conf.setMapUnderscoreToCamelCase(true);
         sessionFactory.setConfiguration(conf);
-        //sessionFactory.setTypeAliasesPackage("com.mybatishelper.demo.common.mapper");
         return sessionFactory.getObject();
     }
 }

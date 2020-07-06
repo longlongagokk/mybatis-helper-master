@@ -1,5 +1,6 @@
 com\mybatishelper\core\wrapper\seg\BetweenConditionSeg.class
 com\mybatishelper\core\base\meta\SortInfo.class
+com\mybatishelper\core\annotation\Primary.class
 com\mybatishelper\core\annotation\Column.class
 com\mybatishelper\core\exception\NoSupportedMethodException.class
 com\mybatishelper\core\wrapper\ISqlSegment.class
@@ -32,6 +33,7 @@ com\mybatishelper\core\enums\ItemType.class
 com\mybatishelper\core\base\meta\ItemPar.class
 com\mybatishelper\core\util\SnowflakeIdWorker.class
 com\mybatishelper\core\enums\Order.class
+com\mybatishelper\core\util\StringUtility.class
 com\mybatishelper\core\wrapper\query\QuerySqlProvider.class
 com\mybatishelper\core\base\meta\SimplePrimary.class
 com\mybatishelper\core\util\StringUtils.class
@@ -51,6 +53,7 @@ com\mybatishelper\core\wrapper\seg\LinkSelectSeg.class
 com\mybatishelper\core\wrapper\IPager.class
 com\mybatishelper\core\wrapper\seg\SimpleConditionSeg.class
 com\mybatishelper\core\cache\EntryFieldInfo.class
+com\mybatishelper\core\annotation\SkipColumn.class
 com\mybatishelper\core\wrapper\IConditioner.class
 com\mybatishelper\core\wrapper\IQueryWrapper.class
 com\mybatishelper\core\enums\JoinType.class

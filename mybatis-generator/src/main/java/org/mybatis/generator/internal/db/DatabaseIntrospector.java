@@ -516,7 +516,6 @@ public class DatabaseIntrospector {
 
         ResultSet rs = databaseMetaData.getColumns(localCatalog, localSchema,
                 localTableName, null);
-
         while (rs.next()) {
             IntrospectedColumn introspectedColumn = ObjectFactory
                     .createIntrospectedColumn(context);

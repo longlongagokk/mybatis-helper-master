@@ -17,6 +17,7 @@ import com.mybatishelper.demo.order.mapper.OrdreInfoMapper;
 import com.mybatishelper.demo.order.module.entity.TbOrderDetail;
 import com.mybatishelper.demo.order.module.entity.TbOrderForm;
 import com.mybatishelper.demo.order.module.query.TsOrderForm;
+import com.mybatishelper.demo.order.module.view.TvOrderForm;
 import com.mybatishelper.demo.order.service.OrderDetailService;
 import com.mybatishelper.demo.order.service.OrderFormService;
 import lombok.extern.slf4j.Slf4j;
@@ -56,14 +57,14 @@ public class OrderTestController {
     public Result list(HttpServletRequest request, HttpServletResponse response, BigDecimal amountPaid)throws Exception{
         Object effects = null;
         SelectWrapper<FlexibleConditionWrapper> selectWrapper = SqlWrapperFactory.flex4Select()
-                .select("e.id")
                 .where(w->w
-                                .where(ConditionType.EQ,FieldItem.valueOf("e.id"), Collections.singletonList(ParamItem.valueOf(300)))
+                                .where(ConditionType.EQ,FieldItem.valueOf("e.id"), Collections.singletonList(ParamItem.valueOf(1)))
                                 //.eq(ItemPar.withFieldValue("e.id","?"))
                         )
                 ;
 //        orderFormMapper.getCountPaging(new TsOrderForm());
-        effects = orderFormMapper.selectListV(selectWrapper);
+        TvOrderForm list= orderFormMapper.selectItemByPrimaryKeyV(SimplePrimary.valueOf(1));
+        effects = list;
         //effects = ordreInfoMapper.selectListV(selectWrapper);
 //        boolean ex = staticBoundMapper.selectExists(SqlWrapperFactory.prop4Query()
 //                .from(TbOrderForm.class)

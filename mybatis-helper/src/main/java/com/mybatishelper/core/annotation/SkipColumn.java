@@ -3,14 +3,9 @@ package com.mybatishelper.core.annotation;
 import java.lang.annotation.*;
 
 /**
- * 列信息
+ * 跳过序列化为数据库列
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Column {
-    /**
-     * 列名
-     */
-    String value();//
-}
+public @interface SkipColumn { }

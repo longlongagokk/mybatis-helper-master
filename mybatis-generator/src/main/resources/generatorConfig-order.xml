@@ -58,8 +58,16 @@
 			<property name="rootInterface" value="com.mybatishelper.demo.basicservice.impl.BasicServiceImpl#l$T,$V,$M#r" />
 		</javaServiceImplGenerator>
 
-		<table tableName="tb_order_detail" delimitAllColumns="true" delimitIdentifiers="true" alias="e"></table>
-		<table tableName="tb_order_form" delimitAllColumns="true" delimitIdentifiers="true" alias="e" schema="mybatis-helper-demo"></table>
+<!--		<table tableName="tb_order_detail" delimitAllColumns="true" delimitIdentifiers="true" alias="e"></table>-->
+<!--		<table tableName="tb_order_form" delimitAllColumns="true" delimitIdentifiers="true" alias="e" schema="mybatis-helper-demo"></table>-->
+		<table tableName="tb_order_comment"
+			   delimitAllColumns="true" 
+			   delimitIdentifiers="true" 
+			   alias="e" 
+			   schema="mybatis-helper-demo"
+		>
+			<columnOverride column="_audit_state" />
+		</table>
 
 <!--		<table tableName="tb_order_form"-->
 <!--			   domainObjectName="TbOrderForm"-->

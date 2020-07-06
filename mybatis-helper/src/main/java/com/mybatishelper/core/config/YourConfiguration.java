@@ -1,6 +1,9 @@
 package com.mybatishelper.core.config;
 
 import com.mybatishelper.core.base.meta.PageList;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.cursor.Cursor;
 import org.apache.ibatis.executor.Executor;
@@ -21,6 +24,12 @@ import java.util.Map;
 @Slf4j
 public class YourConfiguration extends Configuration {
     private final Class<?> pageClass = PageList.class;
+    /**
+     * 是否启用驼峰式命名转化：默认开启，不开启的话使用@Column(value='xxx')来匹配，如果没有@Column，使用属性名字
+     */
+    @Getter
+    @Setter
+    private boolean columnToCamelCase = true;
     private final Map<String, ResultMap> pageResultMaps = new HashMap<>();
     @Override
     public ResultSetHandler newResultSetHandler(Executor executor, MappedStatement mappedStatement, RowBounds rowBounds, ParameterHandler parameterHandler,
@@ -57,7 +66,7 @@ public class YourConfiguration extends Configuration {
         if (resolvedReturnType instanceof ParameterizedType) {
             ParameterizedType parameterizedType = (ParameterizedType) resolvedReturnType;
             Class<?> rawType = (Class<?>) parameterizedType.getRawType();
-            if (PageList.class.isAssignableFrom(rawType) || Cursor.class.isAssignableFrom(rawType)) {
+            if (pageClass.isAssignableFrom(rawType) || Cursor.class.isAssignableFrom(rawType)) {
                 Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
                 if (actualTypeArguments != null && actualTypeArguments.length == 1) {
                     Type returnTypeParameter = actualTypeArguments[0];

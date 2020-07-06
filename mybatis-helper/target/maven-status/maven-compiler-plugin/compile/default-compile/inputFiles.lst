@@ -1,3 +1,4 @@
+D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\annotation\SkipColumn.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\IConditioner.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\IOrder.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\Page.java
@@ -16,6 +17,7 @@ D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelp
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\seg\LinkSelectSeg.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\query\SelectWrapper.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\enums\ConditionType.java
+D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\util\StringUtility.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\factory\SqlWrapperFactory.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\param\ParamItem.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\util\Assert.java
@@ -53,6 +55,7 @@ D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelp
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\config\YourResultSetHandler.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\param\FieldItem.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\util\TableInfoHelper.java
+D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\annotation\Primary.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\base\param\ValueItem.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\bridge\AbstractQueryWrapper.java
 D:\java_about\mybatis-helper-master\mybatis-helper\src\main\java\com\mybatishelper\core\wrapper\delete\DeleteSqlProvider.java

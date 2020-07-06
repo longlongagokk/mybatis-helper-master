@@ -20,6 +20,7 @@ import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.FullyQualifiedTable;
@@ -34,6 +35,7 @@ import org.mybatis.generator.api.dom.java.Parameter;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.codegen.AbstractJavaGenerator;
 import org.mybatis.generator.codegen.RootClassInfo;
+import org.mybatis.generator.config.ColumnOverride;
 import org.mybatis.generator.config.PropertyRegistry;
 
 /**
@@ -65,13 +67,18 @@ public class BaseRecordGenerator extends AbstractJavaGenerator {
         //add table annotation
         topLevelClass.addImportedType(new FullyQualifiedJavaType("com.mybatishelper.core.annotation.Table"));
         if(introspectedTable.getPrimaryKeyColumns().size() > 1){
-            throw new RuntimeException("only support one primary key !");
+            //throw new RuntimeException("only support one primary key !");
         }
         String tableFullName = "`"+table.getIntrospectedTableName()+"`";
         if(stringHasValue(table.getIntrospectedSchema())){
             tableFullName = "`"+table.getIntrospectedSchema()+"`."+tableFullName;
         }
-        topLevelClass.addAnnotation("@Table(\""+tableFullName+"\")");
+        if(!"false".equals(introspectedTable.getTableConfigurationProperty("columnToCamelCase"))){
+            topLevelClass.addAnnotation("@Table(\""+tableFullName+"\")");
+        }else{
+            topLevelClass.addAnnotation("@Table(value = \""+tableFullName+"\",columnToCamelCase = false)");
+        }
+
 
         //add @Data annotation
         topLevelClass.addImportedType(new FullyQualifiedJavaType("lombok.Data"));
@@ -110,7 +117,6 @@ public class BaseRecordGenerator extends AbstractJavaGenerator {
         }
         
         String rootClass = getRootClass();
-        topLevelClass.addImportedType(new FullyQualifiedJavaType("com.mybatishelper.core.annotation.Column"));
         for (IntrospectedColumn introspectedColumn : introspectedColumns) {
             if (RootClassInfo.getInstance(rootClass, warnings)
                     .containsProperty(introspectedColumn)) {
@@ -124,13 +130,17 @@ public class BaseRecordGenerator extends AbstractJavaGenerator {
                 topLevelClass.addField(field);
                 topLevelClass.addImportedType(field.getType());
             }
-            if(introspectedColumn.isIdentity()){
-                String primaryKeyAnnotation = "@PrimaryKey()";
-                //topLevelClass.addAnnotation(primaryKeyAnnotation);
-                topLevelClass.addImportedType(new FullyQualifiedJavaType("com.mybatishelper.core.annotation.PrimaryKey"));
+            //主键
+            if(introspectedTable.getPrimaryKeyColumns().stream().anyMatch(x->introspectedColumn.getActualColumnName().equals(x.getActualColumnName()))){
+                String primaryKeyAnnotation = "@Primary()";
+                topLevelClass.addImportedType(new FullyQualifiedJavaType("com.mybatishelper.core.annotation.Primary"));
                 field.addAnnotation(primaryKeyAnnotation);
             }
-            field.addAnnotation("@Column(\"`"+introspectedColumn.getActualColumnName()+"`\")");
+            ColumnOverride columnOverride = introspectedTable.getTableConfiguration().getColumnOverride(introspectedColumn.getActualColumnName());
+            if(null != columnOverride){
+                topLevelClass.addImportedType(new FullyQualifiedJavaType("com.mybatishelper.core.annotation.Column"));
+                field.addAnnotation("@Column(\"`"+introspectedColumn.getActualColumnName()+"`\")");
+            }
 
 //            Method method = getJavaBeansGetter(introspectedColumn);
 //            if (plugins.modelGetterMethodGenerated(method, topLevelClass,

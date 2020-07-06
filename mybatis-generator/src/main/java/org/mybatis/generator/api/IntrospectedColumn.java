@@ -66,6 +66,16 @@ public class IntrospectedColumn {
     protected String remarks;
 
     protected String defaultValue;
+    private boolean primaryKey;
+
+    public boolean isPrimaryKey() {
+        return primaryKey;
+    }
+
+    public IntrospectedColumn setPrimaryKey(boolean primaryKey) {
+        this.primaryKey = primaryKey;
+        return this;
+    }
 
     /**
      * Constructs a Column definition. This object holds all the information

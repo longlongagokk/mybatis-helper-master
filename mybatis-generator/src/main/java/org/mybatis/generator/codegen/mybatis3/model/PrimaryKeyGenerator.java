@@ -33,6 +33,7 @@ import org.mybatis.generator.api.dom.java.Parameter;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.codegen.AbstractJavaGenerator;
 import org.mybatis.generator.codegen.RootClassInfo;
+import org.mybatis.generator.config.ColumnOverride;
 
 /**
  * 
@@ -101,6 +102,14 @@ public class PrimaryKeyGenerator extends AbstractJavaGenerator {
                         Plugin.ModelClassType.PRIMARY_KEY)) {
                     topLevelClass.addMethod(method);
                 }
+            }
+            String primaryKeyAnnotation = "@Primary()";
+            topLevelClass.addImportedType(new FullyQualifiedJavaType("com.mybatishelper.core.annotation.Primary"));
+            field.addAnnotation(primaryKeyAnnotation);
+            ColumnOverride columnOverride = introspectedTable.getTableConfiguration().getColumnOverride(introspectedColumn.getActualColumnName());
+            if(null != columnOverride){
+                topLevelClass.addImportedType(new FullyQualifiedJavaType("com.mybatishelper.core.annotation.Column"));
+                field.addAnnotation("@Column(\"`"+introspectedColumn.getActualColumnName()+"`\")");
             }
         }
 
