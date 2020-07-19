@@ -45,6 +45,9 @@ public abstract class AbstractQueryWrapper<C extends AbstractConditionWrapper,Q 
         this.joins = absWrapper.joins;
     }
 
+    public int fromTableSize(){
+        return fromTables.size();
+    }
     @Override
     public Map<String, TableMetaInfo> getAliasTableMetaInfos() {
         return Collections.unmodifiableMap(aliasTables);

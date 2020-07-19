@@ -1,6 +1,7 @@
 package com.mybatishelper.demo.common.mapper;
 
 import com.mybatishelper.core.wrapper.IDeleteWrapper;
+import com.mybatishelper.core.wrapper.IInsertWrapper;
 import com.mybatishelper.core.wrapper.IQueryWrapper;
 import com.mybatishelper.core.wrapper.IUpdateWrapper;
 import com.mybatishelper.core.wrapper.bridge.AbsSqlProvider;
@@ -14,6 +15,8 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 /**
  * tools-Sql
  */
@@ -26,6 +29,12 @@ public interface StaticBoundMapper {
 
     @InsertProvider(type = InsertSqlProvider.class, method = AbsSqlProvider.insertSelective)
     int insertSelective(Object entity);
+
+    @UpdateProvider(type = InsertSqlProvider.class,method = AbsSqlProvider.insertSelectItem)
+    int insertSelectItem(IInsertWrapper wrapper);
+
+    @UpdateProvider(type = InsertSqlProvider.class,method = AbsSqlProvider.batchInsert)
+    int batchInsert(List<Object> objects);
 
     @UpdateProvider(type = UpdateSqlProvider.class, method = AbsSqlProvider.updateByPrimary)
     int updateByPrimary(Object entity);

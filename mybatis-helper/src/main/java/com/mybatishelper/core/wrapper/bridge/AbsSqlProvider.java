@@ -13,6 +13,8 @@ public abstract class AbsSqlProvider {
 
     public static final String insert = "insert";
     public static final String insertSelective = "insertSelective";
+    public static final String insertSelectItem = "insertSelectItem";
+    public static final String batchInsert = "batchInsert";
 
     public static final String deleteByPrimaryKey = "deleteByPrimaryKey";
     public static final String delete = "delete";
