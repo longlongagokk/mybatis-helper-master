@@ -19,6 +19,8 @@ public enum  ConditionType {
     NOT_IN(11," NOT IN "),
     ISNULL(12," IS NULL "),
     NOTNULL(13," IS NOT NULL "),
+    EXISTS(14," EXISTS "),
+    NOT_EXISTS(15," NOT EXISTS "),
             ;
     private final int value;
     private final String opera;

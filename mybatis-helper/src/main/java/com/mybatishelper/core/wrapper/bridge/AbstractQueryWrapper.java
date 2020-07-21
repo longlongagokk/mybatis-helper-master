@@ -22,6 +22,7 @@ public abstract class AbstractQueryWrapper<C extends AbstractConditionWrapper,Q 
     protected C where;
     Map<String, TableMetaInfo> aliasTables;// check
     Map<String, TableMetaInfo> fromTables = new HashMap<>(1<<2);//from
+    String thisParamAlias = "";
     public AbstractQueryWrapper(C where){
         this(where,new HashMap<>(1<<2));
     }
@@ -67,8 +68,7 @@ public abstract class AbstractQueryWrapper<C extends AbstractConditionWrapper,Q 
 
     @Override
     public Q from(Class<?> tbClass) {
-        addMetaInfo(tbClass,ConstValue.MAIN_ALIAS);
-        return (Q)this;
+        return from(tbClass,ConstValue.MAIN_ALIAS);
     }
 
     @Override
@@ -97,7 +97,7 @@ public abstract class AbstractQueryWrapper<C extends AbstractConditionWrapper,Q 
         this.aliasTables.put(alias,tableMetaInfo);
         try {
             C joinWhere = (C)where.clone();
-            joinWhere.reset(AbstractConditionWrapper.DEFAULT_CONDITION_ELEMENTS_SIZE,this,"joins[" + joins.size() + "].where.");
+            joinWhere.reset(AbstractConditionWrapper.DEFAULT_CONDITION_ELEMENTS_SIZE,this,thisParamAlias + "joins[" + joins.size() + "].where.");
             consumer.accept(joinWhere);
             //
             joins.add(new JoinWrapper(joinType, tableMetaInfo,alias, joinWhere));

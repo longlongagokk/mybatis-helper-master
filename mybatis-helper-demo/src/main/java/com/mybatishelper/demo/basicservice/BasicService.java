@@ -16,6 +16,10 @@ import java.util.List;
 public interface BasicService<T extends BaseEntity<T>,V> {
 	int insert(T req);
 	int insertSelective(T entity);
+	int insertSelectItem(IInsertWrapper wrapper);
+	int batchInsert(List<T> objects);
+	int batchInsertSelective(List<T> objects,List<String> fields);
+
 	int deleteByPrimaryKey(Primary primary);
 	int delete(IDeleteWrapper wrapper);
 	V selectItemByPrimaryKey(Primary primary);

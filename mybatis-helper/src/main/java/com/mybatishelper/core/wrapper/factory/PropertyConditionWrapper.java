@@ -3,9 +3,12 @@ package com.mybatishelper.core.wrapper.factory;
 import com.mybatishelper.core.base.Item;
 import com.mybatishelper.core.base.param.FieldItem;
 import com.mybatishelper.core.enums.ConditionType;
+import com.mybatishelper.core.wrapper.IQueryWrapper;
 import com.mybatishelper.core.wrapper.bridge.AbstractConditionWrapper;
+import com.mybatishelper.core.wrapper.query.QueryWrapper;
 
 import java.util.Collection;
+import java.util.function.Consumer;
 
 /**
  * the default condition wrapper
@@ -26,5 +29,17 @@ public class PropertyConditionWrapper extends AbstractConditionWrapper<String,Ob
             wraps[++i] = wrapParamByValue(obj);
         }
         return toTheMoon(type, wraps);
+    }
+
+    @Override
+    public PropertyConditionWrapper exists(Consumer<QueryWrapper<PropertyConditionWrapper>> consumer) {
+        QueryWrapper<PropertyConditionWrapper> queryWrapper = SqlWrapperFactory.prop4Query();
+        return super.existsFull(consumer,queryWrapper,ConditionType.EXISTS);
+    }
+
+    @Override
+    public PropertyConditionWrapper notExists(Consumer<QueryWrapper<PropertyConditionWrapper>> consumer) {
+        QueryWrapper<PropertyConditionWrapper> queryWrapper = SqlWrapperFactory.prop4Query();
+        return super.existsFull(consumer,queryWrapper,ConditionType.NOT_EXISTS);
     }
 }

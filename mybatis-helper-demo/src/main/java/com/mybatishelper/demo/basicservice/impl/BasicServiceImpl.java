@@ -43,6 +43,22 @@ public abstract class BasicServiceImpl<T extends BaseEntity<T>, V extends T,M ex
 	public int insertSelective(T entity){
 		return staticBoundMapper.insertSelective(entity);
 	}
+
+	@Override
+	public int insertSelectItem(IInsertWrapper wrapper) {
+		return staticBoundMapper.insertSelectItem(wrapper);
+	}
+
+	@Override
+	public int batchInsert(List<T> objects) {
+		return staticBoundMapper.batchInsert(objects);
+	}
+
+	@Override
+	public int batchInsertSelective(List<T> objects,List<String> fields) {
+		return staticBoundMapper.batchInsertSelective(objects,fields);
+	}
+
 	@Override
 	@Transactional
 	public int deleteByPrimaryKey(Primary primary){

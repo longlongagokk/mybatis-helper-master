@@ -7,14 +7,18 @@ import com.mybatishelper.core.base.param.ValueItem;
 import com.mybatishelper.core.enums.ConditionType;
 import com.mybatishelper.core.enums.ItemType;
 import com.mybatishelper.core.util.LinkStack;
+import com.mybatishelper.core.util.StringUtils;
 import com.mybatishelper.core.wrapper.IConditioner;
+import com.mybatishelper.core.wrapper.IQueryWrapper;
 import com.mybatishelper.core.wrapper.ISqlSegment;
 import com.mybatishelper.core.wrapper.IWrapper;
 import com.mybatishelper.core.wrapper.factory.FlexibleConditionWrapper;
 import com.mybatishelper.core.wrapper.factory.PropertyConditionWrapper;
-import com.mybatishelper.core.wrapper.seg.BetweenConditionSeg;
-import com.mybatishelper.core.wrapper.seg.InsConditionSeg;
-import com.mybatishelper.core.wrapper.seg.SimpleConditionSeg;
+import com.mybatishelper.core.wrapper.query.QueryWrapper;
+import com.mybatishelper.core.wrapper.seg.*;
+import org.apache.ibatis.annotations.Param;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,8 +28,10 @@ import java.util.function.Consumer;
 
 public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionWrapper>
         implements IWrapper, IConditioner<L,R,S>,Cloneable {
+    static final Logger logger = LoggerFactory.getLogger(AbstractQueryWrapper.class);
     public final static int DEFAULT_CONDITION_ELEMENTS_SIZE = 1 << 3;
     AbstractQueryWrapper caller;
+    protected List<AbstractQueryWrapper> existsQueries;
     private StringBuilder where = new StringBuilder();
 
     protected String paramAlias;
@@ -47,6 +53,7 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
         this.params = new ArrayList<>(paramSize);
         this.fields = new ArrayList<>(params.size());
         this.caller = caller;
+        this.existsQueries = new ArrayList<>(1<<2);
         this.paramAlias = paramAlias;
         this.sqlCreated = false;
         this.barrier = true;
@@ -63,6 +70,7 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
         this.params = copy.params;
         this.barrier = copy.barrier;
         this.caller = copy.caller;
+        this.existsQueries = copy.existsQueries;
     }
     public String getConditionSql() {
         if(sqlCreated){
@@ -73,6 +81,22 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
             where.append(e.createSql(caller));
         }
         return where.toString();
+    }
+
+    private int currentExistsInfo = 0;
+    public String getExistsFullSql() {
+        AbstractQueryWrapper currentExistsFull = existsQueries.get(currentExistsInfo++);
+        StringBuilder existsSql = new StringBuilder(" select 1 from ");
+        //from tables
+        AbsSqlProvider.createFromTableSql(existsSql,currentExistsFull);
+
+        //join infos
+        AbsSqlProvider.createJoinInfoSql(existsSql,currentExistsFull);
+
+        //conditions
+        AbsSqlProvider.createWhereSql(existsSql,currentExistsFull);
+
+        return existsSql.toString();
     }
 
     @Override
@@ -158,12 +182,51 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
     }
 
     @Override
+    public S exists(String originalSql,Object...params) {
+        return existsFull(originalSql,ConditionType.EXISTS,params);
+    }
+    @Override
+    public S notExists(String originalSql,Object...params) {
+        return existsFull(originalSql,ConditionType.NOT_EXISTS,params);
+    }
+
+    @Override
     public S between(L left, R r0, R r1) {
         List<R> list = new ArrayList<>();
         list.add(r0);
         list.add(r1);
         return exchangeItems(ConditionType.BETWEEN,left,list);
     }
+    @Override
+    public S where(ConditionType type,L left, Collection<?> right) {
+        return exchangeItems(type,left,right);
+    }
+
+    @Override
+    public S and(Consumer<S> consumer) {
+        return closure(consumer,ConditionType.AND);
+    }
+
+    @Override
+    public S or(Consumer<S> consumer) {
+        return closure(consumer,ConditionType.OR);
+    }
+
+    //*****************************switch*************************************//
+
+    public PropertyConditionWrapper d() {
+        PropertyConditionWrapper wrapper = new PropertyConditionWrapper(this);
+        this.barrier = false;
+        return wrapper;
+    }
+
+    public FlexibleConditionWrapper f() {
+        FlexibleConditionWrapper wrapper = new FlexibleConditionWrapper(this);
+        this.barrier = false;
+        return wrapper;
+    }
+
+
     protected S toTheMoon(ConditionType type, Item...items) {
         switch (type){
             case EQ:
@@ -196,36 +259,37 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
         }
         return (S)this;
     }
-    @Override
-    public S where(ConditionType type,L left, Collection<?> right) {
-        return exchangeItems(type,left,right);
-    }
-
-    @Override
-    public S and(Consumer<S> consumer) {
-        return closure(consumer,ConditionType.AND);
-    }
-
-    @Override
-    public S or(Consumer<S> consumer) {
-        return closure(consumer,ConditionType.OR);
-    }
-
-    private S closure(Consumer<S> consumer,ConditionType type) {
-        if(!barrier){
-            barrier = true;
-            final ConditionType _closureType = closure.peek();
-            fields.add(w -> _closureType.getOpera());
-        }
-        fields.add(w -> ConditionType.LEFT_WRAPPER.getOpera());
-        closure.push(type);
-        consumer.accept((S)this);
-        fields.add(w -> ConditionType.RIGHT_WRAPPER.getOpera());
-        closure.pop();
+    protected S existsFull(Consumer<QueryWrapper<S>> consumer,AbstractQueryWrapper queryWrapper,ConditionType conditionType) {
+        queryWrapper.aliasTables = this.caller.aliasTables;
+        queryWrapper.thisParamAlias = this.caller.thisParamAlias + "where.existsQueries["+existsQueries.size()+"].";
+        queryWrapper.where.paramAlias = this.caller.where.paramAlias + "existsQueries["+existsQueries.size()+"].where.";
+        this.existsQueries.add(queryWrapper);
+        addElement(ExistsFullConditionSeg.valueOf(conditionType,null));
+        consumer.accept((QueryWrapper<S>)queryWrapper);
         return (S)this;
     }
 
-    private void addElement(ISqlSegment element){
+    protected S existsFull(String originalSql,ConditionType conditionType,Object...params) {
+        if(StringUtils.isEmpty(originalSql)){
+            return (S)this;
+        }
+        StringBuilder existsSql = new StringBuilder(conditionType.getOpera()).append("(");
+        int qi = 0,ln = originalSql.length(),pi = 0;
+        while(qi != ln){
+            char c = originalSql.charAt(qi++);
+            if(c == '?'){
+                Item item = wrapParamByValue(params[pi++]);//set into param
+                existsSql.append(item.toString());
+            }else{
+                existsSql.append(c);
+            }
+        }
+        existsSql.append(")");
+        toTheMoon(ConditionType.DO_NOTHING,ValueItem.valueOf(existsSql));
+        return (S)this;
+    }
+
+    protected void addElement(ISqlSegment element){
         if(barrier){
             barrier = false;
         }else{
@@ -258,19 +322,18 @@ public abstract class AbstractConditionWrapper<L,R, S extends AbstractConditionW
         return (S)super.clone();
     }
 
-
-    //*****************************switch*************************************//
-
-    public PropertyConditionWrapper d() {
-        PropertyConditionWrapper wrapper = new PropertyConditionWrapper(this);
-        this.barrier = false;
-        return wrapper;
-    }
-
-    public FlexibleConditionWrapper f() {
-        FlexibleConditionWrapper wrapper = new FlexibleConditionWrapper(this);
-        this.barrier = false;
-        return wrapper;
+    private S closure(Consumer<S> consumer, ConditionType type) {
+        if(!barrier){
+            barrier = true;
+            final ConditionType _closureType = closure.peek();
+            fields.add(w -> _closureType.getOpera());
+        }
+        fields.add(w -> ConditionType.LEFT_WRAPPER.getOpera());
+        closure.push(type);
+        consumer.accept((S)this);
+        fields.add(w -> ConditionType.RIGHT_WRAPPER.getOpera());
+        closure.pop();
+        return (S)this;
     }
 
 

@@ -1,13 +1,13 @@
 package com.mybatishelper.core.wrapper.query;
 
 import com.mybatishelper.core.base.Page;
+import com.mybatishelper.core.base.meta.GroupInfo;
+import com.mybatishelper.core.base.meta.HavingInfo;
 import com.mybatishelper.core.base.meta.SelectInfo;
 import com.mybatishelper.core.base.meta.SortInfo;
 import com.mybatishelper.core.util.Assert;
 import com.mybatishelper.core.util.StringUtils;
-import com.mybatishelper.core.wrapper.IOrder;
-import com.mybatishelper.core.wrapper.IPager;
-import com.mybatishelper.core.wrapper.ISelectorWrapper;
+import com.mybatishelper.core.wrapper.*;
 import com.mybatishelper.core.wrapper.bridge.AbstractConditionWrapper;
 import com.mybatishelper.core.wrapper.bridge.AbstractQueryWrapper;
 import lombok.Getter;
@@ -21,14 +21,15 @@ import java.util.List;
 public class SelectWrapper<C extends AbstractConditionWrapper>
         extends AbstractQueryWrapper<C, SelectWrapper<C>>
         implements ISelectorWrapper<SelectWrapper<C>,C>,
-        IPager<SelectWrapper<C>>, IOrder<SelectWrapper<C>>
+        IPager<SelectWrapper<C>>, IOrder<SelectWrapper<C>>, IGroupBy<SelectWrapper<C>>, IHaving<SelectWrapper<C>>
 {
     /**
      * 选取的field字段
      */
     List<SelectInfo> selectItems;
     List<SortInfo> sortItems;
-
+    List<GroupInfo> groupBys;
+    HavingInfo havingInfo;
     @Getter
     Page page;
     protected boolean selectMain;
@@ -38,6 +39,7 @@ public class SelectWrapper<C extends AbstractConditionWrapper>
         this.selectItems = new ArrayList<>(AbstractConditionWrapper.DEFAULT_CONDITION_ELEMENTS_SIZE);
         this.selectMain = false;
         sortItems = new ArrayList<>(1<<3);
+        groupBys = new ArrayList<>(1<<2);
     }
     @Override
     public Collection<SelectInfo> selects() {
@@ -98,5 +100,30 @@ public class SelectWrapper<C extends AbstractConditionWrapper>
     @Override
     public <N extends SelectWrapper<C>> N back(){
         return (N)this;
+    }
+
+    @Override
+    public SelectWrapper<C> groupBy(String fields) {
+        if(StringUtils.isEmpty(fields)){
+            return this;
+        }
+        String[] split = fields.split(",");
+        for (String s : split) {
+            this.groupBys.add(GroupInfo.withField(s));
+        }
+        return this;
+    }
+
+    @Override
+    public SelectWrapper<C> groupBy(GroupInfo... items) {
+        Assert.notEmpty(items,"items can not be empty");
+        Collections.addAll(groupBys, items);
+        return this;
+    }
+
+    @Override
+    public SelectWrapper<C> having(String originalSql, Object... params) {
+        this.havingInfo = HavingInfo.valueOf(originalSql,params);
+        return this;
     }
 }

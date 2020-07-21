@@ -25,7 +25,7 @@ mybatis-helper 提供了各种连表、多表查询、更新、删除等功能�
 <dependency>
     <groupId>com.mybatis-helper</groupId>
     <artifactId>mybatis-helper</artifactId>
-    <version>1.0.65</version>
+    <version>1.0.66</version>
 </dependency>
 ```
 ## 依赖注入

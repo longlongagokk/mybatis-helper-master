@@ -40,9 +40,11 @@ public class PageInfo implements Page {
     }
 
     public void setPageSize(int pageSize) {
+        int tmp = COMMON_DEFAULT_PAGE_SIZE;
         if(pageSize > 0 && pageSize <= COMMON_MAX_PAGE_SIZE){
-            this.pageSize = pageSize;
+            tmp = pageSize;
         }
+        this.pageSize = tmp;
     }
     @Override
     public int getPageIndex() {
@@ -50,8 +52,11 @@ public class PageInfo implements Page {
     }
 
     public void setPageIndex(int pageIndex) {
-        if(pageIndex > 0 && pageIndex <= COMMON_MAX_PAGE_SIZE)
-            this.pageIndex = pageIndex;
+        int tmp = 1;
+        if(pageIndex > 0 && pageIndex <= COMMON_MAX_PAGE_SIZE){
+            tmp = pageIndex;
+        }
+        this.pageIndex = tmp;
     }
 
     public int getRecordCount() {

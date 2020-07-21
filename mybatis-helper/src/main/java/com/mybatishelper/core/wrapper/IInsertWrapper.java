@@ -5,7 +5,8 @@ import com.mybatishelper.core.base.meta.InsertInfo;
 /**
  * @param <S> 自身
  */
-public interface IInsertWrapper<S,C> extends IQueryWrapper<S,C>{
+public interface IInsertWrapper<S,C> extends IQueryWrapper<S,C>,
+        IPager<S>, IOrder<S> {
     S insertInto(Class<?> tbClass);
     S select(InsertInfo...insertInfos);
     S fieldWithValue(String fieldWithAlias, Object value);

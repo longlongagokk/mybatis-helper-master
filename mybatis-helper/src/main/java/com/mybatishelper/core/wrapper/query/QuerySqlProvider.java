@@ -2,6 +2,7 @@ package com.mybatishelper.core.wrapper.query;
 
 import com.mybatishelper.core.base.Page;
 import com.mybatishelper.core.base.Primary;
+import com.mybatishelper.core.base.meta.GroupInfo;
 import com.mybatishelper.core.base.meta.SelectInfo;
 import com.mybatishelper.core.base.meta.SortInfo;
 import com.mybatishelper.core.cache.EntryFieldInfo;
@@ -13,6 +14,8 @@ import com.mybatishelper.core.util.TableInfoHelper;
 import com.mybatishelper.core.wrapper.IQueryWrapper;
 import com.mybatishelper.core.wrapper.ISelectorWrapper;
 import com.mybatishelper.core.wrapper.bridge.AbsSqlProvider;
+import com.mybatishelper.core.wrapper.seg.LinkGroupBySeg;
+import com.mybatishelper.core.wrapper.seg.LinkHavingSeg;
 import com.mybatishelper.core.wrapper.seg.LinkOrderSeg;
 import com.mybatishelper.core.wrapper.seg.LinkSelectSeg;
 import lombok.extern.slf4j.Slf4j;
@@ -115,6 +118,12 @@ public class QuerySqlProvider extends AbsSqlProvider {
         //conditions
         createWhereSql(selectSql,selectWrapper);
 
+        //group bys
+        selectSql.append(LinkGroupBySeg.valueOf(selectWrapper.groupBys).createSql(selectWrapper));
+
+        //having
+        selectSql.append(LinkHavingSeg.valueOf(selectWrapper.havingInfo).createSql(selectWrapper));
+
         //order
         List<SortInfo> sortItems = selectWrapper.sortItems;
         if(!sortItems.isEmpty()){
@@ -138,6 +147,12 @@ public class QuerySqlProvider extends AbsSqlProvider {
         //conditions
         createWhereSql(countSql,countWrapper);
 
+        //group bys
+        countSql.append(LinkGroupBySeg.valueOf(countWrapper.groupBys).createSql(countWrapper));
+
+        //having
+        countSql.append(LinkHavingSeg.valueOf(countWrapper.havingInfo).createSql(countWrapper));
+
         return countSql.toString();
     }
 
@@ -154,6 +169,12 @@ public class QuerySqlProvider extends AbsSqlProvider {
 
         //conditions
         createWhereSql(existsSql,queryWrapper);
+
+        //group bys
+        existsSql.append(LinkGroupBySeg.valueOf(queryWrapper.groupBys).createSql(queryWrapper));
+
+        //having
+        existsSql.append(LinkHavingSeg.valueOf(queryWrapper.havingInfo).createSql(queryWrapper));
 
         existsSql.append(") then 1 else 0 end as exists_record from dual");
         return existsSql.toString();

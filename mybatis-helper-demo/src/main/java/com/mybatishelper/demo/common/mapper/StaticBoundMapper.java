@@ -34,7 +34,10 @@ public interface StaticBoundMapper {
     int insertSelectItem(IInsertWrapper wrapper);
 
     @UpdateProvider(type = InsertSqlProvider.class,method = AbsSqlProvider.batchInsert)
-    int batchInsert(List<Object> objects);
+    int batchInsert(List<?> objects);
+
+    @UpdateProvider(type = InsertSqlProvider.class,method = AbsSqlProvider.batchInsertSelective)
+    int batchInsertSelective(List<?> objects,List<String> fields);
 
     @UpdateProvider(type = UpdateSqlProvider.class, method = AbsSqlProvider.updateByPrimary)
     int updateByPrimary(Object entity);

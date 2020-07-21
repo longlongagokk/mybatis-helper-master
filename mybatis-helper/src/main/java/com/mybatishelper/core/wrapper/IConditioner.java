@@ -3,7 +3,10 @@ package com.mybatishelper.core.wrapper;
 import com.mybatishelper.core.base.Item;
 import com.mybatishelper.core.base.meta.ItemPar;
 import com.mybatishelper.core.enums.ConditionType;
+import com.mybatishelper.core.wrapper.bridge.AbstractConditionWrapper;
 import com.mybatishelper.core.wrapper.factory.FlexibleConditionWrapper;
+import com.mybatishelper.core.wrapper.factory.PropertyConditionWrapper;
+import com.mybatishelper.core.wrapper.query.QueryWrapper;
 
 import java.util.Collection;
 import java.util.function.Consumer;
@@ -14,7 +17,7 @@ import java.util.function.Consumer;
  * @param <S> 自身
  */
 @SuppressWarnings("unused")
-public interface IConditioner<L,R,S> {
+public interface IConditioner<L,R,S extends AbstractConditionWrapper> {
     /**
      * 等于
      *
@@ -90,6 +93,12 @@ public interface IConditioner<L,R,S> {
      *
      */
     S notIn(L left, Collection<?> values);
+
+    S exists(String originalSql,Object...params);
+    S notExists(String originalSql,Object...params);
+
+    S exists(Consumer<QueryWrapper<S>> consumer);
+    S notExists(Consumer<QueryWrapper<S>> consumer);
 
     /**
      *

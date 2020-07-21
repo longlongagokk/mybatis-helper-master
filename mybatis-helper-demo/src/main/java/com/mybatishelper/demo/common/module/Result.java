@@ -70,4 +70,13 @@ public final class Result<T> implements Serializable{
         return result;
     }
 
+    public static <T> Result<T> miss(String code,String message,T content){
+        Result<T> result = new Result<>();
+        result
+                .setSucceed(false)
+                .setCode(code)
+                .setMessage(message)
+                .setContent(content);
+        return result;
+    }
 }

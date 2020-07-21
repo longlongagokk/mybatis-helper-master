@@ -1,7 +1,9 @@
 package com.mybatishelper.core.wrapper.insert;
 
 import com.mybatishelper.core.base.Item;
+import com.mybatishelper.core.base.Page;
 import com.mybatishelper.core.base.meta.InsertInfo;
+import com.mybatishelper.core.base.meta.SortInfo;
 import com.mybatishelper.core.base.meta.UpdateInfo;
 import com.mybatishelper.core.base.param.FieldItem;
 import com.mybatishelper.core.base.param.ValueItem;
@@ -15,9 +17,13 @@ import com.mybatishelper.core.util.TableInfoHelper;
 import com.mybatishelper.core.wrapper.IInsertWrapper;
 import com.mybatishelper.core.wrapper.IUpdateWrapper;
 import com.mybatishelper.core.wrapper.bridge.AbsSqlProvider;
+import com.mybatishelper.core.wrapper.seg.LinkGroupBySeg;
+import com.mybatishelper.core.wrapper.seg.LinkHavingSeg;
+import com.mybatishelper.core.wrapper.seg.LinkOrderSeg;
 import com.mybatishelper.core.wrapper.seg.SimpleConditionSeg;
 import com.mybatishelper.core.wrapper.update.UpdateWrapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 
 import java.util.ArrayList;
@@ -59,6 +65,61 @@ public class InsertSqlProvider extends AbsSqlProvider {
         valueSql.deleteCharAt(valueSql.length() - 1);
         return insertSql.append(fieldSql).append(") VALUES (").append(valueSql).append(")").toString();
     }
+
+    public String batchInsert(@Param("list") List<Object> objects)throws Exception{
+        Assert.notEmpty(objects,"list could not be null!");
+        Object entity = objects.get(0);
+        TableMetaInfo tableMetaInfo = TableInfoHelper.getTableInfoFromEntityClass(entity.getClass());
+        StringBuilder insertSql = new StringBuilder("insert into ").append(tableMetaInfo.getTableName());
+        StringBuilder fieldSql = new StringBuilder("(");
+        for(Map.Entry<String, EntryFieldInfo> entry : tableMetaInfo.getFieldInfos().entrySet()){
+            EntryFieldInfo fieldInfo = entry.getValue();
+            fieldSql.append(fieldInfo.getColumn()).append(",");
+        }
+        fieldSql.deleteCharAt(fieldSql.length() - 1);
+        fieldSql.append(")");
+        StringBuilder valueSql = new StringBuilder();
+        for(int i = 0,s=objects.size();i<s;++i){
+            valueSql.append("(");
+            for(Map.Entry<String, EntryFieldInfo> entry : tableMetaInfo.getFieldInfos().entrySet()){
+                valueSql.append("#{list[").append(i).append("].").append(entry.getKey()).append("},");
+            }
+            valueSql.deleteCharAt(valueSql.length() - 1);
+            valueSql.append("),");
+        }
+        valueSql.deleteCharAt(valueSql.length() - 1);
+        return insertSql.append(fieldSql).append(" VALUES ").append(valueSql).toString();
+    }
+
+    public String batchInsertSelective(@Param("objects") List<Object> objects,@Param("fields") List<String> fields)throws Exception{
+        Assert.notEmpty(objects,"list could not be null!");
+        Assert.notEmpty(objects,"fields could not be null!");
+        Object entity = objects.get(0);
+        TableMetaInfo tableMetaInfo = TableInfoHelper.getTableInfoFromEntityClass(entity.getClass());
+        StringBuilder insertSql = new StringBuilder("insert into ").append(tableMetaInfo.getTableName());
+        StringBuilder fieldSql = new StringBuilder("(");
+        Map<String,EntryFieldInfo> entryFieldInfoMap = tableMetaInfo.getFieldInfos();
+        fields.forEach(field->{
+            EntryFieldInfo fieldInfo = entryFieldInfoMap.get(field);
+            fieldSql.append(fieldInfo.getColumn()).append(",");
+        });
+        fieldSql.deleteCharAt(fieldSql.length() - 1);
+        fieldSql.append(")");
+
+        StringBuilder valueSql = new StringBuilder();
+        for(int i = 0,s=objects.size();i<s;++i){
+            valueSql.append("(");
+            int index = i;
+            fields.forEach(field->{
+                valueSql.append("#{objects[").append(index).append("].").append(field).append("},");
+            });
+            valueSql.deleteCharAt(valueSql.length() - 1);
+            valueSql.append("),");
+        }
+        valueSql.deleteCharAt(valueSql.length() - 1);
+        return insertSql.append(fieldSql).append(" VALUES ").append(valueSql).toString();
+    }
+
 
 
     public String insertSelectItem(ProviderContext context, IInsertWrapper wrapper) {
@@ -114,16 +175,35 @@ public class InsertSqlProvider extends AbsSqlProvider {
         insertSql.append(ConstValue.BLANK);
 
         //from tables
+        insertSql.append(" from ");
         if(insertWrapper.fromTableSize() > 0) {
             createFromTableSql(insertSql, insertWrapper);
         }else{
-            insertSql.append(" from dual ");
+            insertSql.append(" dual ");
         }
         //join infos
         createJoinInfoSql(insertSql,insertWrapper);
 
         //conditions
         createWhereSql(insertSql,insertWrapper);
+
+        //group bys
+        insertSql.append(LinkGroupBySeg.valueOf(insertWrapper.groupBys).createSql(insertWrapper));
+
+        //having
+        insertSql.append(LinkHavingSeg.valueOf(insertWrapper.havingInfo).createSql(insertWrapper));
+
+
+        //order
+        List<SortInfo> sortItems = insertWrapper.sortItems;
+        if(!sortItems.isEmpty()){
+            insertSql.append(LinkOrderSeg.valueOf(sortItems.toArray(new SortInfo[0])).createSql(insertWrapper));
+        }
+        Page page = wrapper.getPage();
+        if (page != null) {
+            insertSql.append(" limit ").append((page.getPageSize() * (page.getPageIndex() - 1))).append(",").append(page.getPageSize());
+        }
+        //
         return insertSql.toString();
     }
 

@@ -1,6 +1,7 @@
 package com.mybatishelper.core.wrapper.factory;
 
 import com.mybatishelper.core.wrapper.delete.DeleteWrapper;
+import com.mybatishelper.core.wrapper.insert.InsertWrapper;
 import com.mybatishelper.core.wrapper.query.QueryWrapper;
 import com.mybatishelper.core.wrapper.query.SelectWrapper;
 import com.mybatishelper.core.wrapper.update.UpdateWrapper;
@@ -30,5 +31,11 @@ public abstract class SqlWrapperFactory {
     }
     public static <N extends DeleteWrapper<FlexibleConditionWrapper>> N flex4Delete(){
         return (N) new DeleteWrapper(new FlexibleConditionWrapper());
+    }
+    public static <N extends InsertWrapper<PropertyConditionWrapper>> N prop4Insert(){
+        return (N) new InsertWrapper(new PropertyConditionWrapper());
+    }
+    public static <N extends InsertWrapper<FlexibleConditionWrapper>> N flex4Insert(){
+        return (N) new InsertWrapper(new FlexibleConditionWrapper());
     }
 }

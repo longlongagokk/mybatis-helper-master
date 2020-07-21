@@ -6,6 +6,8 @@ import com.mybatishelper.core.base.param.ParamItem;
 import com.mybatishelper.core.base.param.ValueItem;
 import com.mybatishelper.core.enums.ConditionType;
 import com.mybatishelper.core.enums.Order;
+import com.mybatishelper.core.wrapper.factory.PropertyConditionWrapper;
+import com.mybatishelper.core.wrapper.query.QueryWrapper;
 import com.mybatishelper.demo.common.mapper.StaticBoundMapper;
 import com.mybatishelper.core.wrapper.factory.FlexibleConditionWrapper;
 import com.mybatishelper.core.wrapper.factory.SqlWrapperFactory;
@@ -21,6 +23,7 @@ import com.mybatishelper.demo.order.module.view.TvOrderForm;
 import com.mybatishelper.demo.order.service.OrderDetailService;
 import com.mybatishelper.demo.order.service.OrderFormService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,16 +59,72 @@ public class OrderTestController {
     @GetMapping(value = "list")
     public Result list(HttpServletRequest request, HttpServletResponse response, BigDecimal amountPaid)throws Exception{
         Object effects = null;
+
         SelectWrapper<FlexibleConditionWrapper> selectWrapper = SqlWrapperFactory.flex4Select()
-                .where(w->w
-                                .where(ConditionType.EQ,FieldItem.valueOf("e.id"), Collections.singletonList(ParamItem.valueOf(1)))
-                                //.eq(ItemPar.withFieldValue("e.id","?"))
-                        )
+                .from(TbOrderForm.class)
+                .select("e.id,e.orderNo")
+                .leftJoin(TbOrderForm.class,"bb",ofe->ofe.eq(ItemPar.withFieldParam("bb.id","1")))
+                .where(w->{
+                    w.eq(ItemPar.withFieldField("e.id","bb.id"));
+                    w.eq(ItemPar.withFieldParam("e.id",3));
+                    w.exists("select 1 from dual where 1=? and 2=?",4,5);
+                    w.eq(ItemPar.withFieldValue("e.id",2));
+                    w.eq(ItemPar.withFieldParam("e.id",6));
+                })
+                .groupBy("e.id,e.orderNo")
+                .groupBy(GroupInfo.withOriginal("select id from tb_order_form"))
+                .having("id > ?",999)
+                ;
+
+        QueryWrapper<FlexibleConditionWrapper> queryWrapper1 = SqlWrapperFactory.flex4Query()
+                .from(TbOrderForm.class)
+                .leftJoin(TbOrderForm.class,"bb",ofe->ofe.eq(ItemPar.withFieldParam("bb.id","1")))
+                .where(w->{
+                    w.eq(ItemPar.withFieldField("e.id","bb.id"));
+                    w.eq(ItemPar.withFieldParam("e.id",3));
+                    w.exists("select 1 from dual where 1=? and 2=?",4,5);
+                    w.eq(ItemPar.withFieldValue("e.id",2));
+                    w.eq(ItemPar.withFieldParam("e.id",6));
+                })
+                .groupBy("e.id,e.orderNo")
+                .groupBy(GroupInfo.withOriginal("select id from tb_order_form"))
+                .having("id > ?",999)
+                ;
+//                .where(w->w
+//                                .where(ConditionType.EQ,FieldItem.valueOf("e.id"), Collections.singletonList(ParamItem.valueOf(new Random().nextInt())))
+//                                .exists(ex->{
+//                                            ex.from(TbOrderDetail.class,"od")
+//                                                    .leftJoin(TbOrderForm.class,"ofe",ofe->ofe.eq(ItemPar.withParamParam("2","3")))
+//                                            .where(ew->ew
+//                                                    .eq(FieldItem.valueOf("od.orderId"), ParamItem.valueOf(111))
+//                                                    .exists(eex->{
+//                                                        eex.from(TbOrderForm.class,"ooood")
+//                                                        .leftJoin(TbOrderForm.class,"zzzzzz",ttt->ttt.eq(ItemPar.withParamParam("4","5")))
+//                                                        .where(cccc->cccc
+//                                                                .eq(FieldItem.valueOf("od.orderId"), ParamItem.valueOf(222))
+//                                                                .eq(FieldItem.valueOf("e.orderNo"), ParamItem.valueOf("kkbs"))
+//                                                        );
+//
+//                                                    })
+//                                            )
+//                                            ;
+//
+//                                })
+//                                .exists(ex->{
+//                                    ex.from(TbOrderDetail.class,"od")
+//                                            .where(ew->ew
+//                                                    .eq(FieldItem.valueOf("od.orderId"), ParamItem.valueOf(333))
+//                                            )
+//                                    ;
+//
+//                                })
+//                        )
                 ;
 //        orderFormMapper.getCountPaging(new TsOrderForm());
-        TvOrderForm list= orderFormMapper.selectItemByPrimaryKeyV(SimplePrimary.valueOf(1));
-        effects = list;
-        //effects = ordreInfoMapper.selectListV(selectWrapper);
+        //TvOrderForm list= orderFormMapper.selectItemByPrimaryKeyV(SimplePrimary.valueOf(1));
+        //effects = list;
+        effects = ordreInfoMapper.selectListV(selectWrapper);
+        effects = staticBoundMapper.selectExists(queryWrapper1);
 //        boolean ex = staticBoundMapper.selectExists(SqlWrapperFactory.prop4Query()
 //                .from(TbOrderForm.class)
 //                .where(w->w
@@ -227,6 +286,10 @@ public class OrderTestController {
                 //等同于 e.member_id in(5,e.order_no)
                 .in(FieldItem.valueOf("e.memberId"),Arrays.asList(ValueItem.valueOf(5),FieldItem.valueOf("e.orderNo")))
                 ;
+
+
+
+
 
 
 

@@ -3,10 +3,10 @@
     <parent>
         <groupId>com.mybatis-helper</groupId>
         <artifactId>mybatis-helper-master</artifactId>
-        <version>1.0.65</version>
+        <version>1.0.66</version>
     </parent>
     <artifactId>mybatis-helper-demo</artifactId>
-    <version>1.0.65</version>
+    <version>1.0.66</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>

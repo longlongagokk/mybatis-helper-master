@@ -6,7 +6,7 @@
 <dependency>
     <groupId>com.mybatis-helper</groupId>
     <artifactId>mybatis-helper</artifactId>
-    <version>1.0.65</version>
+    <version>1.0.66</version>
 </dependency>
 ```
 ## 依赖注入

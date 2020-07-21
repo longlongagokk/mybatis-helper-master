@@ -1,5 +1,6 @@
 package com.mybatishelper.core.wrapper.bridge;
 
+import com.mybatishelper.core.base.Item;
 import com.mybatishelper.core.cache.TableMetaInfo;
 import com.mybatishelper.core.consts.ConstValue;
 import com.mybatishelper.core.util.CollectionUtils;
@@ -7,6 +8,7 @@ import com.mybatishelper.core.util.StringUtils;
 import com.mybatishelper.core.util.TableInfoHelper;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 
+import java.util.List;
 import java.util.Map;
 
 public abstract class AbsSqlProvider {
@@ -15,6 +17,7 @@ public abstract class AbsSqlProvider {
     public static final String insertSelective = "insertSelective";
     public static final String insertSelectItem = "insertSelectItem";
     public static final String batchInsert = "batchInsert";
+    public static final String batchInsertSelective = "batchInsertSelective";
 
     public static final String deleteByPrimaryKey = "deleteByPrimaryKey";
     public static final String delete = "delete";
@@ -38,7 +41,7 @@ public abstract class AbsSqlProvider {
         }
         return wrapper.fromTables;
     }
-    protected void createFromTableSql(StringBuilder builder,AbstractQueryWrapper<?,?> wrapper){
+    public static void createFromTableSql(StringBuilder builder,AbstractQueryWrapper<?,?> wrapper){
         for(Map.Entry<String,TableMetaInfo> entry:wrapper.fromTables.entrySet()){
             builder
                     .append(entry.getValue().getTableName())
@@ -49,7 +52,7 @@ public abstract class AbsSqlProvider {
         }
         builder.deleteCharAt(builder.length() - 1).append(ConstValue.BLANK);
     }
-    protected void createJoinInfoSql(StringBuilder builder,AbstractQueryWrapper<?,?> wrapper){
+    public static void createJoinInfoSql(StringBuilder builder,AbstractQueryWrapper<?,?> wrapper){
         if(!CollectionUtils.isEmpty(wrapper.joins)){
             builder.append(ConstValue.BLANK);
             wrapper.joins.forEach(x -> {
@@ -71,7 +74,7 @@ public abstract class AbsSqlProvider {
      * @param wrapper query container
      * @return hasCondition when conditionSql is empty then return null else true
      */
-    protected boolean createWhereSql(StringBuilder builder,AbstractQueryWrapper<?,?> wrapper){
+    public static boolean createWhereSql(StringBuilder builder,AbstractQueryWrapper<?,?> wrapper){
         String conditionSql = wrapper.where.getConditionSql();
         if(!StringUtils.isEmpty(conditionSql)){
             builder.append(" where ").append(conditionSql);
